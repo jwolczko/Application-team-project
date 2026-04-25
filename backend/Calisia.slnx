@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Calisia.Api/Calisia.Api.csproj" />
+    <Project Path="src/Calisia.Application/Calisia.Application.csproj" />
+    <Project Path="src/Calisia.Contracts/Calisia.Contracts.csproj" />
+    <Project Path="src/Calisia.Domain/Calisia.Domain.csproj" />
+    <Project Path="src/Calisia.Infrastructure/Calisia.Infrastructure.csproj" />
+    <Project Path="src/Calisia.ReadModel/Calisia.ReadModel.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Calisia.IntegrationTests/Calisia.IntegrationTests.csproj" />
+    <Project Path="tests/Calisia.UnitTests/Calisia.UnitTests.csproj" />
+  </Folder>
+</Solution>
