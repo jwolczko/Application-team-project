@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<SqlWorkbenchSqlProject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="FortunaDb">
+<SqlWorkbenchSqlProject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="CalisiaDb">
   <Items>
     <LogicalFolder Name="Połączenia" Type="2" Sorted="true">
       <Items>
@@ -17,21 +17,35 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio — zapytanie</ApplicationName>
         </ConnectionNode>
+        <ConnectionNode Name="localhost:JAKUB-PC\Jakub">
+          <Created>2026-04-25T16:41:18.1661453+02:00</Created>
+          <Type>SQL</Type>
+          <Server>localhost</Server>
+          <UserName />
+          <Authentication>Uwierzytelnianie systemu Windows</Authentication>
+          <InitialDB />
+          <LoginTimeout>15</LoginTimeout>
+          <TrustServerCertificate>True</TrustServerCertificate>
+          <EncryptionOption>True</EncryptionOption>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio — zapytanie</ApplicationName>
+        </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Zapytania" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="FortunaReadDb.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:JAKUB-PC:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>JAKUB-PC</AssociatedConnSrvName>
+        <FileNode Name="CalisiaReadDb.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:localhost:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>localhost</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>FortunaReadDb.sql</FullPath>
+          <FullPath>CalisiaReadDb.sql</FullPath>
         </FileNode>
-        <FileNode Name="FortunaWriteDb.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:JAKUB-PC:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>JAKUB-PC</AssociatedConnSrvName>
+        <FileNode Name="CalisiaWriteDb.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:localhost:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>localhost</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>FortunaWriteDb.sql</FullPath>
+          <FullPath>CalisiaWriteDb.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
