@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { DashboardData } from '../../../features/dashboard/types/dashboard.types';
 import {
   getProductAmountLabel,
@@ -15,6 +15,8 @@ type ProductsSectionProps = {
   dashboard: DashboardData;
 };
 
+type TabType = 'all' | 'accounts' | 'cards' | 'credits';
+
 function formatMoney(amount: number, currency: string) {
   return new Intl.NumberFormat('pl-PL', {
     minimumFractionDigits: 2,
@@ -24,16 +26,69 @@ function formatMoney(amount: number, currency: string) {
 
 export function ProductsSection({ dashboard }: ProductsSectionProps) {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>('all');
+
+  // filtr produktów
+  const filteredProducts = useMemo(() => {
+    switch (activeTab) {
+      case 'accounts':
+        return dashboard.products.filter((p) => p.productCategory === 'account');
+      case 'cards':
+        return dashboard.products.filter((p) => p.productCategory === 'card');
+      case 'credits':
+        return dashboard.products.filter((p) => p.productCategory === 'credit');
+      default:
+        return dashboard.products;
+    }
+  }, [dashboard.products, activeTab]);
 
   return (
     <>
       <section className="products-section">
-        <div className="products-section__header">
-          <h2>Moje produkty</h2>
+
+        {/*  TABS */}
+        <div className="products-tabs">
+          <div
+            className={`products-tab ${activeTab === 'all' ? 'products-tab--active' : ''}`}
+            onClick={() => setActiveTab('all')}
+          >
+            Wszystko
+          </div>
+
+          <div
+            className={`products-tab ${activeTab === 'accounts' ? 'products-tab--active' : ''}`}
+            onClick={() => setActiveTab('accounts')}
+          >
+            Konta
+          </div>
+
+          <div
+            className={`products-tab ${activeTab === 'cards' ? 'products-tab--active' : ''}`}
+            onClick={() => setActiveTab('cards')}
+          >
+            Karty
+          </div>
+
+          <div
+            className={`products-tab ${activeTab === 'credits' ? 'products-tab--active' : ''}`}
+            onClick={() => setActiveTab('credits')}
+          >
+            Kredyty
+          </div>
+
+          <div
+            className="products-tab"
+            onClick={() => setIsInfoPopupOpen(true)}
+          >
+            +
+          </div>
         </div>
 
-        <div className="products-section__grid">
-          {dashboard.products.map((product) => {
+        {/* SCROLL CONTAINER */}
+        <div className="products-scroll">
+
+          {/* produkty */}
+          {filteredProducts.map((product) => {
             const displayBalance = getProductDisplayBalance(product, dashboard.products);
 
             return (
@@ -43,32 +98,44 @@ export function ProductsSection({ dashboard }: ProductsSectionProps) {
                   <button type="button">⋮</button>
                 </div>
 
-                <div className="products-section__subtitle">{getProductSubtitle(product)}</div>
+                <div className="products-section__subtitle">
+                  {getProductSubtitle(product)}
+                </div>
+
                 <div className="products-section__label">
                   {getProductCategoryLabel(product.productCategory)} • {getProductTypeLabel(product.productType)}
                 </div>
-                <div className="products-section__label">{getProductAmountLabel(product)}</div>
-                <div className="products-section__amount">{formatMoney(displayBalance.amount, displayBalance.currency)}</div>
+
+                <div className="products-section__label">
+                  {getProductAmountLabel(product)}
+                </div>
+
+                <div className="products-section__amount">
+                  {formatMoney(displayBalance.amount, displayBalance.currency)}
+                </div>
               </article>
             );
           })}
 
-          <article
-            className="products-section__add-card"
-            role="button"
-            tabIndex={0}
-            onClick={() => setIsInfoPopupOpen(true)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                setIsInfoPopupOpen(true);
-              }
-            }}
-          >
-            <div className="products-section__plus">＋</div>
-            <h3>Dodaj nowy produkt</h3>
-            <p>do swojej bankowości</p>
-          </article>
+          {/* ADD CARD */}
+          {(activeTab === 'all') && (
+            <article
+              className="products-section__add-card"
+              role="button"
+              tabIndex={0}
+              onClick={() => setIsInfoPopupOpen(true)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setIsInfoPopupOpen(true);
+                }
+              }}
+            >
+              <div className="products-section__plus">＋</div>
+              <h3>Dodaj produkt</h3>
+            </article>
+          )}
+
         </div>
       </section>
 

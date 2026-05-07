@@ -22,8 +22,13 @@ function formatEventDate(eventDateUtc: string) {
 
 export function EventsSidebar({ dashboard }: EventsSidebarProps) {
   return (
-    <section className="events-sidebar">
-      <h2>Wydarzenia</h2>
+    <section className="events-card">
+
+  <div className="events-card__title">
+    Wydarzenia
+  </div>
+
+  <div className="events-card__content">
 
       {dashboard.events.map((event) => (
         <div className="events-sidebar__group" key={event.id}>
@@ -45,6 +50,7 @@ export function EventsSidebar({ dashboard }: EventsSidebarProps) {
           </div>
         </div>
       ))}
+      </div>
     </section>
   );
 }

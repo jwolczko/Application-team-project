@@ -23,25 +23,42 @@ export function DashboardPage() {
   }
 
   if (isError || !data) {
-    return <div className="dashboard-page">{error instanceof Error ? error.message : 'Nie udalo sie pobrac dashboardu.'}</div>;
+    return (
+      <div className="dashboard-page">
+        {error instanceof Error ? error.message : 'Nie udalo sie pobrac dashboardu.'}
+      </div>
+    );
   }
 
   return (
     <div className="dashboard-page">
       <DashboardHeader />
 
+      {/* LAYOUT 3-KOLUMNOWY */}
       <div className="dashboard-page__content">
-        <main className="dashboard-page__main">
-          <SummarySection dashboard={data} onOpenTransfer={() => setIsTransferPanelOpen(true)} />
+
+        {/* LEWA – SUMMARY */}
+        <SummarySection
+          dashboard={data}
+          onOpenTransfer={() => setIsTransferPanelOpen(true)}
+        />
+
+        {/* ŚRODEK – PRODUCTS */}
+        <div className="dashboard-page__center">
           <ProductsSection dashboard={data} />
-        </main>
-        
-        <aside className="dashboard-page__sidebar">
-          <EventsSidebar dashboard={data} />
-        </aside>
+        </div>
+
+        {/* PRAWA – EVENTS */}
+        <EventsSidebar dashboard={data} />
+
       </div>
 
-      {isTransferPanelOpen && <TransferPanel dashboard={data} onClose={() => setIsTransferPanelOpen(false)} />}
+      {isTransferPanelOpen && (
+        <TransferPanel
+          dashboard={data}
+          onClose={() => setIsTransferPanelOpen(false)}
+        />
+      )}
     </div>
   );
 }

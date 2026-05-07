@@ -4,6 +4,9 @@ import { LandingHero } from '../../components/landing/LandingHero/LandingHero';
 import { LoginPanel } from '../../components/login/LoginPanel/LoginPanel';
 import { LoginSupportModal } from '../../components/login/LoginSupportModal/LoginSupportModal';
 import './LandingPage.css';
+import '../../components/landing/LandingHero/LandingHero.css';
+import '../../components/landing/LandingHeader/LandingHeader.css';
+import '../../index.css';
 
 export function LandingPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);

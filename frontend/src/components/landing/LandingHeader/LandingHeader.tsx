@@ -10,33 +10,36 @@ export function LandingHeader({ onOpenLogin }: LandingHeaderProps) {
 
   return (
     <header className="landing-header">
-      <div className="landing-header__topbar">
-        <nav className="landing-header__audiences">
-          <a className="landing-header__audience landing-header__audience--active">KLIENCI INDYWIDUALNI</a>
-        </nav>
-      </div>
+      <div className="landing-header__inner">
 
-      <div className="landing-header__toolbar">
-     
-        <button className="landing-header__outline-btn" type="button" onClick={() => navigate('/create-account')}>
-          ZAŁÓŻ KONTO
-        </button>
-        <button className="landing-header__login-btn" type="button" onClick={onOpenLogin}>
-          LOGOWANIE
-        </button>
-      </div>
+        {/* LEFT */}
+        <div className="landing-header__brand">
+          <div className="landing-header__logo" />
+          <span>Calisia</span>
+        </div>
 
-      <nav className="landing-header__menu">
-        <a>Konta</a>
-        <a>Karty</a>
-        <a>Kredyty</a>
-        <a>Oszczędności</a>
-        <a>Inwestycje</a>
-        <a>Ubezpieczenia</a>
-        <a>Bankowość elektroniczna</a>
-        <a>Wsparcie</a>
-        <a>Kontakt</a>
-      </nav>
+        {/* RIGHT */}
+        <div className="landing-header__actions">
+          <button className="landing-header__link">
+            Kontakt
+          </button>
+
+          <button
+            className="landing-header__outline-btn"
+            onClick={() => navigate('/create-account')}
+          >
+            Załóż konto
+          </button>
+
+          <button
+            className="landing-header__primary-btn"
+            onClick={onOpenLogin}
+          >
+            Zaloguj
+          </button>
+        </div>
+
+      </div>
     </header>
   );
 }

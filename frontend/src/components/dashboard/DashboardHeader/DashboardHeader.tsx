@@ -21,8 +21,10 @@ export function DashboardHeader() {
 
   return (
     <header className="dashboard-header">
-      <div className="dashboard-header__left">
-        <span className="dashboard-header__page-name">Strona Główna</span>
+      {/* LEWA STRONA: LOGO */}
+      <div className="dashboard-header__logo">
+        <span className="dashboard-header__amber-dot" />
+        <span className="dashboard-header__brand">Calisia</span>
       </div>
 
       <div className="dashboard-header__right">

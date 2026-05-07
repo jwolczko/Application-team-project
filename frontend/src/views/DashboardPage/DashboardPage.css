@@ -1,61 +1,180 @@
+/* ===== DESIGN TOKENS (Zapożyczone z Hero dla spójności) ===== */
+
+:root {
+  /* Colors */
+  --accent: #c48a2cff; 
+  --accent-light: #E6B96A;
+  --accent-deep: #8A5A1F;
+  
+  --bg: #F7F3ED;          /* Ivory */
+  --bg-secondary: #f7f5f2ff; /* Warm Linen */
+  --border: #E3D8C7;
+  
+  --text-main: #2b2b2b;
+  --text-muted: #6F675F;
+
+  /* Shadow & Transition */
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --transition: 0.25s ease;
+
+  /* Typography */
+  --font-sans: "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --font-serif: "Lora", serif;
+}
+
+/* ===== DASHBOARD PAGE ===== */
+
 .dashboard-page {
   min-height: 100vh;
-  background-color: #f3f3f5;
+  background: var(--bg);
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
 }
+
+/* ===== LAYOUT (3 KOLUMNY) ===== */
 
 .dashboard-page__content {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 0;
-  min-height: calc(100vh - 66px);
+  grid-template-columns: 240px minmax(0, 1fr) 240px;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  align-items: stretch;
 }
 
-.dashboard-page__main {
-  padding: 20px 16px 40px;
-  border-right: 1px solid #d9d9df;
+.dashboard-page__content > * {
+  min-width: 0;
 }
 
-.dashboard-page__sidebar {
-  padding: 20px;
-  max-height: calc(100vh - 66px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+/* ===== CENTER (PRODUCTS WRAPPER) ===== */
+
+.dashboard-page__center {
+  width: 100%;
+  min-width: 0;
 }
 
-.dashboard-page__sidebar::-webkit-scrollbar {
-  width: 10px;
+/* ===== TABS ===== */
+
+.products-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-.dashboard-page__sidebar::-webkit-scrollbar-thumb {
-  background: #c8c8d2;
+.products-tab {
+  padding: 8px 16px;
   border-radius: 999px;
-  border: 2px solid #f3f3f5;
-}
-
-.dashboard-page__sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.dashboard-page__settings-btn {
-  border: none;
-  background: transparent;
-  font-size: 20px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  color: #d00858;
+  background: rgba(0,0,0,0.05);
+  color: var(--text-main);
+  border: 1px solid transparent;
+  transition: all var(--transition);
 }
 
-@media (max-width: 1200px) {
+.products-tab:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+/* Zmieniony aktywny tab: płaski, elegancki bursztyn z delikatnym hoverem */
+.products-tab--active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(196, 138, 44, 0.25);
+}
+
+.products-tab--active:hover {
+  background: var(--accent-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* ===== HORIZONTAL SCROLL ===== */
+
+.products-scroll {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  overflow-x: scroll;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* scrollbar */
+.products-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.products-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 999px;
+  transition: background var(--transition);
+}
+
+.products-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.25);
+}
+
+.products-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== CARD SYSTEM ===== */
+
+/* Podpięte style z ".card" strony głównej dla spójności */
+.products-section__card,
+.products-section__add-card {
+  flex: 0 0 240px;
+  width: 240px;
+  height: 320px;
+  
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  
+  scroll-snap-align: start;
+  transition: all var(--transition);
+}
+
+/* Karta "Dodaj produkt" (przerywana ramka z nowym kolorem akcentu) */
+.products-section__add-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px dashed var(--accent-light);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.products-section__add-card:hover {
+  background: rgba(196, 138, 44, 0.05); /* Delikatne tło na hover */
+  border-color: var(--accent);
+}
+
+/* subtle spacing at end */
+.products-scroll::after {
+  content: '';
+  min-width: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 100%) {
   .dashboard-page__content {
     grid-template-columns: 1fr;
-    min-height: auto;
+    gap: 40px;
   }
 
-  .dashboard-page__main {
-    border-right: none;
-  }
-
-  .dashboard-page__sidebar {
-    max-height: none;
-    overflow-y: visible;
+  .products-scroll {
+    overflow-x: auto;
   }
 }

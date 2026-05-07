@@ -23,18 +23,21 @@ export function SummarySection({ dashboard, onOpenTransfer }: SummarySectionProp
   return (
     <>
       <section className="summary-section">
-        <div className="summary-section__header-row">
+        {/* <div className="summary-section__header-row">
           <h2>Podsumowanie środków</h2>
-        </div>
+        </div> */}
 
-        <div className="summary-section__top-grid">
+        {/* <div className="summary-section__top-grid">
           <div className="summary-section__left">
             <div className="summary-section__stack summary-section__stack--back-1" />
-            <div className="summary-section__stack summary-section__stack--back-2" />
+            <div className="summary-section__stack summary-section__stack--back-2" /> */}
 
             <div className="summary-section__card">
               <div className="summary-section__card-header">
+                {/*}
                 <h3>{featuredProduct ? getProductDisplayName(featuredProduct.productName) : 'Brak aktywnych produktow'}</h3>
+                */}
+                Podsumowanie środków
               </div>
 
               <div className="summary-section__amount">
@@ -54,12 +57,12 @@ export function SummarySection({ dashboard, onOpenTransfer }: SummarySectionProp
                 </button>
               </div>
             </div>
-          </div>
+         {/* </div>
 
           
           <div className="summary-section__right">         
           </div>
-        </div>
+        </div> */}
       </section>
 
       {isInfoPopupOpen && (

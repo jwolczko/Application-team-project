@@ -5,74 +5,55 @@ import './LandingHero.css';
 export function LandingHero() {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
 
-  const handleOpenInfoPopup = () => {
-    setIsInfoPopupOpen(true);
-  };
-
   return (
     <>
-      <section className="landing-hero">
-        <div className="landing-hero__grid">
-          <div className="landing-hero__content">
-            <h1>Zyskaj do 400 zł premii za płatności kartą w telefonie</h1>
-            <p>Zamów kartę kredytową Visa Impresja (RRSO 18,28%) i spełnij warunki promocji</p>
+      <section className="landing">
 
-            <div className="landing-hero__actions">
-              <button className="landing-hero__primary-btn" type="button" onClick={handleOpenInfoPopup}>
-                ZŁÓŻ WNIOSEK
-              </button>
-              <button className="landing-hero__secondary-btn" type="button" onClick={handleOpenInfoPopup}>
-                DOWIEDZ SIĘ WIĘCEJ
-              </button>
-              <span className="landing-hero__legal-link">Koszt kredytu i nota prawna</span>
-            </div>
+        {/* HERO */}
+        <div className="landing__hero">
+          <div className="landing__hero-overlay" />
 
-            <button className="landing-hero__play-btn" type="button" aria-label="Odtwórz materiał promocyjny">
-              <span>▶</span>
-            </button>
-          </div>
+          <div className="landing__hero-content">
+            <h1 className="landing__brand">Calisia</h1>
+            <p className="landing__tagline">
+              Tam gdzie pieniądze znajdują spokój.
+            </p>
 
-          <div className="landing-hero__visual">
-            <div className="landing-hero__photo">
-              <div className="landing-hero__strokes" />
-              <div className="landing-hero__person">
-                <div className="landing-hero__arm landing-hero__arm--left" />
-                <div className="landing-hero__arm landing-hero__arm--right" />
-                <div className="landing-hero__body" />
-                <div className="landing-hero__head">
-                  <div className="landing-hero__hair" />
-                  <div className="landing-hero__glasses" />
-                </div>
-              </div>
+            <div className="landing__hero-actions">
+  <button className="landing__btn landing__btn--secondary">
+    Oferta
+  </button>
 
-              <div className="landing-hero__badge">
-                <span>DO</span>
-                <strong>400</strong>
-                <em>ZŁ</em>
-              </div>
-            </div>
+  <button className="landing__btn landing__btn--primary">
+    Otwórz konto
+  </button>
+</div>
           </div>
         </div>
 
-        <div className="landing-hero__cards">
-          <div className="landing-hero__card landing-hero__card--dark">
-            <strong>KARTA KREDYTOWA VISA IMPRESJA (RRSO 18,28%)</strong>
-            <p>Promocja do 31.08.2026</p>
-            <span>›</span>
+        {/* CARDS */}
+        <div className="landing__cards">
+          <div className="landing__card">
+            <h3>Konto Premium</h3>
+            <p>Pełna kontrola nad finansami w spokojnym rytmie.</p>
           </div>
-          <div className="landing-hero__card">
-            <strong>POŻYCZKA GOTÓWKOWA (RRSO 8,3%)</strong>
-            <p>Promocja do 15.05.2026</p>
+
+          <div className="landing__card">
+            <h3>Inwestycje</h3>
+            <p>Długoterminowe strategie budowania kapitału.</p>
           </div>
-          <div className="landing-hero__card">
-            <strong>KREDYT HIPOTECZNY (RRSO 6,49%)</strong>
-            <p>Znajdź swoje miejsce</p>
+
+          <div className="landing__card">
+            <h3>Private Banking</h3>
+            <p>Indywidualne podejście i dyskrecja.</p>
           </div>
-          <div className="landing-hero__card">
-            <strong>ZWROTY ZA ZAKUPY</strong>
-            <p>Przemyślany sposób na zakupy</p>
+
+          <div className="landing__card">
+            <h3>Oszczędności</h3>
+            <p>Bezpieczne miejsce dla Twoich środków.</p>
           </div>
         </div>
+
       </section>
 
       {isInfoPopupOpen && (
