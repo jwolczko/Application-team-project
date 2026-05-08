@@ -26,7 +26,7 @@ public sealed class DepositMoneyCommandHandlerTests
         var sut = new DepositMoneyCommandHandler(productRepository, unitOfWork);
 
         var result = await sut.Handle(
-            new DepositMoneyCommand(customerId.Value, debitCard.Id, 250m, "PLN", "Incoming transfer"),
+            new DepositMoneyCommand(debitCard.Id, 250m, "PLN", "Incoming transfer"),
             CancellationToken.None);
 
         result.Should().Be(debitCard.Id);

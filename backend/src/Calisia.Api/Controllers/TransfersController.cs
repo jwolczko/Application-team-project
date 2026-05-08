@@ -35,24 +35,4 @@ public sealed class TransfersController : ControllerBase
 
         return Ok(transferId);
     }
-
-    [HttpPost("incoming")]
-    public async Task<ActionResult<Guid>> Incoming(
-        [FromBody] IncomingTransferRequest request,
-        [FromServices] DepositMoneyCommandHandler handler,
-        CancellationToken cancellationToken)
-    {
-        var customerId = User.GetRequiredCustomerId();
-
-        var result = await handler.Handle(
-            new DepositMoneyCommand(
-                customerId,
-                request.TargetAccountId,
-                request.Amount,
-                request.Currency,
-                request.Title),
-            cancellationToken);
-
-        return Ok(result);
-    }
 }
