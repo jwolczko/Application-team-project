@@ -14,7 +14,6 @@ public sealed class IncommingController : ControllerBase
         [FromServices] DepositMoneyCommandHandler handler,
         CancellationToken cancellationToken)
     {
-       
 
         var result = await handler.Handle(
             new DepositMoneyCommand(

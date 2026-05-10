@@ -72,6 +72,13 @@ public partial class Program
         app.UseAuthorization();
 
         app.MapOpenApi("/openapi/v1.json");
+
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/openapi/v1.json", "Calisia API v1");
+            options.RoutePrefix = string.Empty;
+        });
+
         app.MapControllers();
         app.MapGet("/api/health", () => Results.Ok(new { status = "ok" }));
 
