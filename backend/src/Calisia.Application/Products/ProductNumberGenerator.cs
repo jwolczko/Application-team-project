@@ -7,4 +7,7 @@ public static class ProductNumberGenerator
 
     public static string GenerateCardNumber(long sequence)
         => $"54006969{sequence:D8}";
+
+    public static string GenerateLoanNumber(long sequence)
+        => $"LN{sequence:D14}";
 }

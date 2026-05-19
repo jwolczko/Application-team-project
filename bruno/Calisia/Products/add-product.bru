@@ -1,0 +1,35 @@
+meta {
+  name: Add Product
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/products
+  body: json
+}
+
+body:json {
+  {
+    "productCategory": {{productCategory}},
+    "productName": "{{productName}}",
+    "currency": "{{currency}}",
+    "productType": {{productType}},
+    "creditLimit": {{creditLimit}},
+    "initialBalance": {{initialBalance}}
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+
+  if (res.getStatus() === 200 && data) {
+    bru.setVar("productId", data);
+  }
+}
+
+tests {
+  test("add product returns 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

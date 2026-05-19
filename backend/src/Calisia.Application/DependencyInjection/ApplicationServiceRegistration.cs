@@ -4,6 +4,7 @@ using Fortuna.Application.Accounts.Commands.WithdrawMoney;
 using Fortuna.Application.Customers.Commands.LoginCustomer;
 using Fortuna.Application.Customers.Commands.RegisterCustomer;
 using Fortuna.Application.Dashboard.Queries.GetDashboard;
+using Fortuna.Application.Products.Commands.AddProduct;
 using Fortuna.Application.Transfers.Commands.CreateTransfer;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<OpenBankAccountCommandHandler>();
         services.AddScoped<DepositMoneyCommandHandler>();
         services.AddScoped<WithdrawMoneyCommandHandler>();
+        services.AddScoped<AddProductCommandHandler>();
         services.AddScoped<CreateTransferCommandHandler>();
         services.AddScoped<GetDashboardQueryHandler>();
 
