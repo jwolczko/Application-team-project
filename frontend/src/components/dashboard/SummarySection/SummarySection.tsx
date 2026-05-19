@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import type { DashboardData } from '../../../features/dashboard/types/dashboard.types';
-import { getProductDisplayName } from '../../../features/dashboard/productPresentation';
 import { InfoPopup } from '../../../shared/ui/InfoPopup/InfoPopup';
 import './SummarySection.css';
 
@@ -18,7 +17,6 @@ function formatMoney(amount: number, currency: string) {
 
 export function SummarySection({ dashboard, onOpenTransfer }: SummarySectionProps) {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
-  const featuredProduct = dashboard.products[0];
 
   return (
     <>
@@ -46,14 +44,14 @@ export function SummarySection({ dashboard, onOpenTransfer }: SummarySectionProp
 
               <div className="summary-section__actions">
                 <button type="button" className="summary-section__primary-btn" onClick={onOpenTransfer}>
-                  WYKONAJ PRZELEW
+                  Wykonaj przelew
                 </button>
                 <button
                   type="button"
                   className="summary-section__outline-btn"
                   onClick={() => setIsInfoPopupOpen(true)}
                 >
-                  HISTORIA
+                  Historia
                 </button>
               </div>
             </div>

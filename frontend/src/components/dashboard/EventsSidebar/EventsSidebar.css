@@ -22,11 +22,12 @@
 
 /* ===== TITLE ===== */
 .events-card__title {
-  font-size: 18px;
-  font-family: var(--font-serif);
+  font-size: var(--dashboard-text-lg, 16px);
+  font-family: var(--font-sans);
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
   font-weight: 600;
+  line-height: var(--dashboard-leading-tight, 1.15);
   color: var(--text-main);
   margin-bottom: 16px;
 }
@@ -60,8 +61,9 @@
 
 /* date */
 .events-sidebar__group h3 {
-  font-size: 12px;
+  font-size: var(--dashboard-text-xs, 12px);
   font-weight: 500;
+  line-height: 1.25;
   color: var(--text-muted);
   margin-bottom: 8px;
 }
@@ -104,6 +106,7 @@
 /* icon */
 .events-sidebar__icon {
   font-size: 14px;
+  line-height: 1;
   color: var(--text-muted);
 }
 
@@ -113,16 +116,19 @@
 
 /* text */
 .events-sidebar__text {
-  font-size: 13px;
+  font-size: var(--dashboard-text-sm, 13px);
   font-weight: 500;
+  line-height: 1.3;
   color: var(--text-main);
 }
 
 /* amount */
 .events-sidebar__amount {
   white-space: nowrap;
-  font-size: 13px;
+  font-size: var(--dashboard-text-sm, 13px);
   font-weight: 600;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
   color: var(--text-main);
 }
 

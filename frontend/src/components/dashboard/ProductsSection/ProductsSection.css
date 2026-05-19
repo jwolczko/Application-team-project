@@ -20,8 +20,9 @@
 .products-tab {
   padding: 8px 14px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: var(--dashboard-text-sm, 13px);
   font-weight: 500;
+  line-height: 1;
   cursor: pointer;
 
   background: rgba(0,0,0,0.03);
@@ -115,8 +116,10 @@
 }
 
 .products-section__card-header h3 {
-  font-size: 15px;
+  margin: 0;
+  font-size: var(--dashboard-text-lg, 16px);
   font-weight: 600;
+  line-height: 1.25;
   color: var(--text-main);
 }
 
@@ -125,28 +128,33 @@
   border: none;
   background: transparent;
   font-size: 18px;
+  line-height: 1;
   color: var(--text-muted);
   cursor: pointer;
 }
 
 /* subtitle */
 .products-section__subtitle {
-  font-size: 13px;
+  font-size: var(--dashboard-text-sm, 13px);
+  line-height: 1.35;
   color: var(--text-muted);
 }
 
 /* labels */
 .products-section__label {
-  font-size: 13px;
+  font-size: var(--dashboard-text-sm, 13px);
+  line-height: 1.35;
   color: var(--text-muted);
 }
 
 /* amount */
 .products-section__amount {
-  font-size: 26px;
-  font-weight: 600;
+  font-size: var(--dashboard-text-xl, 24px);
+  font-weight: 650;
+  line-height: var(--dashboard-leading-tight, 1.15);
+  font-variant-numeric: tabular-nums;
   color: var(--text-main);
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
 }
 
 /* ===== ADD CARD ===== */
@@ -188,7 +196,9 @@
 
 /* add text */
 .products-section__add-card h3 {
-  font-size: 15px;
+  margin: 0;
+  font-size: var(--dashboard-text-lg, 16px);
   font-weight: 600;
+  line-height: 1.25;
   color: var(--text-main);
 }

@@ -13,9 +13,13 @@ import './ProductsSection.css';
 
 type ProductsSectionProps = {
   dashboard: DashboardData;
+  onAddProduct: () => void;
 };
 
 type TabType = 'all' | 'accounts' | 'cards' | 'credits';
+const accountCategories = ['account', 'BankAccount'];
+const cardCategories = ['card', 'Card'];
+const creditCategories = ['credit', 'Loan'];
 
 function formatMoney(amount: number, currency: string) {
   return new Intl.NumberFormat('pl-PL', {
@@ -24,7 +28,7 @@ function formatMoney(amount: number, currency: string) {
   }).format(amount) + ` ${currency}`;
 }
 
-export function ProductsSection({ dashboard }: ProductsSectionProps) {
+export function ProductsSection({ dashboard, onAddProduct }: ProductsSectionProps) {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('all');
 
@@ -32,11 +36,11 @@ export function ProductsSection({ dashboard }: ProductsSectionProps) {
   const filteredProducts = useMemo(() => {
     switch (activeTab) {
       case 'accounts':
-        return dashboard.products.filter((p) => p.productCategory === 'account');
+        return dashboard.products.filter((p) => accountCategories.includes(p.productCategory));
       case 'cards':
-        return dashboard.products.filter((p) => p.productCategory === 'card');
+        return dashboard.products.filter((p) => cardCategories.includes(p.productCategory));
       case 'credits':
-        return dashboard.products.filter((p) => p.productCategory === 'credit');
+        return dashboard.products.filter((p) => creditCategories.includes(p.productCategory));
       default:
         return dashboard.products;
     }
@@ -78,7 +82,7 @@ export function ProductsSection({ dashboard }: ProductsSectionProps) {
 
           <div
             className="products-tab"
-            onClick={() => setIsInfoPopupOpen(true)}
+            onClick={onAddProduct}
           >
             +
           </div>
@@ -123,11 +127,11 @@ export function ProductsSection({ dashboard }: ProductsSectionProps) {
               className="products-section__add-card"
               role="button"
               tabIndex={0}
-              onClick={() => setIsInfoPopupOpen(true)}
+              onClick={onAddProduct}
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault();
-                  setIsInfoPopupOpen(true);
+                  onAddProduct();
                 }
               }}
             >

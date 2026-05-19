@@ -28,18 +28,21 @@
 
 /* header inside card */
 .summary-section__card-header {
-  font-size: 18px;
-  font-family: var(--font-serif);
+  font-size: var(--dashboard-text-lg, 16px);
+  font-family: var(--font-sans);
   font-weight: 600;
+  line-height: var(--dashboard-leading-tight, 1.15);
   margin-bottom: 16px;
   color: var(--text-muted);
 }
 
 /* amount */
 .summary-section__amount {
-  font-family: var(--font-serif);
-  font-size: 42px;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: var(--dashboard-text-2xl, 36px);
+  font-weight: 650;
+  line-height: var(--dashboard-leading-tight, 1.15);
+  font-variant-numeric: tabular-nums;
   color: var(--text-main);
 }
 
@@ -55,8 +58,9 @@
 .summary-section__outline-btn {
   padding: 12px 20px;
   border-radius: 12px; /* Zgodnie ze stroną główną */
-  font-size: 13px;
+  font-size: var(--dashboard-text-sm, 13px);
   font-weight: 600;
+  line-height: 1;
   cursor: pointer;
   font-family: var(--font-sans);
   transition: all var(--transition, 0.25s ease);

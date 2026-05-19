@@ -62,7 +62,27 @@ export function TransferPanel({ dashboard, onClose }: TransferPanelProps) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!token || !customerId || !sourceAccountId || !title.trim() || !amount.trim() || isSubmitting) {
+    if (isSubmitting) {
+      return;
+    }
+
+    if (!token || !customerId) {
+      setErrorMessage('Sesja wygasła. Zaloguj się ponownie.');
+      return;
+    }
+
+    if (!sourceAccountId) {
+      setErrorMessage('Wybierz konto źródłowe.');
+      return;
+    }
+
+    if (!title.trim()) {
+      setErrorMessage('Wpisz tytuł przelewu.');
+      return;
+    }
+
+    if (!amount.trim()) {
+      setErrorMessage('Wpisz kwotę przelewu.');
       return;
     }
 
@@ -239,10 +259,10 @@ export function TransferPanel({ dashboard, onClose }: TransferPanelProps) {
 
           <div className="transfer-panel__buttons">
             <button className="transfer-panel__secondary-btn" type="button" onClick={onClose}>
-              ANULUJ
+              Anuluj
             </button>
             <button className="transfer-panel__primary-btn" type="submit" disabled={isSubmitting || bankAccounts.length === 0}>
-              {isSubmitting ? 'WYSYŁANIE...' : 'WYKONAJ PRZELEW'}
+              {isSubmitting ? 'Wysyłanie...' : 'Wykonaj przelew'}
             </button>
           </div>
         </form>

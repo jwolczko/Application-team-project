@@ -39,7 +39,7 @@ export function DashboardHeader() {
         <button className="dashboard-header__logout" type="button" onClick={handleLogout}>
           <span>⏻</span>
           <div>
-            <strong>WYLOGUJ</strong>
+            <strong>Wyloguj</strong>
             <span>05:00</span>
           </div>
         </button>

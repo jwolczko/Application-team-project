@@ -15,14 +15,24 @@ export async function apiRequest<TResponse>(path: string, init?: RequestInit): P
     },
   });
 
+  const responseText = await response.text();
+
   if (!response.ok) {
     const fallbackMessage = `Request failed with status ${response.status}.`;
 
+    if (!responseText) {
+      throw new Error(fallbackMessage);
+    }
+
     try {
-      const data = (await response.json()) as { detail?: string; message?: string; title?: string };
-      throw new Error(data.detail || data.message || data.title || fallbackMessage);
+      const data = JSON.parse(responseText) as { detail?: string; error?: string; message?: string; title?: string };
+      throw new Error(data.error || data.detail || data.message || data.title || fallbackMessage);
     } catch (error) {
-      if (error instanceof Error && error.message !== 'Unexpected end of JSON input') {
+      if (error instanceof SyntaxError) {
+        throw new Error(fallbackMessage);
+      }
+
+      if (error instanceof Error) {
         throw error;
       }
 
@@ -30,9 +40,9 @@ export async function apiRequest<TResponse>(path: string, init?: RequestInit): P
     }
   }
 
-  if (response.status === 204) {
+  if (response.status === 204 || !responseText) {
     return undefined as TResponse;
   }
 
-  return (await response.json()) as TResponse;
+  return JSON.parse(responseText) as TResponse;
 }
