@@ -33,7 +33,7 @@ export function LoginSupportModal({ onClose }: LoginSupportModalProps) {
         <div className="login-support-modal__info-grid">
           <div className="login-support-modal__info-card login-support-modal__info-card--divider">
             <h3>⊖ Finanse</h3>
-            <p>Sprawdź saldo i zlecaj przelewy z kont w innych bankach wygodnie przez Millenet</p>
+            <p>Zaloguj się, aby otworzyć rachunek oraz wykonać podstawowe operacje pieniężne</p>
             <a>Więcej</a>
           </div>
 

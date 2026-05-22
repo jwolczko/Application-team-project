@@ -1,16 +1,18 @@
 using Fortuna.Application.Accounts.Commands.DepositMoney;
-using Fortuna.Contracts.Transfers;
+using Fortuna.Contracts.Accounts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fortuna.Api.Controllers;
 
 [ApiController]
-[Route("api/transfers")]
+[Authorize]
+[Route("api/accounts")]
 public sealed class IncommingController : ControllerBase
 {
     [HttpPost("incoming")]
     public async Task<ActionResult<Guid>> Incoming(
-        [FromBody] IncomingTransferRequest request,
+        [FromBody] IncomingMoneyRequest request,
         [FromServices] DepositMoneyCommandHandler handler,
         CancellationToken cancellationToken)
     {

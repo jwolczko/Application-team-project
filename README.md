@@ -4,9 +4,9 @@
 
 ## Cel systemu
 
-Calisia to aplikacja bankowości internetowej dla klientów indywidualnych. System pozwala klientowi założyć profil, zalogować się do bankowości, przeglądać posiadane produkty finansowe oraz wykonywać podstawowe operacje na rachunkach, w tym przelewy i obciążenia konta.
+Calisia to aplikacja bankowości internetowej dla klientów indywidualnych. W zakresie sprintu 4 system pozwala klientowi założyć profil, zalogować się do bankowości, otworzyć rachunek bankowy oraz wykonać podstawowe operacje pieniężne: wpływ przychodzący i wypłatę środków.
 
-Rozwiązanie składa się z aplikacji webowej dla klienta, API backendowego oraz dwóch baz danych: operacyjnej i odczytowej. Taki podział wspiera oddzielenie zapisu operacji bankowych od szybkiego prezentowania danych na dashboardzie klienta.
+Rozwiązanie składa się z aplikacji webowej dla klienta, API backendowego oraz projektów baz danych. Gałąź `sprint_4` zachowuje fundamenty architektury, rejestrację, logowanie JWT oraz operacje rachunkowe przewidziane dla sprintów 1-4.
 
 ## Wymagane narzędzia:
 

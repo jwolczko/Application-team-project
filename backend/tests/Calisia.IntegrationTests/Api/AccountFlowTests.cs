@@ -74,6 +74,32 @@ public sealed class AccountFlowTests : IClassFixture<WebApplicationFactory<Progr
         account.Balance.Amount.Should().Be(180m);
     }
 
+    [Fact]
+    public async Task IncomingShouldIncreaseBalanceForAuthorizedCustomer()
+    {
+        var customerId = CustomerId.New();
+        var account = BankAccount.Open(
+            customerId,
+            new AccountNumber("PL001234567890"),
+            "Main account",
+            1,
+            "PLN",
+            BankAccountType.Standard);
+
+        var customerRepository = new FakeCustomerRepository(
+            new Customer(customerId, new FullName("Jan", "Kowalski"), new Email("jan@example.com"), "hashed"));
+        var bankAccountRepository = new FakeBankAccountRepository(account);
+        var productRepository = new FakeProductRepository(account);
+        var client = CreateClient(customerRepository, bankAccountRepository, productRepository);
+
+        var response = await client.PostAsJsonAsync(
+            "/api/accounts/incoming",
+            new { targetAccountId = account.Id, amount = 250m, currency = "PLN", title = "Salary" });
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        account.Balance.Amount.Should().Be(250m);
+    }
+
     private HttpClient CreateClient(
         FakeCustomerRepository customerRepository,
         FakeBankAccountRepository bankAccountRepository,
@@ -146,13 +172,22 @@ public sealed class AccountFlowTests : IClassFixture<WebApplicationFactory<Progr
 
     private sealed class FakeProductRepository : IProductRepository
     {
+        private readonly List<Product> _products;
         private long _sequence;
 
+        public FakeProductRepository(params Product[] products)
+        {
+            _products = products.ToList();
+        }
+
         public Task AddAsync(Product product, CancellationToken cancellationToken)
-            => Task.CompletedTask;
+        {
+            _products.Add(product);
+            return Task.CompletedTask;
+        }
 
         public Task<Product?> GetByIdAsync(Guid productId, CancellationToken cancellationToken)
-            => Task.FromResult<Product?>(null);
+            => Task.FromResult<Product?>(_products.FirstOrDefault(x => x.Id == productId));
 
         public Task<long> GetNextNumberSequenceAsync(CancellationToken cancellationToken)
             => Task.FromResult(++_sequence);

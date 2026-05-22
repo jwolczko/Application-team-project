@@ -12,9 +12,9 @@ internal static class TestAuthentication
         var tokenProvider = new JwtTokenProvider(
             Options.Create(new JwtOptions
             {
-                Issuer = "Fortuna.Api",
-                Audience = "Fortuna.Client",
-                SigningKey = "SuperSecretJwtSigningKeyForFortunaChangeMe1234567890",
+                Issuer = "Calisia.Api",
+                Audience = "Calisia.Client",
+                SigningKey = "SuperSecretJwtSigningKeyForCalisiaChangeMe1234567890",
                 ExpirationMinutes = 5
             }),
             new FixedDateTimeProvider());

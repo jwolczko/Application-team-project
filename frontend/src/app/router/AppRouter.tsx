@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { PublicLayout } from '../../layouts/PublicLayout';
-import { DashboardLayout } from '../../layouts/DashboardLayout';
+import { AuthenticatedLayout } from '../../layouts/AuthenticatedLayout';
 import { LandingPage } from '../../views/LandingPage/LandingPage';
 import { LoginPage } from '../../views/LoginPage/LoginPage';
 import { CreateAccountPage } from '../../views/CreateAccountPage/CreateAccountPage';
-import { DashboardPage } from '../../views/DashboardPage/DashboardPage';
+import { AccountOperationsPage } from '../../views/AccountOperationsPage/AccountOperationsPage';
 
 export function AppRouter() {
   return (
@@ -15,8 +15,8 @@ export function AppRouter() {
         <Route path="/create-account" element={<CreateAccountPage />} />
       </Route>
 
-      <Route element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
+      <Route element={<AuthenticatedLayout />}>
+        <Route path="/accounts" element={<AccountOperationsPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

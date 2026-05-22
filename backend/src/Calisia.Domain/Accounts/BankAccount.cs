@@ -54,13 +54,13 @@ public sealed class BankAccount : Product, IAggregateRoot
         BankAccountType accountType)
         => new(Guid.NewGuid(), customerId, accountNumber, accountName, numberSequence, currency, accountType);
 
-    public void Deposit(Money amount, string title, Guid? transferId = null)
+    public void Deposit(Money amount, string title)
     {
         EnsureActive("Account is not active.");
         EnsurePositive(amount);
 
         SetBalance(Balance.Add(amount));
-        _transactions.Add(TransactionEntry.CreateCredit(Id, amount, title, transferId));
+        _transactions.Add(TransactionEntry.CreateCredit(Id, amount, title));
 
         AddDomainEvent(new MoneyDepositedDomainEvent(
             Id,
@@ -70,7 +70,7 @@ public sealed class BankAccount : Product, IAggregateRoot
             title));
     }
 
-    public void Withdraw(Money amount, string title, Guid? transferId = null)
+    public void Withdraw(Money amount, string title)
     {
         EnsureActive("Account is not active.");
         EnsurePositive(amount);
@@ -79,7 +79,7 @@ public sealed class BankAccount : Product, IAggregateRoot
             throw new DomainException("Insufficient funds.");
 
         SetBalance(Balance.Subtract(amount));
-        _transactions.Add(TransactionEntry.CreateDebit(Id, amount, title, transferId));
+        _transactions.Add(TransactionEntry.CreateDebit(Id, amount, title));
 
         AddDomainEvent(new MoneyWithdrawnDomainEvent(
             Id,

@@ -1,0 +1,123 @@
+.account-operations-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+.account-operations-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto 24px;
+}
+
+.account-operations-page__header h1 {
+  margin: 4px 0;
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.account-operations-page__header p {
+  margin: 0;
+  color: #5e6a7d;
+}
+
+.account-operations-page__eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f766e;
+  text-transform: uppercase;
+}
+
+.account-operations-page button {
+  border: 0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  background: #0f766e;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.account-operations-page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.account-operations-page__notice {
+  max-width: 1180px;
+  margin: 0 auto 20px;
+  border: 1px solid #99f6e4;
+  border-radius: 6px;
+  padding: 12px 14px;
+  background: #ccfbf1;
+  color: #115e59;
+  font-weight: 700;
+}
+
+.account-operations-page__notice--error {
+  border-color: #fecaca;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.account-operations-page__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.account-operations-page__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgb(15 23 42 / 8%);
+}
+
+.account-operations-page__panel h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.account-operations-page__panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #435168;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.account-operations-page__panel input,
+.account-operations-page__panel select {
+  min-height: 42px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: #172033;
+  font: inherit;
+}
+
+@media (max-width: 900px) {
+  .account-operations-page {
+    padding: 20px;
+  }
+
+  .account-operations-page__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .account-operations-page__grid {
+    grid-template-columns: 1fr;
+  }
+}

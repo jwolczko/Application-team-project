@@ -1,6 +1,6 @@
-namespace Fortuna.Contracts.Transfers;
+namespace Fortuna.Contracts.Accounts;
 
-public sealed record IncomingTransferRequest(
+public sealed record IncomingMoneyRequest(
     Guid TargetAccountId,
     decimal Amount,
     string Currency,

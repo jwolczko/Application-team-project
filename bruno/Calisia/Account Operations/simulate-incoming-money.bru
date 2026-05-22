@@ -1,11 +1,11 @@
 meta {
-  name: Simulate Incoming Transfer
+  name: Simulate Incoming Money
   type: http
   seq: 2
 }
 
 post {
-  url: {{baseUrl}}/api/transfers/incoming
+  url: {{baseUrl}}/api/accounts/incoming
   body: json
   auth: none
 }
@@ -17,14 +17,14 @@ headers {
 body:json {
   {
     "targetAccountId": "{{targetAccountId}}",
-    "amount": {{incomingTransferAmount}},
+    "amount": {{incomingAmount}},
     "currency": "{{currency}}",
-    "title": "{{incomingTransferTitle}}"
+    "title": "{{incomingTitle}}"
   }
 }
 
 tests {
-  test("incoming transfer returns 200", function () {
+  test("incoming money returns 200", function () {
     expect(res.getStatus()).to.equal(200);
   });
 }

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
 import { useAppDispatch } from '../../../app/store/hooks';
 import { registerRequest } from '../../../features/auth/api/authApi';
 import { loginAndInitializeSession } from '../../../features/auth/authFlow';
@@ -14,7 +13,6 @@ type CreateAccountPanelProps = {
 export function CreateAccountPanel({ onClose, isModal = false }: CreateAccountPanelProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -40,10 +38,10 @@ export function CreateAccountPanel({ onClose, isModal = false }: CreateAccountPa
         customerType,
       });
 
-      await loginAndInitializeSession(email.trim(), password, dispatch, queryClient);
+      await loginAndInitializeSession(email.trim(), password, dispatch);
 
       onClose?.();
-      navigate('/dashboard');
+      navigate('/accounts');
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Nie udało się założyć konta.');
     } finally {

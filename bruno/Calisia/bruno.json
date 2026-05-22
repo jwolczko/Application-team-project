@@ -7,7 +7,7 @@
     ".git"
   ],
   "size": 0.0042095184326171875,
-  "filesCount": 15,
+  "filesCount": 10,
   "presets": {
     "requestType": "http",
     "requestUrl": "https://localhost:57751"

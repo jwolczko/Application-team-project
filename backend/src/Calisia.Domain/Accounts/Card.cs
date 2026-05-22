@@ -50,7 +50,7 @@ public sealed class Card : Product, IAggregateRoot
     public CardType CardType { get; private set; }
     public decimal? CreditLimit { get; private set; }
 
-    public void Deposit(Money amount, string title, Guid? transferId = null)
+    public void Deposit(Money amount, string title)
     {
         EnsureActive("Card is not active.");
         EnsurePositive(amount);
@@ -69,7 +69,7 @@ public sealed class Card : Product, IAggregateRoot
             title));
     }
 
-    public void Withdraw(Money amount, string title, Guid? transferId = null)
+    public void Withdraw(Money amount, string title)
     {
         EnsureActive("Card is not active.");
         EnsurePositive(amount);

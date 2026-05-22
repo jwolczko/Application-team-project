@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
 import { useAppDispatch } from '../../../app/store/hooks';
 import { loginAndInitializeSession } from '../../../features/auth/authFlow';
 import './LoginPanel.css';
@@ -14,7 +13,6 @@ type LoginPanelProps = {
 export function LoginPanel({ onOpenSupport, onClose, isModal = false }: LoginPanelProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -29,10 +27,10 @@ export function LoginPanel({ onOpenSupport, onClose, isModal = false }: LoginPan
       setIsSubmitting(true);
       setErrorMessage(null);
 
-      await loginAndInitializeSession(login.trim(), password, dispatch, queryClient);
+      await loginAndInitializeSession(login.trim(), password, dispatch);
 
       onClose?.();
-      navigate('/dashboard');
+      navigate('/accounts');
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Logowanie nie powiodło się.');
     } finally {

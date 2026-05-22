@@ -3,7 +3,6 @@ using Fortuna.Infrastructure.Auth;
 using Fortuna.Api.Middleware;
 using Fortuna.Application.DependencyInjection;
 using Fortuna.Infrastructure.DependencyInjection;
-using Fortuna.ReadModel.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -60,7 +59,6 @@ public partial class Program
 
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure(builder.Configuration);
-        builder.Services.AddReadModel(builder.Configuration);
 
         builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
