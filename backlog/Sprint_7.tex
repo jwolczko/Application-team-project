@@ -1,0 +1,123 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Raport ze sprintu nr 7 - Calisia Banking App}
+Data raportu: 02.06.2026
+
+Okres sprintu: 28.05 - 02.06.2026
+
+Product Owner / Scrum Master: Jakub Wołczko
+
+\subsection*{Lista osób}
+\begin{itemize}
+\item Kubryn Jeremiasz
+\item Łaszuk Jakub
+\item Makarevich Ksenia
+\item Nuckowski Michał
+\item Ruczyńska Nikola
+\item Wołczko Jakub
+\item Olszewski Dawid
+\end{itemize}
+
+\subsection*{Product Owner i Scrum Master sprintu}
+Jakub Wołczko
+
+\subsection*{Lista historyjek na sprint}
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}C{0.08\textwidth}L{0.62\textwidth}C{0.10\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S7-01 & Pełny przepływ klienta w UI & 8 & Done \\
+S7-02 & Responsywność i spójność wizualna & 5 & Done \\
+S7-03 & Rozszerzenie testów automatycznych backendu & 13 & Done \\
+S7-04 & Kolekcja Bruno i testy manualne API & 5 & Done \\
+S7-05 & Build, dokumentacja i scenariusz prezentacji & 5 & Done \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Podsumowanie sprintu}
+Cel sprintu: Stabilizacja, testy i oddanie produktu. Dopracowanie całego przepływu klienta, usunięcie niespójności i przygotowanie produktu do prezentacji.
+
+Zakres sprintu obejmował 5 historyjek o łącznej estymacji 36 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 36 SP.
+
+Przygotowano stabilną wersję produktu do prezentacji: pełny przepływ klienta w UI, rozszerzone testy backendu, uporządkowaną kolekcję Bruno, build frontendu oraz scenariusz demonstracyjny.
+
+Sprint zamknął prace nad produktem w ramach zaplanowanego backlogu. Zespół skupił się na stabilności, jakości i prezentowalności rozwiązania, dzięki czemu aplikacja może zostać pokazana jako spójny przepływ bankowości internetowej.
+
+\subsubsection*{Najważniejsze rezultaty}
+\begin{itemize}
+\item Zweryfikowano pełny przepływ klienta w UI.
+\item Poprawiono responsywność i spójność wizualną.
+\item Rozszerzono testy automatyczne backendu.
+\item Uporządkowano kolekcję Bruno i scenariusz prezentacji.
+\end{itemize}
+
+\subsection*{Retrospekcja sprintu}
+Retrospekcja końcowa pokazała, że regularne domykanie testów i dokumentacji w trakcie sprintów znacząco zmniejszyło koszt końcowej stabilizacji.
+
+\subsubsection*{Co się udało}
+\begin{itemize}
+\item Udało się przejść pełny scenariusz klienta od rejestracji do dashboardu i przelewów.
+\item Zespół uporządkował testy automatyczne i manualne.
+\item Dokumentacja oraz Bruno ułatwiły przygotowanie prezentacji.
+\item Poprawiono spójność UI i gotowość techniczną aplikacji.
+\end{itemize}
+\subsubsection*{Poziom energii zespołu}
+Średni poziom energii zespołu: 4,2/5.
+
+Energia zespołu wzrosła dzięki finalizacji produktu i widocznemu efektowi kilku sprintów pracy.
+
+\subsubsection*{Czego udało się nauczyć}
+\begin{itemize}
+\item Zespół nauczył się stabilizować produkt przez połączenie testów, buildów i testów manualnych.
+\item Scenariusz demo pomaga wykryć problemy integracyjne.
+\item Regularne utrzymywanie dokumentacji zmniejsza koszt końcowego odbioru projektu.
+\end{itemize}
+\subsubsection*{Wnioski i działania na kolejny sprint}
+\begin{itemize}
+\item Zachować scenariusz demo jako checklistę regresji.
+\item Przy dalszym rozwoju planować testy manualne i automatyczne razem z historyjkami.
+\item Po odbiorze zebrać pomysły na kolejne epiki, np. historię operacji z paginacją, karty i przelewy cykliczne.
+\end{itemize}
+
+\subsection*{Następny sprint}
+Product Owner / Scrum Master w następnym sprincie: Nie dotyczy - sprint 7 zamyka zakres produktu
+
+Główny cel następnego sprintu: Nie zaplanowano kolejnego sprintu w ramach tego backlogu. Następnym krokiem jest prezentacja, odbiór produktu i ewentualne planowanie dalszego rozwoju.
+
+\end{document}

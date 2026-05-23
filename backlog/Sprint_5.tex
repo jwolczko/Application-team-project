@@ -1,0 +1,122 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Raport ze sprintu nr 5 - Calisia Banking App}
+Data raportu: 23.05.2026
+
+Okres sprintu: 18.05 - 23.05.2026
+
+Product Owner / Scrum Master: Michał Nuckowski
+
+\subsection*{Lista osób}
+\begin{itemize}
+\item Kubryn Jeremiasz
+\item Łaszuk Jakub
+\item Makarevich Ksenia
+\item Nuckowski Michał
+\item Ruczyńska Nikola
+\item Wołczko Jakub
+\item Olszewski Dawid
+\end{itemize}
+
+\subsection*{Product Owner i Scrum Master sprintu}
+Michał Nuckowski
+
+\subsection*{Lista historyjek na sprint}
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}C{0.08\textwidth}L{0.62\textwidth}C{0.10\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S5-01 & Endpoint dashboardu klienta & 8 & Done \\
+S5-02 & Kafelki produktów i saldo łączne w UI & 5 & Done \\
+S5-03 & Projekcje zdarzeń domenowych do read modelu & 13 & Done \\
+S5-04 & Oś czasu zdarzeń w dashboardzie & 5 & Done \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Podsumowanie sprintu}
+Cel sprintu: Dashboard i model odczytowy. Pokazanie klientowi aktualnego stanu produktów, salda łącznego i ostatnich zdarzeń w panelu bankowości.
+
+Zakres sprintu obejmował 4 historyjek o łącznej estymacji 31 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 31 SP.
+
+Dostarczono dashboard klienta oparty o model odczytowy: saldo łączne, kafelki produktów oraz oś czasu zdarzeń. Projekcje aktualizują dane widoczne w panelu po operacjach finansowych.
+
+Sprint połączył logikę domenową z widokiem klienta. Użytkownik otrzymał czytelny obraz swoich produktów i operacji, a zespół potwierdził sens rozdzielenia write modelu i read modelu.
+
+\subsubsection*{Najważniejsze rezultaty}
+\begin{itemize}
+\item Dodano endpoint dashboardu klienta.
+\item Wyświetlono kafelki produktów i saldo łączne.
+\item Wdrożono projekcje zdarzeń domenowych.
+\item Udostępniono oś czasu ostatnich zdarzeń.
+\end{itemize}
+
+\subsection*{Retrospekcja sprintu}
+Retrospekcja pokazała, że przepływ danych przez outbox i projekcje trzeba testować całościowo, a nie tylko na poziomie pojedynczych handlerów.
+
+\subsubsection*{Co się udało}
+\begin{itemize}
+\item Udało się połączyć zdarzenia domenowe z modelem odczytowym.
+\item Dashboard zaczął prezentować klientowi realną wartość produktu.
+\item Zespół utrzymał testy integracyjne dla przepływu danych.
+\item Frontend otrzymał spójny kontrakt do prezentacji produktów i zdarzeń.
+\end{itemize}
+\subsubsection*{Poziom energii zespołu}
+Średni poziom energii zespołu: 4,1/5.
+
+Energia zespołu była stabilna. Największym wyzwaniem była synchronizacja modelu zapisu, outboxa, projekcji i widoku frontendu.
+
+\subsubsection*{Czego udało się nauczyć}
+\begin{itemize}
+\item Zespół nauczył się praktycznego wykorzystania projekcji read modelu.
+\item Outbox pomaga ograniczyć ryzyko niespójności między zapisem i odczytem.
+\item Dashboard wymaga testów obejmujących zarówno API, jak i dane po operacjach finansowych.
+\end{itemize}
+\subsubsection*{Wnioski i działania na kolejny sprint}
+\begin{itemize}
+\item Rozszerzać testy integracyjne o scenariusze po kilku operacjach finansowych.
+\item Dopisywać przypadki Bruno pokazujące pełną ścieżkę do dashboardu.
+\item Przy przelewach od razu sprawdzać wpływ operacji na read model.
+\end{itemize}
+
+\subsection*{Następny sprint}
+Product Owner / Scrum Master w następnym sprincie: Nikola Ruczyńska
+
+Główny cel następnego sprintu: Przelewy własne i zewnętrzne. Pozwolenie klientowi na wykonywanie przelewów oraz odzwierciedlanie ich w saldach i historii.
+
+\end{document}

@@ -1,0 +1,124 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Raport ze sprintu nr 3 - Calisia Banking App}
+Data raportu: 13.05.2026
+
+Okres sprintu: 08.05 - 13.05.2026
+
+Product Owner / Scrum Master: Jeremiasz Kubryn
+
+\subsection*{Lista osób}
+\begin{itemize}
+\item Kubryn Jeremiasz
+\item Łaszuk Jakub
+\item Makarevich Ksenia
+\item Nuckowski Michał
+\item Ruczyńska Nikola
+\item Wołczko Jakub
+\item Olszewski Dawid
+\end{itemize}
+
+\subsection*{Product Owner i Scrum Master sprintu}
+Jeremiasz Kubryn
+
+\subsection*{Lista historyjek na sprint}
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}C{0.08\textwidth}L{0.62\textwidth}C{0.10\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S3-01 & Logowanie e-mailem i hasłem & 8 & Done \\
+S3-02 & Generowanie tokena JWT z identyfikatorem klienta i czasem wygaśnięcia & 8 & Done \\
+S3-03 & Zabezpieczenie endpointów rachunków, przelewów i dashboardu atrybutem autoryzacji & 5 & Done \\
+S3-04 & Zapisywanie sesji klienta w stanie aplikacji frontendu & 5 & Done \\
+S3-05 & Komunikat błędu przy nieudanym logowaniu & 3 & Done \\
+S3-06 & Testy logowania, generowania tokenu i odmowy dostępu & 8 & Done \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Podsumowanie sprintu}
+Cel sprintu: Logowanie, JWT i ochrona API. Zapewnienie mechanizmu uwierzytelniania oraz zabezpieczenie operacji klienta przed dostępem anonimowym.
+
+Zakres sprintu obejmował 6 historyjek o łącznej estymacji 37 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 37 SP.
+
+Udostępniono logowanie przez API, generowanie tokena JWT, dostęp do chronionych endpointów wyłącznie z poprawnym tokenem oraz obsługę komunikatów błędów przy nieudanym logowaniu. Frontend utrzymuje sesję klienta w stanie aplikacji.
+
+Sprint znacząco podniósł bezpieczeństwo aplikacji. Od tego momentu funkcje finansowe mogą być rozwijane z założeniem, że API rozpoznaje klienta i chroni dane przed dostępem anonimowym.
+
+\subsubsection*{Najważniejsze rezultaty}
+\begin{itemize}
+\item Dodano logowanie klienta z użyciem e-maila i hasła.
+\item Wdrożono generowanie i walidację tokenów JWT.
+\item Zabezpieczono endpointy wymagające autoryzacji.
+\item Przetestowano przypadki dostępu bez tokenu i z niepoprawnymi danymi.
+\end{itemize}
+
+\subsection*{Retrospekcja sprintu}
+Retrospekcja pokazała, że prace nad bezpieczeństwem wymagają dobrego przygotowania konfiguracji i testów środowiskowych.
+
+\subsubsection*{Co się udało}
+\begin{itemize}
+\item Sprawna implementacja mechanizmu logowania oraz tokenów JWT.
+\item Konsekwentne stosowanie autoryzacji na endpointach.
+\item Efektywna współpraca backendu z frontendem przy integracji sesji.
+\item Szybkie rozwiązanie problemów konfiguracyjnych JWT.
+\end{itemize}
+\subsubsection*{Poziom energii zespołu}
+Średni poziom energii zespołu: 4,3/5.
+
+Zespół utrzymał wysokie zaangażowanie dzięki pracy nad bezpieczeństwem aplikacji i wdrożeniem JWT.
+
+\subsubsection*{Czego udało się nauczyć}
+\begin{itemize}
+\item Zespół zdobył praktyczne doświadczenie z JWT.
+\item Bezpieczeństwo endpointów wymaga testów pozytywnych i negatywnych.
+\item Szablony konfiguracji przyspieszają przygotowanie środowiska developerskiego.
+\end{itemize}
+\subsubsection*{Wnioski i działania na kolejny sprint}
+\begin{itemize}
+\item Przygotować szablon konfiguracji JWT w repozytorium.
+\item Dopisać checklistę autoryzacji dla nowych endpointów.
+\item Utrzymywać testy 401/403 przy kolejnych funkcjach klienta.
+\end{itemize}
+
+\subsection*{Następny sprint}
+Product Owner / Scrum Master w następnym sprincie: Ksenia Makarevich
+
+Główny cel następnego sprintu: Rachunki bankowe i operacje pieniężne. Stworzenie logiki kont oraz bazowych mechanizmów finansowych.
+
+\end{document}

@@ -1,0 +1,124 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Raport ze sprintu nr 1 - Calisia Banking App}
+Data raportu: 03.05.2026
+
+Okres sprintu: 28.04 - 03.05.2026
+
+Product Owner / Scrum Master: Jakub Wołczko
+
+\subsection*{Lista osób}
+\begin{itemize}
+\item Kubryn Jeremiasz
+\item Łaszuk Jakub
+\item Makarevich Ksenia
+\item Nuckowski Michał
+\item Ruczyńska Nikola
+\item Wołczko Jakub
+\item Olszewski Dawid
+\end{itemize}
+
+\subsection*{Product Owner i Scrum Master sprintu}
+Jakub Wołczko
+
+\subsection*{Lista historyjek na sprint}
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}C{0.08\textwidth}L{0.62\textwidth}C{0.10\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S1-01 & Przygotowanie solucji backendowej z warstwami Api, Application, Domain, Infrastructure, Contracts i ReadModel & 8 & Done \\
+S1-02 & Wdrożenie wzorca CQRS dla komend i zapytań & 8 & Done \\
+S1-03 & Konfiguracja projektu frontendowego React/Vite z routingiem, stylami globalnymi i layoutami & 5 & Done \\
+S1-04 & Przygotowanie skryptów baz CalisiaWriteDb i CalisiaReadDb & 5 & Done \\
+S1-05 & Dodanie dokumentacji uruchomieniowej w README & 3 & Done \\
+S1-06 & Przygotowanie kolekcji Bruno dla podstawowych endpointów & 3 & Done \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Podsumowanie sprintu}
+Cel sprintu: Fundamenty architektury i środowiska. Przygotowanie technicznego fundamentu aplikacji, aby zespół mógł rozwijać backend, frontend i bazy danych w jednym spójnym projekcie.
+
+Zakres sprintu obejmował 6 historyjek o łącznej estymacji 32 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 32 SP.
+
+Przygotowano kompletną bazę techniczną projektu: wielowarstwową solucję backendową, podstawowe abstrakcje CQRS, projekt frontendowy React/Vite, skrypty baz danych, dokumentację uruchomieniową oraz początkową kolekcję Bruno do weryfikacji API.
+
+Sprint stworzył stabilny fundament pod dalszą implementację funkcji biznesowych. Dzięki temu kolejne prace mogą być prowadzone równolegle w backendzie, frontendzie, bazach danych i testach bez konieczności ciągłego zmieniania struktury projektu.
+
+\subsubsection*{Najważniejsze rezultaty}
+\begin{itemize}
+\item Utworzono bazową strukturę aplikacji i repozytorium.
+\item Wprowadzono wzorzec CQRS jako standard implementacji komend i zapytań.
+\item Przygotowano frontend React/Vite z routingiem oraz podstawowymi layoutami.
+\item Dodano skrypty baz danych i pierwszą kolekcję Bruno.
+\end{itemize}
+
+\subsection*{Retrospekcja sprintu}
+Retrospekcja pokazała, że zespół dobrze rozpoczął projekt, ale potrzebuje mocniej spisywać konwencje techniczne już na początku prac.
+
+\subsubsection*{Co się udało}
+\begin{itemize}
+\item Dobre rozdzielenie odpowiedzialności pomiędzy warstwami backendu.
+\item Szybkie uzgodnienie wspólnej struktury repozytorium.
+\item Konsekwentne zastosowanie CQRS od początku projektu.
+\item Wczesne dodanie kolekcji Bruno jako narzędzia do testowania API.
+\end{itemize}
+\subsubsection*{Poziom energii zespołu}
+Średni poziom energii zespołu: 4,1/5.
+
+Energia zespołu była pozytywna i produktywna. Jasny cel sprintu oraz widoczny przyrost techniczny zwiększyły poczucie kontroli nad projektem.
+
+\subsubsection*{Czego udało się nauczyć}
+\begin{itemize}
+\item Zespół utrwalił zasady pracy w architekturze warstwowej.
+\item Warto spisywać konwencje projektowe przed rozwojem kolejnych funkcji.
+\item Dokumentacja uruchomieniowa i Bruno ułatwiają onboarding oraz testowanie.
+\end{itemize}
+\subsubsection*{Wnioski i działania na kolejny sprint}
+\begin{itemize}
+\item Spisać listę konwencji projektowych dla nazw folderów, namespaceów i endpointów.
+\item Dodać do README krótką sekcję szybkiej weryfikacji środowiska.
+\item Aktualizować kolekcję Bruno razem z rozwojem endpointów.
+\end{itemize}
+
+\subsection*{Następny sprint}
+Product Owner / Scrum Master w następnym sprincie: Jakub Łaszuk
+
+Główny cel następnego sprintu: Klient, rejestracja i bezpieczne hasła. Umożliwienie klientowi założenia profilu oraz przygotowanie bezpiecznego przechowywania danych logowania.
+
+\end{document}

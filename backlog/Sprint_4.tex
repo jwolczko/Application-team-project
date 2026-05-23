@@ -1,0 +1,125 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Raport ze sprintu nr 4 - Calisia Banking App}
+Data raportu: 18.05.2026
+
+Okres sprintu: 13.05 - 18.05.2026
+
+Product Owner / Scrum Master: Ksenia Makarevich
+
+\subsection*{Lista osób}
+\begin{itemize}
+\item Kubryn Jeremiasz
+\item Łaszuk Jakub
+\item Makarevich Ksenia
+\item Nuckowski Michał
+\item Ruczyńska Nikola
+\item Wołczko Jakub
+\item Olszewski Dawid
+\end{itemize}
+
+\subsection*{Product Owner i Scrum Master sprintu}
+Ksenia Makarevich
+
+\subsection*{Lista historyjek na sprint}
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}C{0.08\textwidth}L{0.62\textwidth}C{0.10\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S4-01 & Otwarcie rachunku bankowego z nazwą, numerem, walutą i typem konta & 8 & Done \\
+S4-02 & Walidacja numeru rachunku, waluty i typu konta & 5 & Done \\
+S4-03 & Wypłata środków z rachunku & 8 & Done \\
+S4-04 & Blokada wypłaty przekraczającej saldo & 5 & Done \\
+S4-05 & Obsługa wpływu przychodzącego na rachunek & 5 & Done \\
+S4-06 & Zapisywanie wpisów transakcyjnych dla wpłat i wypłat & 8 & Done \\
+S4-07 & Testy rachunków, wpłat i wypłat & 5 & Done \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Podsumowanie sprintu}
+Cel sprintu: Rachunki bankowe i operacje pieniężne. Udostępnienie klientowi podstawowych produktów bankowych oraz operacji zmieniających saldo.
+
+Zakres sprintu obejmował 7 historyjek o łącznej estymacji 44 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 44 SP.
+
+Udostępniono otwarcie rachunku bankowego przez chroniony endpoint API, generowanie numeru produktu, wpływ przychodzący oraz wypłatę środków. System zapisuje saldo i wpisy transakcyjne, a reguły domenowe blokują wypłatę przekraczającą dostępne środki.
+
+Sprint przesunął aplikację z etapu konta klienta do realnych operacji finansowych. Powstał fundament pod dashboard, historię zdarzeń oraz przyszłe przelewy.
+
+\subsubsection*{Najważniejsze rezultaty}
+\begin{itemize}
+\item Dodano otwieranie rachunku bankowego.
+\item Obsłużono wpływ i wypłatę środków.
+\item Wdrożono blokadę wypłaty ponad saldo.
+\item Zapisano wpisy transakcyjne potrzebne do historii operacji.
+\end{itemize}
+
+\subsection*{Retrospekcja sprintu}
+Retrospekcja wskazała, że złożoność domeny finansowej wymaga wcześniejszego doprecyzowania nazewnictwa i scenariuszy testowych.
+
+\subsubsection*{Co się udało}
+\begin{itemize}
+\item Sprawna implementacja otwierania rachunku bankowego zgodnie z CQRS.
+\item Dobre wykorzystanie reguł domenowych do kontroli salda.
+\item Poprawne rozdzielenie operacji wpłaty i wypłaty.
+\item Testy potwierdziły najważniejsze ścieżki rachunków i operacji pieniężnych.
+\end{itemize}
+\subsubsection*{Poziom energii zespołu}
+Średni poziom energii zespołu: 4,0/5.
+
+Energia była dobra i zadaniowa. Zakres był większy niż wcześniej, dlatego wymagał dokładniejszej koordynacji backendu, testów i scenariuszy API.
+
+\subsubsection*{Czego udało się nauczyć}
+\begin{itemize}
+\item Zespół lepiej zrozumiał modelowanie operacji finansowych w domenie.
+\item Większe historyjki wymagają dokładniejszego rozbicia technicznego.
+\item Kolekcję Bruno warto aktualizować od razu po zmianach endpointów.
+\end{itemize}
+\subsubsection*{Wnioski i działania na kolejny sprint}
+\begin{itemize}
+\item Przygotować mapę endpointów rachunkowych dla testerów.
+\item Dopisać w Bruno osobne scenariusze dla rachunku, wpływu i wypłaty.
+\item Przed kolejnym sprintem ustalić strukturę modelu odczytowego dashboardu.
+\end{itemize}
+
+\subsection*{Następny sprint}
+Product Owner / Scrum Master w następnym sprincie: Michał Nuckowski
+
+Główny cel następnego sprintu: Dashboard i model odczytowy. Pokazanie klientowi aktualnego stanu produktów, salda łącznego i ostatnich zdarzeń w panelu bankowości.
+
+\end{document}

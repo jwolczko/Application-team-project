@@ -1,0 +1,124 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Raport ze sprintu nr 2 - Calisia Banking App}
+Data raportu: 08.05.2026
+
+Okres sprintu: 03.05 - 08.05.2026
+
+Product Owner / Scrum Master: Jakub Łaszuk
+
+\subsection*{Lista osób}
+\begin{itemize}
+\item Kubryn Jeremiasz
+\item Łaszuk Jakub
+\item Makarevich Ksenia
+\item Nuckowski Michał
+\item Ruczyńska Nikola
+\item Wołczko Jakub
+\item Olszewski Dawid
+\end{itemize}
+
+\subsection*{Product Owner i Scrum Master sprintu}
+Jakub Łaszuk
+
+\subsection*{Lista historyjek na sprint}
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}C{0.08\textwidth}L{0.62\textwidth}C{0.10\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S2-01 & Rejestracja profilu klienta z imieniem, nazwiskiem, e-mailem, hasłem i typem klienta & 8 & Done \\
+S2-02 & Walidacja danych rejestracyjnych & 5 & Done \\
+S2-03 & Bezpieczne haszowanie haseł z użyciem PBKDF2 & 5 & Done \\
+S2-04 & Jednoznaczna odpowiedź po rejestracji klienta & 3 & Done \\
+S2-05 & Testy jednostkowe i integracyjne rejestracji & 5 & Done \\
+S2-06 & Scenariusz rejestracji w Bruno & 2 & Done \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Podsumowanie sprintu}
+Cel sprintu: Klient, rejestracja i bezpieczne hasła. Umożliwienie klientowi założenia profilu oraz przygotowanie bezpiecznego przechowywania danych logowania.
+
+Zakres sprintu obejmował 6 historyjek o łącznej estymacji 28 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 28 SP.
+
+Dostarczono przepływ rejestracji klienta przez API wraz z walidacją danych, obsługą typu klienta, bezpiecznym haszowaniem hasła PBKDF2, odpowiedzią zawierającą identyfikator klienta oraz testami i scenariuszem Bruno.
+
+Sprint domknął pierwszy pełny proces biznesowy klienta. System zaczął przyjmować dane użytkownika w kontrolowany sposób, a mechanizm PBKDF2 ograniczył ryzyko związane z przechowywaniem danych logowania.
+
+\subsubsection*{Najważniejsze rezultaty}
+\begin{itemize}
+\item Utworzono profil klienta przez API.
+\item Dodano walidację danych rejestracyjnych i obsługę błędów.
+\item Wdrożono bezpieczne haszowanie haseł.
+\item Przygotowano testy oraz scenariusz rejestracji w Bruno.
+\end{itemize}
+
+\subsection*{Retrospekcja sprintu}
+Retrospekcja potwierdziła, że zespół dobrze radzi sobie z funkcjami przekrojowymi, które dotykają domeny, API, bazy i testów.
+
+\subsubsection*{Co się udało}
+\begin{itemize}
+\item Sprawna implementacja komendy rejestracji klienta zgodnie z CQRS.
+\item Dobre pokrycie przypadków walidacyjnych testami.
+\item Wprowadzenie PBKDF2 bez przechowywania haseł w postaci jawnej.
+\item Bieżąca aktualizacja kolekcji Bruno.
+\end{itemize}
+\subsubsection*{Poziom energii zespołu}
+Średni poziom energii zespołu: 4,2/5.
+
+Energia była wysoka dzięki realistycznemu zakresowi sprintu i satysfakcji z pierwszego kompletnego procesu biznesowego.
+
+\subsubsection*{Czego udało się nauczyć}
+\begin{itemize}
+\item Zespół przećwiczył bezpieczne przechowywanie haseł.
+\item Warto wcześniej ustalać reguły walidacji danych klienta.
+\item Kontrakty API powinny być synchronizowane z formularzami frontendu.
+\end{itemize}
+\subsubsection*{Wnioski i działania na kolejny sprint}
+\begin{itemize}
+\item Przygotować wspólną listę reguł walidacyjnych dla danych klienta.
+\item Dodawać przykłady request/response do Bruno przy każdym nowym endpoincie.
+\item Utrzymać testy negatywne dla procesów logowania i rejestracji.
+\end{itemize}
+
+\subsection*{Następny sprint}
+Product Owner / Scrum Master w następnym sprincie: Jeremiasz Kubryn
+
+Główny cel następnego sprintu: Logowanie, JWT i ochrona API. Zapewnienie mechanizmu uwierzytelniania oraz zabezpieczenie operacji klienta przed dostępem anonimowym.
+
+\end{document}
