@@ -1,0 +1,750 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Backlog produktu Calisia po zakończeniu Sprintu 3}
+
+\subsection*{Założenia}
+
+Calisia to aplikacja bankowości internetowej dla klientów indywidualnych. Backlog został przygotowany na podstawie istniejącego kodu: backendu .NET z warstwami Api, Application, Domain, Infrastructure, Contracts i ReadModel, wzorca CQRS, osobnych baz CalisiaWriteDb i CalisiaReadDb, projekcji dashboardu, frontendu React/Vite oraz kolekcji Bruno.
+
+Estymacja używa ciągu Fibonacciego w zakresie 0-13 SP: 0, 1, 2, 3, 5, 8, 13.
+
+Uwaga techniczna: w części kodu widoczne są nazwy przestrzeni \texttt{Fortuna}, natomiast dokumentacja i nazwa produktu używają marki Calisia.
+
+\subsection*{Część 1 - lista epików}
+
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}L{0.10\textwidth}L{0.27\textwidth}L{0.57\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{ID} & \textbf{Epik} & \textbf{Opis wartości biznesowej} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{ID} & \textbf{Epik} & \textbf{Opis wartości biznesowej} \\
+\midrule
+\endhead
+E01 & Fundamenty techniczne aplikacji & Przygotowanie rozwiązania backendowego, frontendu, baz danych, konfiguracji, dokumentacji i narzędzi developerskich. \\
+E02 & Rejestracja i tożsamość klienta & Klient może utworzyć profil, a system bezpiecznie zapisuje dane i hasło. \\
+E03 & Logowanie, sesja i bezpieczeństwo API & Klient loguje się do bankowości, a chronione operacje wymagają poprawnego tokenu JWT. \\
+E04 & Produkty i rachunki bankowe & Klient może otworzyć rachunek lub dodać produkt finansowy, który staje się widoczny w systemie. \\
+E05 & Operacje finansowe i przelewy & Klient może zasilać konto, wypłacać środki oraz wykonywać przelewy własne i zewnętrzne. \\
+E06 & Dashboard i model odczytowy & Klient widzi saldo, produkty i najnowsze zdarzenia na szybkim dashboardzie opartym o model odczytowy. \\
+E07 & Stabilizacja, testy i odbiór produktu & Produkt jest sprawdzony testami automatycznymi, manualnie w UI i przez Bruno, a dokumentacja pozwala go uruchomić i zaprezentować. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Część 2 - podział na 7 sprintów}
+
+\subsection*{Rejestr historyjek produktu}
+
+Statusy historyjek mogą przyjmować wartości: \texttt{to do}, \texttt{in progress}, \texttt{done}.
+
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}L{0.08\textwidth}L{0.12\textwidth}L{0.10\textwidth}L{0.42\textwidth}C{0.06\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{ID} & \textbf{Sprint} & \textbf{Epik} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{ID} & \textbf{Sprint} & \textbf{Epik} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S1-01 & Sprint 1 & E01 & Struktura rozwiązania backendowego & 8 & done \\
+S1-02 & Sprint 1 & E01 & CQRS, obsługa wyjątków i kontrakty API & 8 & done \\
+S1-03 & Sprint 1 & E01 & Frontend React/Vite i podstawowa nawigacja & 5 & done \\
+S1-04 & Sprint 1 & E01 & Bazy danych write/read & 5 & done \\
+S2-01 & Sprint 2 & E02 & Rejestracja profilu klienta & 8 & done \\
+S2-02 & Sprint 2 & E02 & Walidacja danych rejestracyjnych & 5 & done \\
+S2-03 & Sprint 2 & E02 & Bezpieczne hashowanie haseł & 5 & done \\
+S2-04 & Sprint 2 & E02 & Kontrakt rejestracji i dokumentacja requestu & 3 & done \\
+S3-01 & Sprint 3 & E03 & Logowanie klienta & 8 & done \\
+S3-02 & Sprint 3 & E03 & Token JWT i dane sesji & 8 & done \\
+S3-03 & Sprint 3 & E03 & Autoryzacja chronionych endpointów & 5 & done \\
+S3-04 & Sprint 3 & E03 & Spójna obsługa błędów logowania & 3 & done \\
+S4-01 & Sprint 4 & E04 & Otwarcie rachunku bankowego & 8 & to do \\
+S4-02 & Sprint 4 & E04 & Dodawanie produktu finansowego & 8 & to do \\
+S4-03 & Sprint 4 & E05 & Wypłata środków z rachunku & 8 & to do \\
+S4-04 & Sprint 4 & E05 & Wpłata przychodząca i blokada niedozwolonego salda & 8 & to do \\
+S5-01 & Sprint 5 & E06 & Endpoint dashboardu klienta & 8 & to do \\
+S5-02 & Sprint 5 & E06 & Kafelki produktów i saldo łączne w UI & 5 & to do \\
+S5-03 & Sprint 5 & E06 & Projekcje zdarzeń domenowych do read modelu & 13 & to do \\
+S5-04 & Sprint 5 & E06 & Oś czasu zdarzeń w dashboardzie & 5 & to do \\
+S6-01 & Sprint 6 & E05 & Przelew własny między rachunkami klienta & 13 & to do \\
+S6-02 & Sprint 6 & E05 & Przelew zewnętrzny & 13 & to do \\
+S6-03 & Sprint 6 & E05, E06 & Panel przelewów i szybka aktualizacja dashboardu & 8 & to do \\
+S6-04 & Sprint 6 & E05 & Walidacje i scenariusze negatywne przelewów & 8 & to do \\
+S7-01 & Sprint 7 & E07 & Pełny przepływ klienta w UI & 8 & to do \\
+S7-02 & Sprint 7 & E07 & Responsywność i spójność wizualna & 5 & to do \\
+S7-03 & Sprint 7 & E07 & Rozszerzenie testów automatycznych backendu & 13 & to do \\
+S7-04 & Sprint 7 & E07 & Kolekcja Bruno i testy manualne API & 5 & to do \\
+S7-05 & Sprint 7 & E07 & Build, dokumentacja i scenariusz prezentacji & 5 & to do \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Sprint 1 - fundamenty architektury i środowiska}
+
+Cel sprintu: przygotować techniczny szkielet aplikacji, aby zespół mógł rozwijać backend, frontend, bazy danych i testy w jednym spójnym projekcie.
+
+\subsubsection*{S1-01 - Struktura rozwiązania backendowego}
+
+Jako zespół chcemy mieć warstwową solucję backendową, aby oddzielić API, logikę aplikacyjną, domenę, infrastrukturę, kontrakty i model odczytowy.
+
+Epik: E01
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: utworzyć projekty \texttt{Calisia.Api}, \texttt{Calisia.Application}, \texttt{Calisia.Domain}, \texttt{Calisia.Infrastructure}, \texttt{Calisia.Contracts}, \texttt{Calisia.ReadModel}.
+\item Backend: dodać referencje między projektami zgodnie z kierunkiem zależności warstw.
+\item Backend: skonfigurować dependency injection dla Application, Infrastructure i ReadModel.
+\item Backend: dodać endpoint \texttt{/api/health} do podstawowego sprawdzania działania API.
+\item Testy integracyjne: przygotować bazowy projekt \texttt{Calisia.IntegrationTests} oraz test endpointu health.
+\item Testy manualne backend/Bruno: dodać lub opisać request sprawdzający health API.
+\end{itemize}
+
+\subsubsection*{S1-02 - CQRS, obsługa wyjątków i kontrakty API}
+
+Jako developer chcę mieć spójny sposób obsługi komend, zapytań i błędów, aby nowe funkcje powstawały według jednego wzorca.
+
+Epik: E01
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: przygotować interfejsy \texttt{ICommand}, \texttt{ICommandHandler}, \texttt{IQuery}, \texttt{IQueryHandler}.
+\item Backend: dodać middleware obsługi wyjątków i mapowanie błędów domenowych, walidacyjnych, not found oraz unauthorized.
+\item Backend: zdefiniować pierwsze kontrakty request/response w projekcie \texttt{Calisia.Contracts}.
+\item Backend: skonfigurować OpenAPI/Swagger dla endpointów.
+\item Testy jednostkowe: pokryć podstawowe zachowanie dispatcherów lub handlerów bez zależności infrastrukturalnych.
+\item Testy manualne backend/Bruno: sprawdzić odpowiedzi błędów dla niepoprawnych requestów.
+\end{itemize}
+
+\subsubsection*{S1-03 - Frontend React/Vite i podstawowa nawigacja}
+
+Jako klient chcę wejść na stronę startową i przechodzić do logowania lub tworzenia konta, aby rozpocząć pracę z aplikacją.
+
+Epik: E01
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Frontend: skonfigurować projekt React/Vite, TypeScript, routing i podstawowe layouty publiczne oraz dashboardowe.
+\item Frontend: przygotować strony \texttt{LandingPage}, \texttt{LoginPage}, \texttt{CreateAccountPage}, \texttt{DashboardPage}.
+\item Frontend: dodać globalne style, reset CSS i współdzielone komponenty \texttt{Button}, \texttt{Input}, \texttt{InfoPopup}.
+\item Frontend: skonfigurować klienta API z bazowym adresem backendu.
+\item Testy manualne frontend: sprawdzić przejścia między ścieżkami \texttt{/}, \texttt{/login}, \texttt{/create-account}, \texttt{/dashboard}.
+\item Testy techniczne: uruchomić \texttt{npm run lint} i \texttt{npm run build}.
+\end{itemize}
+
+\subsubsection*{S1-04 - Bazy danych write/read}
+
+Jako zespół chcemy mieć osobne bazy operacyjne i odczytowe, aby oddzielić zapis transakcji od prezentacji dashboardu.
+
+Epik: E01
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Baza danych: przygotować skrypt \texttt{CalisiaWriteDb.sql} dla tabel klientów, produktów, rachunków, transakcji, przelewów i outboxa.
+\item Baza danych: przygotować skrypt \texttt{CalisiaReadDb.sql} dla kafelków produktów, osi czasu i przetworzonych wiadomości.
+\item Backend: skonfigurować \texttt{WriteDbContext} oraz \texttt{ReadDbContext}.
+\item Backend: dodać konfiguracje EF Core dla encji domenowych i modeli odczytowych.
+\item Testy integracyjne: zweryfikować połączenie z kontekstem testowym.
+\item Dokumentacja: opisać uruchomienie skryptów baz danych w README.
+\end{itemize}
+
+Suma sprintu: 26 SP
+
+\subsection*{Sprint 2 - rejestracja klienta}
+
+Cel sprintu: umożliwić klientowi założenie profilu oraz bezpieczne zapisanie danych logowania.
+
+\subsubsection*{S2-01 - Rejestracja profilu klienta}
+
+Jako klient chcę zarejestrować profil, podając imię, nazwisko, e-mail, hasło i typ klienta, aby rozpocząć korzystanie z bankowości.
+
+Epik: E02
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: zaimplementować encje i value objecty klienta, w tym \texttt{Customer}, \texttt{CustomerId}, \texttt{FullName}, \texttt{Email}, \texttt{CustomerType}.
+\item Backend: dodać \texttt{RegisterCustomerCommand}, handler oraz repozytorium klienta.
+\item Backend: udostępnić endpoint \texttt{POST /api/customers}.
+\item Baza danych: dodać mapowanie i tabelę klienta z unikalnym adresem e-mail.
+\item Frontend: przygotować formularz tworzenia konta i wysłanie danych do API.
+\item Testy jednostkowe: pokryć poprawną rejestrację i podstawowe reguły domenowe klienta.
+\item Testy integracyjne: sprawdzić rejestrację przez API.
+\item Testy manualne frontend/Bruno: wykonać rejestrację z UI i request \texttt{register-customer.bru}.
+\end{itemize}
+
+\subsubsection*{S2-02 - Walidacja danych rejestracyjnych}
+
+Jako system chcę odrzucać niepoprawne dane klienta, aby w bazie znajdowały się tylko poprawne profile.
+
+Epik: E02
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Backend: dodać walidację pustych pól imienia, nazwiska, e-maila i hasła.
+\item Backend: dodać walidację formatu e-maila i obsługę zduplikowanego adresu.
+\item Backend: zwracać czytelne błędy przez middleware wyjątków.
+\item Frontend: wyświetlać komunikaty walidacyjne przy formularzu rejestracji.
+\item Testy jednostkowe: dodać przypadki niepoprawnego e-maila, pustego hasła i duplikatu.
+\item Testy integracyjne: sprawdzić statusy odpowiedzi API dla błędnych danych.
+\item Testy manualne frontend/Bruno: wykonać negatywne scenariusze rejestracji.
+\end{itemize}
+
+\subsubsection*{S2-03 - Bezpieczne hashowanie haseł}
+
+Jako system chcę hashować hasła PBKDF2, aby nie przechowywać haseł w postaci jawnej.
+
+Epik: E02
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Backend: przygotować interfejs \texttt{IPasswordHasher}.
+\item Backend: zaimplementować \texttt{Pbkdf2PasswordHasher}.
+\item Backend: zintegrować hasher z handlerem rejestracji.
+\item Baza danych: zapisać hash hasła w danych klienta.
+\item Testy jednostkowe: sprawdzić poprawną weryfikację hasła i odrzucenie błędnego hasła.
+\item Testy manualne backend/Bruno: potwierdzić, że rejestracja działa po zmianie mechanizmu hashowania.
+\end{itemize}
+
+\subsubsection*{S2-04 - Kontrakt rejestracji i dokumentacja requestu}
+
+Jako integrator chcę mieć stabilny kontrakt rejestracji, aby frontend i Bruno używały tego samego formatu danych.
+
+Epik: E02
+Story points: 3
+
+Zadania:
+
+\begin{itemize}
+\item Backend: doprecyzować \texttt{RegisterCustomerRequest} i \texttt{RegisterCustomerResponse}.
+\item Backend: zapewnić zwrot identyfikatora klienta po poprawnej rejestracji.
+\item Frontend: dostosować typy TypeScript do kontraktu API.
+\item Bruno: uzupełnić request rejestracji przykładowymi danymi.
+\item Testy integracyjne: sprawdzić strukturę odpowiedzi API.
+\item Dokumentacja: opisać minimalny payload rejestracji.
+\end{itemize}
+
+Suma sprintu: 21 SP
+
+\subsection*{Sprint 3 - logowanie, sesja i ochrona API}
+
+Cel sprintu: zapewnić mechanizm uwierzytelniania oraz zabezpieczyć operacje klienta przed dostępem anonimowym.
+
+\subsubsection*{S3-01 - Logowanie klienta}
+
+Jako klient chcę zalogować się e-mailem i hasłem, aby uzyskać dostęp do bankowości internetowej.
+
+Epik: E03
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: dodać \texttt{LoginCustomerCommand} i handler logowania.
+\item Backend: porównać hasło z hashem zapisanym przy rejestracji.
+\item Backend: udostępnić endpoint \texttt{POST /api/customers/login}.
+\item Frontend: przygotować formularz logowania z obsługą stanu ładowania i błędów.
+\item Frontend: po poprawnym logowaniu przekierować klienta do dashboardu.
+\item Testy jednostkowe: pokryć poprawne logowanie i błędne hasło.
+\item Testy integracyjne: sprawdzić logowanie przez API.
+\item Testy manualne frontend/Bruno: wykonać request \texttt{login-customer.bru} i logowanie w UI.
+\end{itemize}
+
+\subsubsection*{S3-02 - Token JWT i dane sesji}
+
+Jako system chcę generować token JWT z identyfikatorem klienta, aby frontend mógł wykonywać autoryzowane zapytania.
+
+Epik: E03
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: przygotować \texttt{ITokenProvider} oraz \texttt{JwtTokenProvider}.
+\item Backend: dodać konfigurację issuer, audience, signing key i czasu życia tokenu.
+\item Backend: umieścić w tokenie claim identyfikatora klienta.
+\item Frontend: zapisać token i dane klienta w stanie aplikacji lub sesji.
+\item Frontend: dołączać nagłówek \texttt{Authorization: Bearer} w autoryzowanych requestach.
+\item Testy jednostkowe: sprawdzić generowanie tokenu i claimy.
+\item Testy integracyjne: sprawdzić dostęp z poprawnym tokenem.
+\item Testy manualne backend/Bruno: skopiować token z logowania do chronionych requestów.
+\end{itemize}
+
+\subsubsection*{S3-03 - Autoryzacja chronionych endpointów}
+
+Jako klient chcę, aby moje rachunki, produkty, dashboard i przelewy były dostępne tylko po zalogowaniu.
+
+Epik: E03
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Backend: oznaczyć endpointy rachunków, produktów, przelewów i dashboardu atrybutem \texttt{Authorize}.
+\item Backend: dodać helper pobierający wymagany \texttt{CustomerId} z claims.
+\item Backend: zwrócić \texttt{Forbid} przy próbie pobrania dashboardu innego klienta.
+\item Frontend: obsłużyć brak sesji i przekierowanie do logowania.
+\item Testy integracyjne: dodać scenariusze 401 i 403.
+\item Testy manualne backend/Bruno: uruchomić requesty bez tokenu i z tokenem innego klienta.
+\end{itemize}
+
+\subsubsection*{S3-04 - Spójna obsługa błędów logowania}
+
+Jako klient chcę widzieć zrozumiały komunikat przy nieudanym logowaniu, aby poprawić dane i spróbować ponownie.
+
+Epik: E03
+Story points: 3
+
+Zadania:
+
+\begin{itemize}
+\item Backend: ujednolicić odpowiedź dla błędnego e-maila i hasła.
+\item Frontend: dodać komunikat błędu w panelu logowania.
+\item Frontend: zablokować wielokrotne kliknięcie przy trwającym requestcie.
+\item Testy jednostkowe: pokryć przypadek nieistniejącego klienta.
+\item Testy manualne frontend: sprawdzić błędny login, błędne hasło i poprawne logowanie.
+\item Bruno: dodać negatywny wariant requestu logowania lub opis scenariusza.
+\end{itemize}
+
+Suma sprintu: 24 SP
+
+\subsection*{Sprint 4 - rachunki, produkty i podstawowe operacje pieniężne}
+
+Cel sprintu: udostępnić klientowi rachunki i produkty finansowe oraz operacje zmieniające saldo.
+
+\subsubsection*{S4-01 - Otwarcie rachunku bankowego}
+
+Jako klient chcę otworzyć rachunek bankowy z nazwą, numerem, walutą i typem konta, aby mieć produkt do operacji finansowych.
+
+Epik: E04
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: zaimplementować domenę rachunku, w tym \texttt{BankAccount}, \texttt{AccountNumber}, \texttt{BankAccountType}, \texttt{Money}.
+\item Backend: dodać \texttt{OpenBankAccountCommand} i handler.
+\item Backend: udostępnić endpoint \texttt{POST /api/accounts}.
+\item Baza danych: przygotować mapowanie rachunku i transakcji.
+\item Frontend: dodać formularz otwarcia rachunku w widoku tworzenia konta lub dashboardu.
+\item Testy jednostkowe: sprawdzić otwarcie rachunku i walidację wymaganych pól.
+\item Testy integracyjne: sprawdzić endpoint otwarcia rachunku.
+\item Testy manualne frontend/Bruno: wykonać request \texttt{open-account.bru} i otwarcie rachunku z UI.
+\end{itemize}
+
+\subsubsection*{S4-02 - Dodawanie produktu finansowego}
+
+Jako klient chcę dodać produkt finansowy, aby widzieć go później na dashboardzie.
+
+Epik: E04
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: zaimplementować \texttt{AddProductCommand}, handler i generator numeru produktu.
+\item Backend: udostępnić endpoint \texttt{POST /api/products}.
+\item Baza danych: dodać mapowanie produktu, kategorii, statusu, limitu i salda początkowego.
+\item Frontend: przygotować modal \texttt{CreateProductModal} z wyborem kategorii, typu, waluty i salda.
+\item Frontend: po dodaniu produktu odświeżyć dane dashboardu.
+\item Testy jednostkowe: pokryć generowanie numeru produktu i poprawne dodanie produktu.
+\item Testy integracyjne: sprawdzić endpoint dodawania produktu.
+\item Testy manualne frontend/Bruno: wykonać request \texttt{add-product.bru} i dodanie produktu z dashboardu.
+\end{itemize}
+
+\subsubsection*{S4-03 - Wypłata środków z rachunku}
+
+Jako klient chcę wypłacić środki z rachunku, aby wykonać obciążenie konta.
+
+Epik: E05
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: dodać \texttt{WithdrawMoneyCommand} i handler.
+\item Backend: w domenie rachunku zmniejszyć saldo i zapisać wpis transakcyjny typu debit.
+\item Backend: udostępnić endpoint \texttt{POST /api/accounts/\{accountId\}/withdraw}.
+\item Baza danych: utrwalić wpis transakcyjny oraz aktualne saldo.
+\item Frontend: przygotować akcję lub formularz wypłaty środków, jeśli ma być dostępna z UI.
+\item Testy jednostkowe: sprawdzić poprawną wypłatę i zapis zdarzenia domenowego.
+\item Testy integracyjne: sprawdzić wypłatę przez API.
+\item Testy manualne backend/Bruno: wykonać request \texttt{withdraw-money.bru}.
+\end{itemize}
+
+\subsubsection*{S4-04 - Wpłata przychodząca i blokada niedozwolonego salda}
+
+Jako system chcę obsłużyć wpływ przychodzący oraz zablokować wypłatę ponad saldo, aby zachować poprawność operacji finansowych.
+
+Epik: E05
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: dodać \texttt{DepositMoneyCommand} i handler.
+\item Backend: udostępnić endpoint \texttt{POST /api/transfers/incoming} do symulacji przelewu przychodzącego.
+\item Backend: w domenie rachunku zablokować wypłatę, gdy saldo jest niewystarczające.
+\item Baza danych: zapisać credit/debit w transakcjach.
+\item Testy jednostkowe: pokryć wpłatę, kwotę ujemną i niewystarczające środki.
+\item Testy integracyjne: sprawdzić wpływ przychodzący i odmowę wypłaty ponad saldo.
+\item Testy manualne backend/Bruno: wykonać request \texttt{simulate-incoming-transfer.bru} oraz negatywny withdraw.
+\end{itemize}
+
+Suma sprintu: 32 SP
+
+\subsection*{Sprint 5 - dashboard i model odczytowy}
+
+Cel sprintu: pokazać klientowi aktualny stan produktów, saldo łączne i ostatnie zdarzenia w panelu bankowości.
+
+\subsubsection*{S5-01 - Endpoint dashboardu klienta}
+
+Jako klient chcę pobrać dashboard po zalogowaniu, aby szybko sprawdzić stan swoich finansów.
+
+Epik: E06
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: dodać \texttt{GetDashboardQuery} i handler.
+\item Backend: udostępnić endpoint \texttt{GET /api/dashboard/\{customerId\}}.
+\item Backend: zabezpieczyć endpoint przed pobraniem danych innego klienta.
+\item Read model: przygotować \texttt{DashboardReadRepository}.
+\item Frontend: dodać hook \texttt{useDashboard} i klienta API dashboardu.
+\item Testy jednostkowe: pokryć handler pobierania dashboardu.
+\item Testy integracyjne: sprawdzić endpoint dashboardu z poprawnym i błędnym klientem.
+\item Testy manualne backend/Bruno: wykonać request \texttt{get-dashboard.bru}.
+\end{itemize}
+
+\subsubsection*{S5-02 - Kafelki produktów i saldo łączne w UI}
+
+Jako klient chcę widzieć kafelki produktów oraz łączne saldo, aby rozpoznać swoje rachunki i ogólny stan środków.
+
+Epik: E06
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Frontend: przygotować \texttt{SummarySection} z łącznym saldem i walutą.
+\item Frontend: przygotować \texttt{ProductsSection} z listą produktów, typem, nazwą, numerem i saldem.
+\item Frontend: dodać stany ładowania, pustej listy i błędu.
+\item Backend: upewnić się, że \texttt{DashboardResponse} zawiera pola wymagane przez UI.
+\item Testy manualne frontend: sprawdzić dashboard dla klienta bez produktów i z wieloma produktami.
+\item Testy integracyjne: sprawdzić strukturę listy produktów w odpowiedzi dashboardu.
+\end{itemize}
+
+\subsubsection*{S5-03 - Projekcje zdarzeń domenowych do read modelu}
+
+Jako system chcę aktualizować model odczytowy na podstawie zdarzeń domenowych, aby dashboard był szybki i niezależny od modelu zapisu.
+
+Epik: E06
+Story points: 13
+
+Zadania:
+
+\begin{itemize}
+\item Backend: dodać zdarzenia domenowe dla utworzenia produktu, wpłaty, wypłaty i przelewu.
+\item Infrastructure: zapisywać zdarzenia w outboxie przy \texttt{UnitOfWork}.
+\item Read model: zaimplementować dispatcher projekcji.
+\item Read model: aktualizować \texttt{ProductTileReadModel} i \texttt{TimelineEventReadModel}.
+\item Baza danych: przygotować tabelę przetworzonych wiadomości, aby nie dublować projekcji.
+\item Testy jednostkowe: pokryć \texttt{ProjectionDispatcher} i repozytorium odczytowe.
+\item Testy integracyjne: sprawdzić, że operacja finansowa pojawia się na dashboardzie.
+\item Testy manualne backend/Bruno: wykonać sekwencję open-account, incoming-transfer, get-dashboard.
+\end{itemize}
+
+\subsubsection*{S5-04 - Oś czasu zdarzeń w dashboardzie}
+
+Jako klient chcę widzieć najnowsze zdarzenia na osi czasu, aby śledzić operacje na produktach.
+
+Epik: E06
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Read model: zwracać zdarzenia z datą, tytułem, kwotą, walutą i oznaczeniem wpływu/obciążenia.
+\item Frontend: przygotować \texttt{EventsSidebar} z listą zdarzeń.
+\item Frontend: odróżnić wizualnie zdarzenia dodatnie i ujemne.
+\item Frontend: obsłużyć pustą oś czasu.
+\item Testy manualne frontend: sprawdzić widoczność zdarzeń po wpłacie i wypłacie.
+\item Testy integracyjne: sprawdzić sortowanie i kompletność zdarzeń dashboardu.
+\end{itemize}
+
+Suma sprintu: 31 SP
+
+\subsection*{Sprint 6 - przelewy własne i zewnętrzne}
+
+Cel sprintu: pozwolić klientowi wykonywać przelewy oraz odzwierciedlać je w saldach i historii.
+
+\subsubsection*{S6-01 - Przelew własny między rachunkami klienta}
+
+Jako klient chcę wykonać przelew własny między moimi rachunkami, aby przenosić środki wewnątrz bankowości.
+
+Epik: E05
+Story points: 13
+
+Zadania:
+
+\begin{itemize}
+\item Backend: zaimplementować \texttt{Transfer} typu \texttt{Own} oraz \texttt{CreateTransferCommand}.
+\item Backend: pobrać rachunek źródłowy i docelowy oraz sprawdzić, czy należą do klienta.
+\item Backend: obciążyć rachunek źródłowy i zasilić rachunek docelowy.
+\item Backend: oznaczyć transfer jako completed po poprawnym wykonaniu operacji.
+\item Baza danych: zapisać transfer i powiązane transakcje.
+\item Frontend: w panelu przelewu umożliwić wybór rachunku źródłowego i docelowego.
+\item Testy jednostkowe: pokryć poprawny przelew własny i brak środków.
+\item Testy integracyjne: sprawdzić pełny przepływ przelewu własnego przez API i dashboard.
+\item Testy manualne frontend/Bruno: wykonać przelew własny z UI i request \texttt{create-transfer.bru}.
+\end{itemize}
+
+\subsubsection*{S6-02 - Przelew zewnętrzny}
+
+Jako klient chcę wykonać przelew zewnętrzny na numer rachunku odbiorcy, aby zapłacić osobie lub firmie spoza moich produktów.
+
+Epik: E05
+Story points: 13
+
+Zadania:
+
+\begin{itemize}
+\item Backend: zaimplementować \texttt{Transfer} typu \texttt{External}.
+\item Backend: walidować numer rachunku odbiorcy, nazwę odbiorcy, tytuł, kwotę i walutę.
+\item Backend: obciążyć rachunek źródłowy i zapisać dane odbiorcy zewnętrznego.
+\item Baza danych: utrwalić external target account number i recipient name.
+\item Frontend: dodać wariant formularza dla przelewu zewnętrznego.
+\item Frontend: pokazać sukces lub błąd po wysłaniu przelewu.
+\item Testy jednostkowe: pokryć poprawny przelew zewnętrzny i błędne dane odbiorcy.
+\item Testy integracyjne: sprawdzić endpoint \texttt{POST /api/transfers}.
+\item Testy manualne frontend/Bruno: wykonać przelew zewnętrzny w UI i Bruno.
+\end{itemize}
+
+\subsubsection*{S6-03 - Panel przelewów i szybka aktualizacja dashboardu}
+
+Jako klient chcę po przelewie od razu zobaczyć aktualne saldo i nowe zdarzenie, aby mieć pewność, że operacja została wykonana.
+
+Epik: E05, E06
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Frontend: przygotować \texttt{TransferPanel} z wyborem typu przelewu.
+\item Frontend: podłączyć \texttt{transferApi} do endpointu przelewów.
+\item Frontend: po sukcesie odświeżyć dane dashboardu lub wykonać lokalną aktualizację widoku.
+\item Frontend: wyczyścić formularz po poprawnym przelewie.
+\item Read model: upewnić się, że przelew generuje zdarzenie na osi czasu.
+\item Testy manualne frontend: sprawdzić zmianę salda bez ręcznego odświeżania strony.
+\item Testy integracyjne: sprawdzić, że po przelewie dashboard zwraca nowe saldo i event.
+\end{itemize}
+
+\subsubsection*{S6-04 - Walidacje i scenariusze negatywne przelewów}
+
+Jako system chcę odrzucać niepoprawne przelewy, aby nie dopuścić do utraty spójności danych finansowych.
+
+Epik: E05
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Backend: zablokować kwotę mniejszą lub równą zero.
+\item Backend: zablokować przelew z rachunku nienależącego do klienta.
+\item Backend: zablokować przelew przy braku środków.
+\item Backend: zablokować brak wymaganych pól dla przelewu zewnętrznego.
+\item Frontend: pokazywać błędy walidacyjne przy formularzu przelewu.
+\item Testy jednostkowe: pokryć najważniejsze przypadki negatywne.
+\item Testy integracyjne: sprawdzić statusy błędów API.
+\item Testy manualne backend/Bruno: przygotować negatywne warianty requestu \texttt{create-transfer.bru}.
+\end{itemize}
+
+Suma sprintu: 42 SP
+
+\subsection*{Sprint 7 - stabilizacja, testy i oddanie produktu}
+
+Cel sprintu: dopracować cały przepływ klienta, usunąć niespójności i przygotować produkt do prezentacji lub odbioru.
+
+\subsubsection*{S7-01 - Pełny przepływ klienta w UI}
+
+Jako klient chcę przejść od strony startowej przez rejestrację lub logowanie do dashboardu, aby korzystać z aplikacji bez narzędzi developerskich.
+
+Epik: E07
+Story points: 8
+
+Zadania:
+
+\begin{itemize}
+\item Frontend: sprawdzić i poprawić ścieżki landing, create account, login i dashboard.
+\item Frontend: ujednolicić komunikaty sukcesu i błędu w formularzach.
+\item Frontend: zapewnić czytelne stany ładowania dla rejestracji, logowania, dashboardu i przelewów.
+\item Backend: sprawdzić zgodność kontraktów API z typami TypeScript.
+\item Testy manualne frontend: przejść scenariusz end-to-end z nowym klientem.
+\item Testy manualne backend/Bruno: wykonać analogiczny scenariusz przez kolekcję Bruno.
+\end{itemize}
+
+\subsubsection*{S7-02 - Responsywność i spójność wizualna}
+
+Jako klient chcę korzystać z aplikacji na komputerze i mniejszych ekranach, aby bankowość była wygodna w różnych warunkach.
+
+Epik: E07
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Frontend: sprawdzić layout publiczny i dashboardowy na szerokościach desktop/tablet/mobile.
+\item Frontend: poprawić odstępy, zawijanie tekstu i skalowanie sekcji produktów.
+\item Frontend: ujednolicić wygląd przycisków, pól i modali.
+\item Frontend: upewnić się, że błędy formularzy nie rozpychają układu.
+\item Testy manualne frontend: wykonać checklistę responsywności w przeglądarce.
+\item Dokumentacja: dopisać minimalne wymagania uruchomienia frontendu.
+\end{itemize}
+
+\subsubsection*{S7-03 - Rozszerzenie testów automatycznych backendu}
+
+Jako zespół chcemy mieć testy najważniejszych flow, aby ograniczyć ryzyko regresji przed prezentacją produktu.
+
+Epik: E07
+Story points: 13
+
+Zadania:
+
+\begin{itemize}
+\item Testy jednostkowe: uzupełnić testy rejestracji, logowania, rachunków, produktów, przelewów i dashboardu.
+\item Testy jednostkowe: pokryć \texttt{Money}, hasher, token provider i dispatcher projekcji.
+\item Testy integracyjne: dodać flow rejestracja -> logowanie -> rachunek -> dashboard.
+\item Testy integracyjne: dodać flow rachunek -> wpływ -> wypłata -> dashboard.
+\item Testy integracyjne: dodać flow rachunki -> przelew -> dashboard.
+\item Backend: poprawić wykryte niespójności w obsłudze wyjątków i statusów HTTP.
+\item CI/manual: uruchomić \texttt{dotnet test} dla całego backendu.
+\end{itemize}
+
+\subsubsection*{S7-04 - Kolekcja Bruno i testy manualne API}
+
+Jako tester chcę mieć komplet requestów Bruno, aby ręcznie sprawdzić backend bez uruchamiania frontendu.
+
+Epik: E07
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Bruno: uporządkować foldery Customers, Accounts, Products, Transfers i Dashboard.
+\item Bruno: dodać przykładowe dane do rejestracji, logowania, produktu, rachunku, wpływu, wypłaty, przelewu i dashboardu.
+\item Bruno: opisać kolejność uruchamiania requestów w scenariuszu testowym.
+\item Backend: upewnić się, że endpoint \texttt{incoming} działa zgodnie z nazwą i kontraktem.
+\item Testy manualne backend/Bruno: wykonać pozytywną ścieżkę end-to-end.
+\item Testy manualne backend/Bruno: wykonać negatywne scenariusze bez tokenu, z błędną kwotą i brakiem środków.
+\end{itemize}
+
+\subsubsection*{S7-05 - Build, dokumentacja i scenariusz prezentacji}
+
+Jako zespół chcemy mieć sprawdzony build, aktualną dokumentację i scenariusz demo, aby oddać produkt w uporządkowany sposób.
+
+Epik: E07
+Story points: 5
+
+Zadania:
+
+\begin{itemize}
+\item Frontend: uruchomić \texttt{npm run lint} i \texttt{npm run build}.
+\item Backend: uruchomić \texttt{dotnet test} i sprawdzić start API.
+\item Baza danych: zweryfikować, że skrypty tworzą bazy od zera.
+\item Dokumentacja: zaktualizować README o kolejność uruchomienia bazy, backendu, frontendu i Bruno.
+\item Dokumentacja: przygotować scenariusz prezentacji: rejestracja, logowanie, rachunek, wpływ, przelew, dashboard.
+\item Testy manualne pełne: przejść scenariusz demo od czystych danych.
+\end{itemize}
+
+Suma sprintu: 36 SP
+
+\subsection*{Podsumowanie}
+
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}L{0.18\textwidth}L{0.65\textwidth}C{0.08\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Sprint} & \textbf{Zakres} & \textbf{SP} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Sprint} & \textbf{Zakres} & \textbf{SP} \\
+\midrule
+\endhead
+Sprint 1 & Fundamenty architektury i środowiska & 26 \\
+Sprint 2 & Rejestracja klienta & 21 \\
+Sprint 3 & Logowanie, sesja i ochrona API & 24 \\
+Sprint 4 & Rachunki, produkty i podstawowe operacje pieniężne & 32 \\
+Sprint 5 & Dashboard i model odczytowy & 31 \\
+Sprint 6 & Przelewy własne i zewnętrzne & 42 \\
+Sprint 7 & Stabilizacja, testy i oddanie produktu & 36 \\
+\textbf{Razem} &  & \textbf{212} \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Uwagi do realizacji}
+
+\begin{itemize}
+\item Backlog odzwierciedla funkcje widoczne w repozytorium: klientów, logowanie JWT, rachunki, produkty, przelewy, wpływ przychodzący, dashboard, outbox/projekcje, frontend React oraz Bruno.
+\item Największe historyjki mają 13 SP, ponieważ obejmują jednocześnie reguły domenowe, persystencję, API, frontend, projekcje i testy.
+\item Zadania testowe są wpisane w każdą historyjkę, aby testy jednostkowe, integracyjne oraz manualne nie były odkładane na koniec projektu.
+\item W kolejnych iteracjach warto rozważyć osobne epiki dla administracji, historii operacji z paginacją, przelewów cyklicznych, kart płatniczych i pożyczek, ponieważ w domenie istnieją już klasy sugerujące taki kierunek rozwoju.
+\end{itemize}
+
+
+
+\end{document}
+

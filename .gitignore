@@ -83,3 +83,6 @@ dist-ssr
 *.sw?
 .codex
 local.bru
+*.aux
+*.synctex.gz
+
