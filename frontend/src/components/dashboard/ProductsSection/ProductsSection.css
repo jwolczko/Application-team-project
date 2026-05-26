@@ -12,28 +12,34 @@
 
 .products-tabs {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 16px;
   flex-wrap: wrap;
 }
 
 .products-tab {
-  padding: 8px 14px;
+  min-height: 38px;
+  padding: 0 16px;
   border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: var(--dashboard-text-sm, 13px);
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
 
-  background: rgba(196, 138, 44, 0.08);
-  color: var(--text);
-  border: 1px solid transparent;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-family: var(--font-sans);
 
-  transition: all var(--transition, 0.25s ease);
+  transition: background var(--transition, 0.25s ease), border-color var(--transition, 0.25s ease), color var(--transition, 0.25s ease), box-shadow var(--transition, 0.25s ease), transform var(--transition, 0.25s ease);
 }
 
 .products-tab:hover {
-  background: rgba(196, 138, 44, 0.14);
+  background: var(--accent-bg);
+  border-color: var(--accent-deep);
   color: var(--accent-deep);
 }
 
@@ -41,13 +47,24 @@
 .products-tab--active {
   background: var(--accent);
   color: #fff;
-  font-weight: 500;
+  border-color: var(--accent);
+  font-weight: 600;
   box-shadow: 0 4px 10px rgba(196, 138, 44, 0.2);
 }
 
 .products-tab--active:hover {
   background: var(--accent-deep);
+  border-color: var(--accent-deep);
   color: #fff;
+  transform: translateY(-1px);
+}
+
+.products-tab--add {
+  width: 38px;
+  padding: 0;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 /* ===== SCROLL CONTAINER ===== */

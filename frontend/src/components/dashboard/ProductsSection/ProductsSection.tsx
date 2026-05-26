@@ -52,40 +52,45 @@ export function ProductsSection({ dashboard, onAddProduct }: ProductsSectionProp
 
         {/*  TABS */}
         <div className="products-tabs">
-          <div
+          <button
+            type="button"
             className={`products-tab ${activeTab === 'all' ? 'products-tab--active' : ''}`}
             onClick={() => setActiveTab('all')}
           >
             Wszystko
-          </div>
+          </button>
 
-          <div
+          <button
+            type="button"
             className={`products-tab ${activeTab === 'accounts' ? 'products-tab--active' : ''}`}
             onClick={() => setActiveTab('accounts')}
           >
             Konta
-          </div>
+          </button>
 
-          <div
+          <button
+            type="button"
             className={`products-tab ${activeTab === 'cards' ? 'products-tab--active' : ''}`}
             onClick={() => setActiveTab('cards')}
           >
             Karty
-          </div>
+          </button>
 
-          <div
+          <button
+            type="button"
             className={`products-tab ${activeTab === 'credits' ? 'products-tab--active' : ''}`}
             onClick={() => setActiveTab('credits')}
           >
             Kredyty
-          </div>
+          </button>
 
-          <div
-            className="products-tab"
+          <button
+            type="button"
+            className="products-tab products-tab--add"
             onClick={onAddProduct}
           >
             +
-          </div>
+          </button>
         </div>
 
         {/* SCROLL CONTAINER */}

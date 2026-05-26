@@ -1,13 +1,11 @@
-import { useNavigate } from 'react-router-dom';
 import './LandingHeader.css';
 
 type LandingHeaderProps = {
   onOpenLogin: () => void;
+  onOpenCreateAccount: () => void;
 };
 
-export function LandingHeader({ onOpenLogin }: LandingHeaderProps) {
-  const navigate = useNavigate();
-
+export function LandingHeader({ onOpenLogin, onOpenCreateAccount }: LandingHeaderProps) {
   return (
     <header className="landing-header">
       <div className="landing-header__inner">
@@ -26,7 +24,7 @@ export function LandingHeader({ onOpenLogin }: LandingHeaderProps) {
 
           <button
             className="landing-header__outline-btn"
-            onClick={() => navigate('/create-account')}
+            onClick={onOpenCreateAccount}
           >
             Załóż konto
           </button>

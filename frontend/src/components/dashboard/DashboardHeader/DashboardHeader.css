@@ -31,17 +31,17 @@
 }
 
 .dashboard-header__amber-dot {
-  width: 14px;
-  height: 14px;
-  background: var(--accent);
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #e0b35a, #c48a2c);
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(196, 138, 44, 0.3); /* Subtelny, elegancki blask */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .dashboard-header__brand {
   font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
   color: var(--text);
   line-height: 1;
 }

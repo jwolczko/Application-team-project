@@ -54,7 +54,7 @@ export function CreateAccountPanel({ onClose, isModal = false }: CreateAccountPa
   return (
     <div className={`create-account-panel${isModal ? ' create-account-panel--modal' : ''}`}>
       <div className="create-account-panel__form">
-        <h1>Załóż konto w Fortuna</h1>
+        <h1>Załóż konto w Calisia</h1>
 
         <label className="create-account-panel__label" htmlFor="firstName">
           Imię
@@ -125,11 +125,11 @@ export function CreateAccountPanel({ onClose, isModal = false }: CreateAccountPa
         <div className="create-account-panel__buttons">
           {onClose ? (
             <button className="create-account-panel__back-btn" type="button" onClick={onClose}>
-              WSTECZ
+              Wstecz
             </button>
           ) : (
             <Link className="create-account-panel__back-btn" to="/">
-              WSTECZ
+              Wstecz
             </Link>
           )}
           <button
@@ -138,7 +138,7 @@ export function CreateAccountPanel({ onClose, isModal = false }: CreateAccountPa
             onClick={handleSubmit}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'TWORZENIE...' : 'ZAŁÓŻ KONTO'}
+            {isSubmitting ? 'Tworzenie...' : 'Załóż konto'}
           </button>
         </div>
       </div>

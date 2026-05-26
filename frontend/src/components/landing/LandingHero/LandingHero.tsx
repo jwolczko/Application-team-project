@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { InfoPopup } from '../../../shared/ui/InfoPopup/InfoPopup';
 import './LandingHero.css';
 
-export function LandingHero() {
+type LandingHeroProps = {
+  onOpenCreateAccount: () => void;
+};
+
+export function LandingHero({ onOpenCreateAccount }: LandingHeroProps) {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
 
   return (
@@ -20,14 +24,14 @@ export function LandingHero() {
             </p>
 
             <div className="landing__hero-actions">
-  <button className="landing__btn landing__btn--secondary">
-    Oferta
-  </button>
+              <button className="landing__btn landing__btn--secondary" onClick={() => setIsInfoPopupOpen(true)}>
+                Oferta
+              </button>
 
-  <button className="landing__btn landing__btn--primary">
-    Otwórz konto
-  </button>
-</div>
+              <button className="landing__btn landing__btn--primary" onClick={onOpenCreateAccount}>
+                Otwórz konto
+              </button>
+            </div>
           </div>
         </div>
 

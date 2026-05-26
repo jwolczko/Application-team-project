@@ -3,7 +3,8 @@
   color: ivory;
 }
 
-.landing-page__login-overlay {
+.landing-page__login-overlay,
+.landing-page__account-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
@@ -14,7 +15,12 @@
   background: rgba(43, 43, 43, 0.46);
 }
 
-.landing-page__login-dialog {
+.landing-page__login-dialog,
+.landing-page__account-dialog {
   position: relative;
   width: min(100%, 400px);
+}
+
+.landing-page__account-dialog {
+  width: min(100%, 420px);
 }

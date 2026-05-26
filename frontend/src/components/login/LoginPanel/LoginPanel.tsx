@@ -81,15 +81,15 @@ export function LoginPanel({ onOpenSupport, onClose, isModal = false }: LoginPan
           <div className="login-panel__buttons">
             {onClose ? (
               <button className="login-panel__back-btn" type="button" onClick={onClose}>
-                WSTECZ
+                Wstecz
               </button>
             ) : (
               <Link className="login-panel__back-btn" to="/">
-                WSTECZ
+                Wstecz
               </Link>
             )}
             <button className="login-panel__submit-btn" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'LOGOWANIE...' : 'ZALOGUJ'}
+              {isSubmitting ? 'Logowanie...' : 'Zaloguj'}
             </button>
           </div>
 

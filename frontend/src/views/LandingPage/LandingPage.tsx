@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { LandingHeader } from '../../components/landing/LandingHeader/LandingHeader';
 import { LandingHero } from '../../components/landing/LandingHero/LandingHero';
+import { CreateAccountPanel } from '../../components/account/CreateAccountPanel/CreateAccountPanel';
 import { LoginPanel } from '../../components/login/LoginPanel/LoginPanel';
 import { LoginSupportModal } from '../../components/login/LoginSupportModal/LoginSupportModal';
 import './LandingPage.css';
@@ -9,12 +10,16 @@ import '../../components/landing/LandingHeader/LandingHeader.css';
 
 export function LandingPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isCreateAccountModalOpen, setIsCreateAccountModalOpen] = useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
 
   return (
     <div className="landing-page">
-      <LandingHeader onOpenLogin={() => setIsLoginModalOpen(true)} />
-      <LandingHero />
+      <LandingHeader
+        onOpenLogin={() => setIsLoginModalOpen(true)}
+        onOpenCreateAccount={() => setIsCreateAccountModalOpen(true)}
+      />
+      <LandingHero onOpenCreateAccount={() => setIsCreateAccountModalOpen(true)} />
 
       {isLoginModalOpen && (
         <div
@@ -29,6 +34,23 @@ export function LandingPage() {
               isModal
               onClose={() => setIsLoginModalOpen(false)}
               onOpenSupport={() => setIsSupportModalOpen(true)}
+            />
+          </div>
+        </div>
+      )}
+
+      {isCreateAccountModalOpen && (
+        <div
+          className="landing-page__account-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Panel zakładania konta"
+          onClick={() => setIsCreateAccountModalOpen(false)}
+        >
+          <div className="landing-page__account-dialog" onClick={(event) => event.stopPropagation()}>
+            <CreateAccountPanel
+              isModal
+              onClose={() => setIsCreateAccountModalOpen(false)}
             />
           </div>
         </div>
