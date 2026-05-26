@@ -12,7 +12,7 @@ export function LandingHeader({ onOpenLogin, onOpenCreateAccount }: LandingHeade
 
         {/* LEFT */}
         <div className="landing-header__brand">
-          <div className="landing-header__logo" />
+          <img className="landing-header__logo" src="/calisia_logo_transparent.png" alt="" aria-hidden="true" />
           <span>Calisia</span>
         </div>
 

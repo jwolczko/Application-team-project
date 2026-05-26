@@ -86,10 +86,11 @@
 
 .transfer-panel__primary-btn,
 .transfer-panel__secondary-btn {
-  min-height: 40px;
-  border-radius: 10px;
-  font-size: var(--dashboard-text-sm, 13px);
-  font-weight: 600;
+  min-height: var(--button-height-md);
+  padding: 0 18px;
+  border-radius: var(--button-radius);
+  font-size: var(--button-font-size-sm);
+  font-weight: var(--button-font-weight);
   line-height: 1;
   font-family: var(--font-sans);
   cursor: pointer;

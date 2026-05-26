@@ -1,10 +1,10 @@
 .ui-button {
-  min-height: 38px;
+  min-height: var(--button-height-sm);
   padding: 0 16px;
-  border-radius: 999px;
+  border-radius: var(--button-radius);
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: var(--button-font-weight);
+  font-size: var(--button-font-size-sm);
   line-height: 1;
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);

@@ -54,14 +54,14 @@
 }
 
 .products-tab {
-  min-height: 38px;
+  min-height: var(--button-height-sm);
   padding: 0 16px;
-  border-radius: 999px;
+  border-radius: var(--button-radius);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--dashboard-text-sm);
-  font-weight: 500;
+  font-size: var(--button-font-size-sm);
+  font-weight: var(--button-font-weight);
   line-height: 1;
   cursor: pointer;
   background: transparent;

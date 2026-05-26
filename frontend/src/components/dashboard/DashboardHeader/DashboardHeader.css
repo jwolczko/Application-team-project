@@ -30,12 +30,11 @@
   gap: 12px;
 }
 
-.dashboard-header__amber-dot {
-  width: 32px;
+.dashboard-header__brand-mark {
+  width: 39px;
   height: 32px;
-  background: linear-gradient(135deg, #e0b35a, #c48a2c);
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  display: block;
+  object-fit: contain;
 }
 
 .dashboard-header__brand {
@@ -83,9 +82,12 @@
   align-items: center;
   justify-content: center;
 
-  background: var(--bg-tertiary);
-  color: var(--text-muted);
-  font-size: var(--dashboard-text-sm, 13px);
+  background: linear-gradient(135deg, #e0b35a, #c48a2c);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(196, 138, 44, 0.22);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-sans);
   line-height: 1;
 }
 

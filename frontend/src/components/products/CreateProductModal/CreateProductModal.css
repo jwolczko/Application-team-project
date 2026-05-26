@@ -47,6 +47,7 @@
   font-size: 22px;
   font-weight: 650;
   line-height: 1.2;
+  font-family: var(--font-sans);
 }
 
 .create-product-tabs {
@@ -57,13 +58,14 @@
 
 .create-product-tabs .tab {
   flex: 1;
-  padding: 10px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  border-radius: 10px;
+  min-height: var(--button-height-sm);
+  padding: 0 14px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  border-radius: var(--button-radius);
   cursor: pointer;
-  font-weight: 600;
-  font-size: var(--dashboard-text-sm, 13px);
+  font-weight: var(--button-font-weight);
+  font-size: var(--button-font-size-sm);
   line-height: 1;
   font-family: var(--font-sans);
   color: var(--text-muted);
@@ -164,13 +166,13 @@
 
 .submit-btn {
   margin-top: 12px;
-  min-height: 48px;
+  min-height: var(--button-height-lg);
   background: var(--accent);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: var(--dashboard-text-md, 14px);
+  border-radius: var(--button-radius);
+  font-weight: var(--button-font-weight);
+  font-size: var(--button-font-size);
   line-height: 1;
   font-family: var(--font-sans);
   cursor: pointer;

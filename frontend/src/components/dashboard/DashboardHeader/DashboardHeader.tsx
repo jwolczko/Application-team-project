@@ -16,6 +16,12 @@ function formatRemainingTime(totalSeconds: number) {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
+function getUserInitial(userName?: string | null) {
+  const trimmedUserName = userName?.trim();
+
+  return trimmedUserName ? trimmedUserName.charAt(0).toLocaleUpperCase('pl-PL') : 'K';
+}
+
 export function DashboardHeader() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -71,13 +77,15 @@ export function DashboardHeader() {
     <header className="dashboard-header">
       {/* LEWA STRONA: LOGO */}
       <div className="dashboard-header__logo">
-        <span className="dashboard-header__amber-dot" />
+        <img className="dashboard-header__brand-mark" src="/calisia_logo_transparent.png" alt="" aria-hidden="true" />
         <span className="dashboard-header__brand">Calisia</span>
       </div>
 
       <div className="dashboard-header__right">
         <div className="dashboard-header__user">
-          <div className="dashboard-header__avatar">◯</div>
+          <div className="dashboard-header__avatar" aria-hidden="true">
+            {getUserInitial(userName)}
+          </div>
           <span>{userName ?? 'Klient Calisia'}</span>
           
         </div>

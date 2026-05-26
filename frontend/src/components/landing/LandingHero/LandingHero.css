@@ -66,11 +66,13 @@
 }
 
 .landing__btn {
+  min-height: var(--button-height-lg);
   padding: 14px 28px;
-  border-radius: 999px;
-  font-size: 16px;
+  border-radius: var(--button-radius);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
   cursor: pointer;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   transition: background var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 

@@ -65,6 +65,14 @@ html, body {
 
   --transition: 0.25s ease;
 
+  --button-height-sm: 38px;
+  --button-height-md: 42px;
+  --button-height-lg: 48px;
+  --button-radius: 999px;
+  --button-font-size: 15px;
+  --button-font-size-sm: 14px;
+  --button-font-weight: 500;
+
   color-scheme: light;
 }
 

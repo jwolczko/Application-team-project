@@ -83,14 +83,16 @@
 
 .create-account-panel__back-btn,
 .create-account-panel__submit-btn {
-  min-height: 40px;
-  font-size: 12px;
-  font-weight: 600;
+  min-height: var(--button-height-sm);
+  padding: 0 16px;
+  font-family: var(--font-sans);
+  font-size: var(--button-font-size-sm);
+  font-weight: var(--button-font-weight);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: var(--button-radius);
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
 }

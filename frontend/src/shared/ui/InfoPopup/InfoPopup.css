@@ -27,13 +27,15 @@
 
 .info-popup__button {
   min-width: 110px;
-  height: 40px;
+  min-height: var(--button-height-md);
+  padding: 0 18px;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--button-radius);
   background: var(--accent);
   color: #fff;
-  font-size: 13px;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: var(--button-font-size-sm);
+  font-weight: var(--button-font-weight);
   cursor: pointer;
   transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
 }

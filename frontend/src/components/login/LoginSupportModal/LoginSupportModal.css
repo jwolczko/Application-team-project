@@ -54,13 +54,15 @@
 
 .login-support-modal__next {
   min-width: 90px;
-  height: 58px;
+  min-height: var(--button-height-lg);
+  padding: 0 20px;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--button-radius);
   background: var(--accent);
   color: #fff;
-  font-weight: 600;
-  font-size: 16px;
+  font-family: var(--font-sans);
+  font-weight: var(--button-font-weight);
+  font-size: var(--button-font-size);
   cursor: pointer;
   transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
 }
