@@ -6,7 +6,6 @@ import { LoginSupportModal } from '../../components/login/LoginSupportModal/Logi
 import './LandingPage.css';
 import '../../components/landing/LandingHero/LandingHero.css';
 import '../../components/landing/LandingHeader/LandingHeader.css';
-import '../../index.css';
 
 export function LandingPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);

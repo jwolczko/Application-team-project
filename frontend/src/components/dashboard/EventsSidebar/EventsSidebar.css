@@ -16,8 +16,10 @@
 }
 
 .events-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.12),
+    0 8px 18px rgba(0,0,0,0.06);
 }
 
 /* ===== TITLE ===== */
@@ -44,7 +46,7 @@
 }
 
 .events-card__content::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.15);
+  background: rgba(196, 138, 44, 0.28);
   border-radius: 999px;
 }
 
@@ -92,7 +94,7 @@
 
 .events-sidebar__item:hover {
   transform: translateY(-2px);
-  background: var(--bg);
+  background: rgba(196, 138, 44, 0.08);
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 

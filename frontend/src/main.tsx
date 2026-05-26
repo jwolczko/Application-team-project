@@ -5,6 +5,7 @@ import App from './App';
 import { ReduxProvider } from './app/providers/ReduxProvider';
 import { QueryProvider } from './app/providers/QueryProvider';
 import './styles/reset.css';
+import './index.css';
 import './styles/global.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

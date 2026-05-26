@@ -25,15 +25,16 @@
   line-height: 1;
   cursor: pointer;
 
-  background: rgba(0,0,0,0.03);
-  color: var(--text-main);
+  background: rgba(196, 138, 44, 0.08);
+  color: var(--text);
   border: 1px solid transparent;
 
   transition: all var(--transition, 0.25s ease);
 }
 
 .products-tab:hover {
-  background: rgba(0,0,0,0.06);
+  background: rgba(196, 138, 44, 0.14);
+  color: var(--accent-deep);
 }
 
 /* ACTIVE TAB (Stonowany, elegancki bursztyn) */
@@ -45,7 +46,8 @@
 }
 
 .products-tab--active:hover {
-  background: var(--accent-light);
+  background: var(--accent-deep);
+  color: #fff;
 }
 
 /* ===== SCROLL CONTAINER ===== */
@@ -69,7 +71,7 @@
 }
 
 .products-scroll::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.15);
+  background: rgba(196, 138, 44, 0.28);
   border-radius: 999px;
 }
 
@@ -106,6 +108,9 @@
 
 .products-section__card:hover {
   transform: translateY(-4px);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.12),
+    0 8px 18px rgba(0,0,0,0.06);
 }
 
 /* header */
@@ -131,6 +136,13 @@
   line-height: 1;
   color: var(--text-muted);
   cursor: pointer;
+  border-radius: 999px;
+  transition: background var(--transition, 0.25s ease), color var(--transition, 0.25s ease);
+}
+
+.products-section__card-header button:hover {
+  background: rgba(196, 138, 44, 0.08);
+  color: var(--accent-deep);
 }
 
 /* subtitle */
@@ -169,8 +181,9 @@
 }
 
 .products-section__add-card:hover {
-  background: rgba(196, 138, 44, 0.04);
+  background: var(--accent-bg);
   border-color: var(--accent);
+  transform: translateY(-4px);
 }
 
 /* plus */
@@ -190,7 +203,7 @@
 }
 
 .products-section__add-card:hover .products-section__plus {
-  background: var(--accent-light);
+  background: var(--accent-deep);
   transform: scale(1.05);
 }
 

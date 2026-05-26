@@ -1,6 +1,5 @@
 :root {
-  --app-font-family: 'RobotoMono Nerd Font', 'Roboto Mono', 'CaskaydiaMono Nerd Font',
-    'JetBrainsMono Nerd Font', monospace;
+  --app-font-family: var(--font-sans, 'Helvetica Neue', system-ui, -apple-system, sans-serif);
 }
 
 html,

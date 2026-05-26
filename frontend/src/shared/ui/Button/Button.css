@@ -1,25 +1,46 @@
 .ui-button {
   min-height: 38px;
   padding: 0 16px;
-  font-weight: 700;
-  font-size: 12px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1;
   cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 
 .ui-button--primary {
   border: none;
-  background: #c70059;
+  background: var(--accent);
   color: #fff;
+  box-shadow: 0 4px 12px rgba(196, 138, 44, 0.22);
+}
+
+.ui-button--primary:hover {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
 }
 
 .ui-button--outline {
-  border: 2px solid #d00858;
-  background: #fff;
-  color: #d00858;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+}
+
+.ui-button--outline:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent-deep);
+  color: var(--accent-deep);
 }
 
 .ui-button--ghost {
   border: none;
   background: transparent;
-  color: #333;
+  color: var(--text);
+}
+
+.ui-button--ghost:hover {
+  background: rgba(196, 138, 44, 0.08);
+  color: var(--accent-deep);
 }

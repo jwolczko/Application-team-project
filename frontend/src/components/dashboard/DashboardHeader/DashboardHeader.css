@@ -39,10 +39,10 @@
 }
 
 .dashboard-header__brand {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text);
   line-height: 1;
 }
 
@@ -138,7 +138,7 @@
 }
 
 .dashboard-header__logout:hover {
-  background: rgba(0,0,0,0.04);
+  background: rgba(196, 138, 44, 0.08);
 }
 
 /* logout text */

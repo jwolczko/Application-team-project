@@ -1,4 +1,4 @@
 .login-page {
   min-height: 100vh;
-  background-color: #efefef;
+  background-color: var(--bg);
 }

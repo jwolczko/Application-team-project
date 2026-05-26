@@ -7,21 +7,31 @@
 .ui-input-label {
   font-size: 12px;
   font-weight: 600;
-  color: #555;
+  color: var(--text-muted);
 }
 
 .ui-input {
   height: 40px;
   padding: 0 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.ui-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
 .ui-input--error {
-  border-color: red;
+  border-color: #b91c1c;
 }
 
 .ui-input-error {
   font-size: 11px;
-  color: red;
+  color: #b91c1c;
 }
