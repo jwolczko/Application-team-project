@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '../../../app/apiClient';
+import { addProductRequest } from '../../../features/products/api/productApi';
 import { useAppSelector } from '../../../app/store/hooks';
 import './CreateProductModal.css';
 
@@ -10,6 +11,29 @@ type CreateProductModalProps = {
 
 type ProductCategory = 'account' | 'card' | 'credit';
 type AccountTier = 'Standard' | 'Prestige';
+type CardKind = 'Debit' | 'Credit';
+type LoanKind = 'Cash' | 'Consumer';
+
+const productCategories = {
+  account: 1,
+  card: 2,
+  credit: 3,
+} as const;
+
+const accountTypes = {
+  Standard: 1,
+  Prestige: 2,
+} as const;
+
+const cardTypes = {
+  Debit: 1,
+  Credit: 2,
+} as const;
+
+const loanTypes = {
+  Cash: 1,
+  Consumer: 2,
+} as const;
 
 export function CreateProductModal({ onClose }: CreateProductModalProps) {
   const queryClient = useQueryClient();
@@ -17,8 +41,11 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
   const customerId = useAppSelector((state) => state.auth.customerId);
   const [category, setCategory] = useState<ProductCategory>('account');
   const [accountTier, setAccountTier] = useState<AccountTier>('Standard');
+  const [cardKind, setCardKind] = useState<CardKind>('Debit');
+  const [loanKind, setLoanKind] = useState<LoanKind>('Cash');
   const [productName, setProductName] = useState('');
   const [initialAmount, setInitialAmount] = useState('');
+  const [creditLimit, setCreditLimit] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,8 +68,8 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
 
   const getDefaultName = () => {
     if (category === 'account') return accountTier === 'Prestige' ? 'Konto Prestige' : 'Konto Osobiste';
-    if (category === 'card') return 'Karta Debetowa';
-    return 'Kredyt Gotówkowy';
+    if (category === 'card') return cardKind === 'Credit' ? 'Karta Kredytowa' : 'Karta Debetowa';
+    return loanKind === 'Consumer' ? 'Kredyt Konsumpcyjny' : 'Kredyt Gotówkowy';
   };
 
   // Pomocnicza funkcja wykonująca wpłatę
@@ -78,16 +105,15 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
     setIsSubmitting(true);
 
     const amount = parseFloat(initialAmount) || 0;
+    const parsedCreditLimit = parseFloat(creditLimit) || 0;
 
     try {
       if (category === 'account') {
-        
-        // --- KROK 1: TWORZENIE KONTA ---
         const accountPayload = {
           accountNumber: "", 
           accountName: productName.trim() || getDefaultName(),
           currency: 'PLN',
-          accountType: accountTier === 'Prestige' ? 2 : 1
+          accountType: accountTypes[accountTier]
         };
 
         const accountId = await apiRequest<string>('/api/accounts', {
@@ -102,9 +128,38 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
           await executeInitialDeposit(accountId, amount);
         }
 
+      } else if (category === 'card') {
+        if (cardKind === 'Credit' && parsedCreditLimit <= 0) {
+          setErrorMessage('Limit karty kredytowej musi być większy od zera.');
+          return;
+        }
+
+        const cardId = await addProductRequest(token, {
+          productCategory: productCategories.card,
+          productName: productName.trim() || getDefaultName(),
+          currency: 'PLN',
+          productType: cardTypes[cardKind],
+          creditLimit: cardKind === 'Credit' ? parsedCreditLimit : null,
+          initialBalance: null,
+        });
+
+        if (cardKind === 'Debit' && amount > 0) {
+          await executeInitialDeposit(cardId, amount);
+        }
       } else {
-        console.warn("API dla kart i kredytów nie jest jeszcze gotowe.");
-        await new Promise(resolve => setTimeout(resolve, 600));
+        if (amount <= 0) {
+          setErrorMessage('Wnioskowana kwota kredytu musi być większa od zera.');
+          return;
+        }
+
+        await addProductRequest(token, {
+          productCategory: productCategories.credit,
+          productName: productName.trim() || getDefaultName(),
+          currency: 'PLN',
+          productType: loanTypes[loanKind],
+          creditLimit: null,
+          initialBalance: amount,
+        });
       }
 
       await refreshDashboard();
@@ -166,10 +221,30 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
             </div>
           )}
 
+          {category === 'card' && (
+            <div className="form-group">
+              <label>Rodzaj karty</label>
+              <select value={cardKind} onChange={(e) => setCardKind(e.target.value as CardKind)}>
+                <option value="Debit">Karta Debetowa</option>
+                <option value="Credit">Karta Kredytowa</option>
+              </select>
+            </div>
+          )}
+
+          {category === 'credit' && (
+            <div className="form-group">
+              <label>Rodzaj kredytu</label>
+              <select value={loanKind} onChange={(e) => setLoanKind(e.target.value as LoanKind)}>
+                <option value="Cash">Kredyt Gotówkowy</option>
+                <option value="Consumer">Kredyt Konsumpcyjny</option>
+              </select>
+            </div>
+          )}
+
           <div className="form-group">
             <label>
               {category === 'account' && 'Wpłata początkowa (PLN)'}
-              {category === 'card' && 'Zasilenie karty (PLN)'}
+              {category === 'card' && (cardKind === 'Credit' ? 'Początkowa spłata (PLN)' : 'Zasilenie karty (PLN)')}
               {category === 'credit' && 'Wnioskowana kwota (PLN)'}
             </label>
             <div className="input-with-currency">
@@ -180,11 +255,30 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
                 placeholder="0.00"
                 value={initialAmount}
                 onChange={(e) => setInitialAmount(e.target.value)}
-                required
+                required={category === 'credit'}
+                disabled={category === 'card' && cardKind === 'Credit'}
               />
               <span className="currency-addon">PLN</span>
             </div>
           </div>
+
+          {category === 'card' && cardKind === 'Credit' && (
+            <div className="form-group">
+              <label>Limit kredytowy (PLN)</label>
+              <div className="input-with-currency">
+                <input
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  placeholder="10000.00"
+                  value={creditLimit}
+                  onChange={(e) => setCreditLimit(e.target.value)}
+                  required
+                />
+                <span className="currency-addon">PLN</span>
+              </div>
+            </div>
+          )}
 
           <div className="form-group">
             <label>Nazwa własna (opcjonalnie)</label>

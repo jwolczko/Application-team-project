@@ -1,5 +1,6 @@
 using Fortuna.Domain.Abstractions;
 using Fortuna.Domain.Accounts;
+using Fortuna.Domain.Accounts.Events;
 using Fortuna.Domain.Customers;
 using Fortuna.Domain.Products;
 
@@ -35,6 +36,24 @@ public sealed class Loan : Product, IAggregateRoot
     }
 
     public LoanType LoanType { get; private set; }
+
+    public void Repay(Money amount, string title)
+    {
+        EnsureActive("Loan is not active.");
+        EnsurePositive(amount);
+
+        if (Balance.Amount < amount.Amount)
+            throw new DomainException("Repayment amount cannot exceed remaining loan balance.");
+
+        SetBalance(Balance.Subtract(amount));
+
+        AddDomainEvent(new MoneyWithdrawnDomainEvent(
+            Id,
+            CustomerId.Value,
+            amount.Amount,
+            amount.Currency,
+            title));
+    }
 
     public static Loan Create(
         CustomerId customerId,

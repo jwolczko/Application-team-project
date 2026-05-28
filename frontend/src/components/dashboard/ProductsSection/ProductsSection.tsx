@@ -9,6 +9,7 @@ import {
   getProductTypeLabel,
 } from '../../../features/dashboard/productPresentation';
 import { InfoPopup } from '../../../shared/ui/InfoPopup/InfoPopup';
+import { ProductActionModal } from '../../products/ProductActionModal/ProductActionModal';
 import './ProductsSection.css';
 
 type ProductsSectionProps = {
@@ -31,6 +32,7 @@ function formatMoney(amount: number, currency: string) {
 export function ProductsSection({ dashboard, onAddProduct }: ProductsSectionProps) {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('all');
+  const [selectedProduct, setSelectedProduct] = useState<DashboardData['products'][number] | null>(null);
 
   // filtr produktów
   const filteredProducts = useMemo(() => {
@@ -104,7 +106,15 @@ export function ProductsSection({ dashboard, onAddProduct }: ProductsSectionProp
               <article className="products-section__card" key={product.productId}>
                 <div className="products-section__card-header">
                   <h3>{getProductDisplayName(product.productName)}</h3>
-                  <button type="button">⋮</button>
+                  {(product.productCategory === 'Card' || product.productCategory === 'Loan') && (
+                    <button
+                      type="button"
+                      aria-label={product.productCategory === 'Loan' ? 'Spłać kredyt' : 'Zasil kartę'}
+                      onClick={() => setSelectedProduct(product)}
+                    >
+                      ⋮
+                    </button>
+                  )}
                 </div>
 
                 <div className="products-section__subtitle">
@@ -152,6 +162,14 @@ export function ProductsSection({ dashboard, onAddProduct }: ProductsSectionProp
         <InfoPopup
           message="Funkcjonalność nie jest jeszcze zaimplementowana"
           onClose={() => setIsInfoPopupOpen(false)}
+        />
+      )}
+
+      {selectedProduct && (
+        <ProductActionModal
+          dashboard={dashboard}
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
         />
       )}
     </>

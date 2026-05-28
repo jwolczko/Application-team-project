@@ -1,0 +1,156 @@
+.product-action-modal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(43, 43, 43, 0.46);
+}
+
+.product-action-modal {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-secondary);
+  box-shadow: 0 24px 60px rgba(43, 43, 43, 0.18);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+}
+
+.product-action-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.product-action-modal h2 {
+  margin: 0 0 20px;
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.product-action-modal__target {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.product-action-modal__target span {
+  color: var(--text-muted);
+  font-size: var(--dashboard-text-sm, 13px);
+}
+
+.product-action-modal__target strong {
+  color: var(--text-main);
+  font-size: var(--dashboard-text-lg, 16px);
+  font-weight: 650;
+}
+
+.product-action-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-action-modal__form label {
+  color: var(--text-muted);
+  font-size: var(--dashboard-text-sm, 13px);
+  font-weight: 600;
+}
+
+.product-action-modal__form input,
+.product-action-modal__form select {
+  min-height: 44px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0 12px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--dashboard-text-md, 14px);
+}
+
+.product-action-modal__money {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.product-action-modal__money input {
+  padding-right: 54px;
+}
+
+.product-action-modal__money span {
+  position: absolute;
+  right: 12px;
+  color: var(--text-muted);
+  font-size: var(--dashboard-text-sm, 13px);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.product-action-modal__error {
+  margin: 4px 0 0;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 10px 12px;
+  font-size: var(--dashboard-text-sm, 13px);
+  font-weight: 600;
+}
+
+.product-action-modal__buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.product-action-modal__secondary,
+.product-action-modal__primary {
+  min-height: var(--button-height-md, 44px);
+  border-radius: var(--button-radius);
+  padding: 0 16px;
+  font-family: var(--font-sans);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  cursor: pointer;
+}
+
+.product-action-modal__secondary {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-main);
+}
+
+.product-action-modal__primary {
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+}
+
+.product-action-modal__primary:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
