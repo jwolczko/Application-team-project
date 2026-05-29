@@ -12,6 +12,8 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{float}
 \definecolor{tableHeader}{HTML}{E8EEF7}
 \definecolor{tableStripe}{HTML}{F7F9FC}
 \newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
@@ -109,14 +111,75 @@ Energia była dobra, choć sprint wymagał skupienia ze względu na złożone re
 \end{itemize}
 \subsubsection*{Wnioski i działania na kolejny sprint}
 \begin{itemize}
-\item Przygotować checklistę regresji dla pełnego przepływu finansowego.
+\item Przygotować listę testów sprawdzających czy wszystkie funkcje związane z przelewami działają poprawnie.
 \item W stabilizacji położyć nacisk na spójność komunikatów błędów.
-\item Uzupełnić scenariusz demo o przelew i odświeżenie dashboardu.
 \end{itemize}
 
 \subsection*{Następny sprint}
 Product Owner / Scrum Master w następnym sprincie: Nikola Ruczyńska
 
 Główny cel następnego sprintu: Stabilizacja, testy i oddanie produktu. Dopracowanie całego przepływu klienta, usunięcie niespójności i przygotowanie produktu do prezentacji.
+
+\subsection*{Zrzuty ekranu}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/01_rejestracja.png}
+    \caption{Rejestracja użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/02_logowanie.png}
+    \caption{Logowanie użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/03_dash.png}
+    \caption{Dashboard użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/04_konta.png}
+    \caption{Konta użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/05_historia.png}
+    \caption{Historia przelewów.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/06_walidacja_numer_konta.png}
+    \caption{Walidacja numeru konta.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/07_walidacja_wpisz_tytul_przelewu.png}
+    \caption{Walidacja tytułu przelewu.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/08_walidacja_wpisz_kwote_przelewu.png}
+    \caption{Walidacja kwoty przelewu.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/09_walidacja_wartosc_wiekszanizzero.png}
+    \caption{Sprawdzenie, czy wartość jest większa niż zero.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/10_walidacja_brak_srodkow.png}
+    \caption{Walidacja, czy użytkownik ma wystarczające środki.}
+\end{figure}
 
 \end{document}

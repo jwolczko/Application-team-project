@@ -12,6 +12,8 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{float}
 \definecolor{tableHeader}{HTML}{E8EEF7}
 \definecolor{tableStripe}{HTML}{F7F9FC}
 \newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
@@ -62,7 +64,7 @@ Michał Nuckowski
 \midrule
 \endhead
 S5-01 & Endpoint dashboardu klienta & 8 & Done \\
-S5-02 & Kafelki produktów i saldo łączne w UI & 5 & Done \\
+S5-02 & Kafelki produktów i saldo łączne w UI & 5 & In Progress \\
 S5-03 & Projekcje zdarzeń domenowych do read modelu & 13 & Done \\
 S5-04 & Oś czasu zdarzeń w dashboardzie & 5 & Done \\
 \bottomrule
@@ -70,24 +72,24 @@ S5-04 & Oś czasu zdarzeń w dashboardzie & 5 & Done \\
 \endgroup
 
 \subsection*{Podsumowanie sprintu}
-Cel sprintu: Dashboard i model odczytowy. Pokazanie klientowi aktualnego stanu produktów, salda łącznego i ostatnich zdarzeń w panelu bankowości.
+Cel sprintu: Dashboard i model odczytowy. Pokazanie klientowi aktualnego stanu produktów (kont, kart i kredytów), salda łącznego i ostatnich zdarzeń w panelu bankowości.
 
-Zakres sprintu obejmował 4 historyjek o łącznej estymacji 31 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 31 SP.
+Zakres sprintu obejmował 4 historyjki o łącznej estymacji 31 SP - z czego 3 historyjki zostały dowiezione ze statusem Done, a 1 z statusem In Progress, dlatego osiągnięta prędkość sprintu wyniosła 26 SP.
 
-Dostarczono dashboard klienta oparty o model odczytowy: saldo łączne, kafelki produktów oraz oś czasu zdarzeń. Projekcje aktualizują dane widoczne w panelu po operacjach finansowych.
+Dostarczono dashboard klienta oparty o model odczytowy: saldo łączne, kafelki dla kont bankowych oraz oś czasu zdarzeń. Nie udało się w pełni zaimplementować kafelków dla kart oraz kredytów.Projekcje aktualizują dane widoczne w panelu po operacjach finansowych.
 
 Sprint połączył logikę domenową z widokiem klienta. Użytkownik otrzymał czytelny obraz swoich produktów i operacji, a zespół potwierdził sens rozdzielenia write modelu i read modelu.
 
 \subsubsection*{Najważniejsze rezultaty}
 \begin{itemize}
 \item Dodano endpoint dashboardu klienta.
-\item Wyświetlono kafelki produktów i saldo łączne.
+\item Wyświetlono kafelki dla kont bankowych i saldo łączne.
 \item Wdrożono projekcje zdarzeń domenowych.
 \item Udostępniono oś czasu ostatnich zdarzeń.
 \end{itemize}
 
 \subsection*{Retrospekcja sprintu}
-Retrospekcja pokazała, że przepływ danych przez outbox i projekcje trzeba testować całościowo, a nie tylko na poziomie pojedynczych handlerów.
+Sprint pokrywał się dla wielu członków zespołu z zjazdem na Uczelni, co wymagało elastyczności w planowaniu i komunikacji. Mimo tego udało się utrzymać stabilny poziom energii i dostarczyć kluczowe funkcjonalności, chociaż nie wszystkie planowane zadania zostały ukończone. Retrospekcja pokazała, że synchronizacja między modelem zapisu, outboxem, projekcjami i widokiem frontendu jest kluczowa i wymaga testów integracyjnych obejmujących cały przepływ danych.
 
 \subsubsection*{Co się udało}
 \begin{itemize}
@@ -106,17 +108,45 @@ Energia zespołu była stabilna. Największym wyzwaniem była synchronizacja mod
 \item Zespół nauczył się praktycznego wykorzystania projekcji read modelu.
 \item Outbox pomaga ograniczyć ryzyko niespójności między zapisem i odczytem.
 \item Dashboard wymaga testów obejmujących zarówno API, jak i dane po operacjach finansowych.
+\item Niektóre zadania, takie jak kafelki dla kart i kredytów, mogą wymagać więcej czasu niż pierwotnie zakładano.
 \end{itemize}
 \subsubsection*{Wnioski i działania na kolejny sprint}
 \begin{itemize}
 \item Rozszerzać testy integracyjne o scenariusze po kilku operacjach finansowych.
 \item Dopisywać przypadki Bruno pokazujące pełną ścieżkę do dashboardu.
 \item Przy przelewach od razu sprawdzać wpływ operacji na read model.
+\item Doprecyzować estymacje dla zadań związanych z kartami i kredytami, aby lepiej planować zakres sprintu.
 \end{itemize}
 
 \subsection*{Następny sprint}
 Product Owner / Scrum Master w następnym sprincie: Dawid Olszewski
 
 Główny cel następnego sprintu: Przelewy własne i zewnętrzne. Pozwolenie klientowi na wykonywanie przelewów oraz odzwierciedlanie ich w saldach i historii.
+
+\subsection*{Zrzuty ekranu}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/01_rejestracja.png}
+    \caption{Rejestracja użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/02_logowanie.png}
+    \caption{Logowanie użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/03_dash.png}
+    \caption{Dashboard użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/04_konta.png}
+    \caption{Konta użytkownika.}
+\end{figure}
 
 \end{document}
