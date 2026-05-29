@@ -65,7 +65,50 @@ public sealed class DashboardReadRepositoryTests
     }
 
     [Fact]
-    public async Task GetDashboardAsyncShouldReturnActualBalanceForDebitCard()
+    public async Task GetDashboardAsyncShouldMirrorMainAccountBalanceForDebitCard()
+    {
+        await using var dbContext = CreateDbContext();
+        var customerId = Guid.NewGuid();
+
+        dbContext.ProductTiles.AddRange(
+            new ProductTileReadModel
+            {
+                ProductId = Guid.NewGuid(),
+                CustomerId = customerId,
+                ProductCategory = "BankAccount",
+                ProductType = "Standard",
+                ProductName = "Main account",
+                ProductNumber = "PL001",
+                Balance = 125m,
+                Currency = "PLN",
+                MainAccount = true
+            },
+            new ProductTileReadModel
+            {
+                ProductId = Guid.NewGuid(),
+                CustomerId = customerId,
+                ProductCategory = "Card",
+                ProductType = "Debit",
+                ProductName = "Debit Card",
+                ProductNumber = "CARD001",
+                Balance = 10m,
+                Currency = "PLN",
+                MainAccount = false
+            });
+
+        await dbContext.SaveChangesAsync();
+
+        var sut = new DashboardReadRepository(dbContext);
+
+        var result = await sut.GetDashboardAsync(customerId, CancellationToken.None);
+
+        result.TotalBalance.Should().Be(125m);
+        result.Products.Should().HaveCount(2);
+        result.Products.Single(x => x.ProductCategory == "Card").Balance.Should().Be(125m);
+    }
+
+    [Fact]
+    public async Task GetDashboardAsyncShouldKeepDebitCardBalanceWhenMainAccountDoesNotExist()
     {
         await using var dbContext = CreateDbContext();
         var customerId = Guid.NewGuid();
@@ -79,7 +122,8 @@ public sealed class DashboardReadRepositoryTests
             ProductName = "Debit Card",
             ProductNumber = "CARD001",
             Balance = 125m,
-            Currency = "PLN"
+            Currency = "PLN",
+            MainAccount = false
         });
 
         await dbContext.SaveChangesAsync();

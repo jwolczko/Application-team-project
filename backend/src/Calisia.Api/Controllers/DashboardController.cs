@@ -34,7 +34,8 @@ public sealed class DashboardController : ControllerBase
                 x.ProductName,
                 x.ProductNumber,
                 x.Balance,
-                x.Currency)).ToList(),
+                x.Currency,
+                x.MainAccount)).ToList(),
             dto.Events.Select(x => new TimelineEventResponse(
                 x.Id,
                 x.EventDateUtc,

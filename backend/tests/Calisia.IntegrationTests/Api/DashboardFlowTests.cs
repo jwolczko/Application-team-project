@@ -42,7 +42,7 @@ public sealed class DashboardFlowTests : IClassFixture<WebApplicationFactory<Pro
         body.Should().NotBeNull();
         body!.CustomerId.Should().Be(customerId);
         body.TotalBalance.Should().Be(450m);
-        body.Products.Should().ContainSingle(x => x.ProductName == "Main");
+        body.Products.Should().ContainSingle(x => x.ProductName == "Main" && x.MainAccount == true);
         body.Events.Should().ContainSingle(x => x.EventType == "deposit");
     }
 

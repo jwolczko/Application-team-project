@@ -7,7 +7,8 @@ public sealed record ProductTileResponse(
     string ProductName,
     string ProductNumber,
     decimal Balance,
-    string Currency);
+    string Currency,
+    bool? MainAccount);
 
 public sealed record TimelineEventResponse(
     Guid Id,
