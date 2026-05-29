@@ -21,6 +21,7 @@ public partial class Program
     internal static WebApplication BuildApplication(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Configuration.AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true);
 
         var jwtOptions = builder.Configuration
             .GetSection(JwtOptions.SectionName)
