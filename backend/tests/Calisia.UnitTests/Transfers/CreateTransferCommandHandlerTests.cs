@@ -147,4 +147,65 @@ public sealed class CreateTransferCommandHandlerTests
         await act.Should().ThrowAsync<NotFoundException>();
         await unitOfWork.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
+
+    [Fact]
+    public async Task HandleShouldCreateSeparateMoneyInstancesForOwnBankTransfer()
+    {
+        var productRepository = Substitute.For<IProductRepository>();
+        var transferRepository = Substitute.For<ITransferRepository>();
+        var unitOfWork = Substitute.For<IUnitOfWork>();
+        var customerId = CustomerId.New();
+        var sourceAccount = BankAccount.Open(
+            customerId,
+            new AccountNumber("PL001234567890"),
+            "Main account",
+            1,
+            "PLN",
+            BankAccountType.Standard);
+        var targetAccount = BankAccount.Open(
+            customerId,
+            new AccountNumber("PL001234567891"),
+            "Savings account",
+            2,
+            "PLN",
+            BankAccountType.Standard);
+        Fortuna.Domain.Transfers.Transfer? addedTransfer = null;
+
+        sourceAccount.Deposit(new Money(500m, "PLN"), "Initial balance");
+        sourceAccount.ClearDomainEvents();
+        targetAccount.ClearDomainEvents();
+
+        productRepository.GetByIdAsync(sourceAccount.Id, Arg.Any<CancellationToken>())
+            .Returns(sourceAccount);
+        productRepository.GetByIdAsync(targetAccount.Id, Arg.Any<CancellationToken>())
+            .Returns(targetAccount);
+        transferRepository.AddAsync(Arg.Do<Fortuna.Domain.Transfers.Transfer>(transfer => addedTransfer = transfer), Arg.Any<CancellationToken>())
+            .Returns(Task.CompletedTask);
+
+        var sut = new CreateTransferCommandHandler(productRepository, transferRepository, unitOfWork);
+
+        await sut.Handle(
+            new CreateTransferCommand(
+                "Own",
+                customerId.Value,
+                sourceAccount.Id,
+                targetAccount.Id,
+                null,
+                null,
+                125m,
+                "PLN",
+                "Move money"),
+            CancellationToken.None);
+
+        addedTransfer.Should().NotBeNull();
+        sourceAccount.Transactions.Should().HaveCount(2);
+        targetAccount.Transactions.Should().ContainSingle();
+
+        var debitTransaction = sourceAccount.Transactions.Last();
+        var creditTransaction = targetAccount.Transactions.Single();
+
+        addedTransfer!.Amount.Should().NotBeSameAs(debitTransaction.Amount);
+        addedTransfer.Amount.Should().NotBeSameAs(creditTransaction.Amount);
+        debitTransaction.Amount.Should().NotBeSameAs(creditTransaction.Amount);
+    }
 }

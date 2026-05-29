@@ -18,6 +18,8 @@ public sealed class Money : ValueObject
 
     public static Money Zero(string currency) => new(0m, currency);
 
+    public Money Copy() => new(Amount, Currency);
+
     public Money Add(Money other)
     {
         EnsureSameCurrency(other);

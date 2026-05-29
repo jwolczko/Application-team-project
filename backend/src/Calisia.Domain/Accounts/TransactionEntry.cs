@@ -19,7 +19,7 @@ public sealed class TransactionEntry : Entity<TransactionId>
     {
         BankAccountId = bankAccountId;
         Type = type;
-        Amount = amount;
+        Amount = amount.Copy();
         Title = title;
         BookedAtUtc = bookedAtUtc;
         TransferId = transferId;

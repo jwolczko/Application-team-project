@@ -23,7 +23,7 @@ public sealed class Transfer : Entity<TransferId>, IAggregateRoot
         TransferType = transferType;
         SourceAccountId = sourceAccountId;
         TargetAccountId = targetAccountId;
-        Amount = amount;
+        Amount = amount.Copy();
         Title = title;
         ExternalTargetAccountNumber = externalTargetAccountNumber;
         ExternalRecipientName = externalRecipientName;
