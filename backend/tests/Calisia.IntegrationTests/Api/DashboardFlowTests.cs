@@ -29,7 +29,7 @@ public sealed class DashboardFlowTests : IClassFixture<WebApplicationFactory<Pro
                 customerId,
                 450m,
                 "PLN",
-                [new ProductTileDto(Guid.NewGuid(), "BankAccount", "Standard", "Main", "PL001", 450m, "PLN")],
+                [new ProductTileDto(Guid.NewGuid(), "BankAccount", "Standard", "Main", "PL001", 450m, "PLN", true)],
                 [new TimelineEventDto(Guid.NewGuid(), DateTime.UtcNow, "deposit", "Salary", 450m, "PLN", true)]));
         var client = CreateClient(customerId, repository);
 

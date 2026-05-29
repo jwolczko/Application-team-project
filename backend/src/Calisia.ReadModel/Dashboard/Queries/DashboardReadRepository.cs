@@ -27,7 +27,8 @@ public sealed class DashboardReadRepository : IDashboardReadRepository
                 x.ProductName,
                 x.ProductNumber,
                 x.Balance,
-                x.Currency))
+                x.Currency,
+                x.MainAccount))
             .ToListAsync(cancellationToken);
 
         var events = await _dbContext.TimelineEvents

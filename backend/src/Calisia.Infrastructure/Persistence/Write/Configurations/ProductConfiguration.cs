@@ -26,6 +26,7 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Currency).HasMaxLength(3).IsRequired();
         builder.Property(x => x.Category).HasColumnName("ProductCategory").IsRequired();
         builder.Property(x => x.Status).IsRequired();
+        builder.Property(x => x.MainAccount).IsRequired(false);
         builder.Property(x => x.CreatedAtUtc).IsRequired();
 
         builder.OwnsOne(x => x.Balance, owned =>

@@ -85,7 +85,8 @@ public sealed class RegisterCustomerCommandHandler : ICommandHandler<RegisterCus
             customerType == CustomerType.Prestige ? "Konto Prestige" : "Konto Standardowe",
             currentSequence,
             "PLN",
-            customerType == CustomerType.Prestige ? BankAccountType.Prestige : BankAccountType.Standard);
+            customerType == CustomerType.Prestige ? BankAccountType.Prestige : BankAccountType.Standard,
+            true);
         currentSequence++;
 
         yield return Card.Create(

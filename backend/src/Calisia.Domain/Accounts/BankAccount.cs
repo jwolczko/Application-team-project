@@ -21,7 +21,8 @@ public sealed class BankAccount : Product, IAggregateRoot
         string accountName,
         long numberSequence,
         string currency,
-        BankAccountType accountType) : base(
+        BankAccountType accountType,
+        bool? mainAccount = null) : base(
         id,
         customerId,
         accountName,
@@ -29,7 +30,8 @@ public sealed class BankAccount : Product, IAggregateRoot
         numberSequence,
         currency,
         ProductCategory.BankAccount,
-        ProductStatus.Active)
+        ProductStatus.Active,
+        mainAccount)
     {
         AccountNumber = accountNumber;
         AccountType = accountType;
@@ -51,8 +53,9 @@ public sealed class BankAccount : Product, IAggregateRoot
         string accountName,
         long numberSequence,
         string currency,
-        BankAccountType accountType)
-        => new(Guid.NewGuid(), customerId, accountNumber, accountName, numberSequence, currency, accountType);
+        BankAccountType accountType,
+        bool? mainAccount = null)
+        => new(Guid.NewGuid(), customerId, accountNumber, accountName, numberSequence, currency, accountType, mainAccount);
 
     public void Deposit(Money amount, string title, Guid? transferId = null)
     {

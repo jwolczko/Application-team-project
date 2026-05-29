@@ -16,7 +16,7 @@ public sealed class GetDashboardQueryHandlerTests
             customerId,
             250m,
             "PLN",
-            [new ProductTileDto(Guid.NewGuid(), "BankAccount", "Standard", "Main", "PL001", 250m, "PLN")],
+            [new ProductTileDto(Guid.NewGuid(), "BankAccount", "Standard", "Main", "PL001", 250m, "PLN", true)],
             []);
 
         repository.GetDashboardAsync(customerId, Arg.Any<CancellationToken>())

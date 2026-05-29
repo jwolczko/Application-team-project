@@ -19,6 +19,7 @@ public sealed class ProductTileReadModelConfiguration : IEntityTypeConfiguration
         builder.Property(x => x.ProductNumber).HasMaxLength(64).IsRequired();
         builder.Property(x => x.Balance).HasColumnType("decimal(18,2)").IsRequired();
         builder.Property(x => x.Currency).HasMaxLength(3).IsRequired();
+        builder.Property(x => x.MainAccount).IsRequired(false);
 
         builder.HasIndex(x => x.CustomerId);
     }

@@ -27,7 +27,8 @@ public sealed class ProjectionDispatcherTests
             "Main account",
             "PL001234",
             0m,
-            "PLN");
+            "PLN",
+            true);
         var message = CreateOutboxMessage(Guid.NewGuid(), domainEvent);
 
         await sut.ProjectAsync(message, CancellationToken.None);
@@ -39,6 +40,7 @@ public sealed class ProjectionDispatcherTests
         var productTile = await dbContext.ProductTiles.SingleAsync();
         productTile.ProductName.Should().Be("Main account");
         productTile.ProductNumber.Should().Be("PL001234");
+        productTile.MainAccount.Should().BeTrue();
     }
 
     [Fact]
@@ -52,7 +54,7 @@ public sealed class ProjectionDispatcherTests
         await sut.ProjectAsync(
             CreateOutboxMessage(
                 Guid.NewGuid(),
-                new ProductCreatedDomainEvent(accountId, customerId, "Account", "Savings", "Savings", "PL009999", 100m, "PLN")),
+                new ProductCreatedDomainEvent(accountId, customerId, "Account", "Savings", "Savings", "PL009999", 100m, "PLN", null)),
             CancellationToken.None);
 
         await sut.ProjectAsync(

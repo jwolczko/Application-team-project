@@ -19,7 +19,8 @@ public abstract class Product : Entity<Guid>
         long numberSequence,
         string currency,
         ProductCategory category,
-        ProductStatus status) : base(id)
+        ProductStatus status,
+        bool? mainAccount = null) : base(id)
     {
         if (string.IsNullOrWhiteSpace(productName))
             throw new DomainException("Product name is required.");
@@ -37,6 +38,7 @@ public abstract class Product : Entity<Guid>
         Currency = currency.Trim().ToUpperInvariant();
         Category = category;
         Status = status;
+        MainAccount = mainAccount;
         Balance = Money.Zero(Currency);
         CreatedAtUtc = DateTime.UtcNow;
     }
@@ -49,6 +51,7 @@ public abstract class Product : Entity<Guid>
     public Money Balance { get; protected set; } = default!;
     public ProductCategory Category { get; protected set; }
     public ProductStatus Status { get; protected set; }
+    public bool? MainAccount { get; protected set; }
     public DateTime CreatedAtUtc { get; protected set; }
 
     protected void EnsureActive(string errorMessage)
@@ -76,6 +79,7 @@ public abstract class Product : Entity<Guid>
             ProductName,
             ProductNumber,
             Balance.Amount,
-            Currency));
+            Currency,
+            MainAccount));
     }
 }

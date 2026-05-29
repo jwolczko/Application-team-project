@@ -92,6 +92,11 @@ export function getProductDisplayBalance(product: DashboardProduct, products: Da
       products.find(
         (candidate) =>
           candidate.productCategory === 'BankAccount'
+          && candidate.mainAccount === true,
+      ) ??
+      products.find(
+        (candidate) =>
+          candidate.productCategory === 'BankAccount'
           && (candidate.productType === 'Standard' || candidate.productType === 'Prestige'),
       ) ?? products.find((candidate) => candidate.productCategory === 'BankAccount');
 

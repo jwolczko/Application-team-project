@@ -53,10 +53,18 @@ BEGIN
         [BalanceCurrency] NVARCHAR(3) NOT NULL,
         [Currency] NVARCHAR(3) NOT NULL,
         [Status] INT NOT NULL,
+        [MainAccount] BIT NULL,
         [CreatedAtUtc] DATETIME2(7) NOT NULL,
         CONSTRAINT [PKProducts] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [FKProductsCustomers] FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customers]([Id])
     );
+END
+GO
+
+IF COL_LENGTH(N'[dbo].[Products]', N'MainAccount') IS NULL
+BEGIN
+    ALTER TABLE [dbo].[Products]
+    ADD [MainAccount] BIT NULL;
 END
 GO
 

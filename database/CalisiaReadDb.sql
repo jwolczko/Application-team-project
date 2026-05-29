@@ -23,8 +23,16 @@ BEGIN
         [ProductNumber] NVARCHAR(64) NOT NULL,
         [Balance] DECIMAL(18, 2) NOT NULL,
         [Currency] NVARCHAR(3) NOT NULL,
+        [MainAccount] BIT NULL,
         CONSTRAINT [PKreadProductTile] PRIMARY KEY CLUSTERED ([ProductId] ASC)
     );
+END
+GO
+
+IF COL_LENGTH(N'[dbo].[ProductTile]', N'MainAccount') IS NULL
+BEGIN
+    ALTER TABLE [dbo].[ProductTile]
+    ADD [MainAccount] BIT NULL;
 END
 GO
 

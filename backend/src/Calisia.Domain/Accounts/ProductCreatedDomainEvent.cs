@@ -10,7 +10,8 @@ public sealed record ProductCreatedDomainEvent(
     string ProductName,
     string ProductNumber,
     decimal Balance,
-    string Currency) : IDomainEvent
+    string Currency,
+    bool? MainAccount) : IDomainEvent
 {
     public DateTime OccurredOnUtc { get; } = DateTime.UtcNow;
 }

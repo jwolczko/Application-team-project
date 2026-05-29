@@ -74,6 +74,7 @@ public sealed class ProjectionDispatcher : IReadModelProjector
         productTile.ProductNumber = domainEvent.ProductNumber;
         productTile.Balance = domainEvent.Balance;
         productTile.Currency = domainEvent.Currency;
+        productTile.MainAccount = domainEvent.MainAccount;
     }
 
     private async Task ProjectMoneyDepositedAsync(OutboxMessage message, CancellationToken cancellationToken)

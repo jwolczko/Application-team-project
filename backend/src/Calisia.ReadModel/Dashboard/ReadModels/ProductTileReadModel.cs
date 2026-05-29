@@ -10,4 +10,5 @@ public sealed class ProductTileReadModel
     public string ProductNumber { get; set; } = string.Empty;
     public decimal Balance { get; set; }
     public string Currency { get; set; } = string.Empty;
+    public bool? MainAccount { get; set; }
 }

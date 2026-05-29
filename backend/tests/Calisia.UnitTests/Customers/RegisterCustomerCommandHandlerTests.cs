@@ -43,7 +43,7 @@ public sealed class RegisterCustomerCommandHandlerTests
         addedCustomer.Should().NotBeNull();
         addedCustomer!.Type.Should().Be(CustomerType.Normal);
         addedProducts.Should().HaveCount(2);
-        addedProducts.OfType<BankAccount>().Should().ContainSingle(x => x.AccountType == BankAccountType.Standard);
+        addedProducts.OfType<BankAccount>().Should().ContainSingle(x => x.AccountType == BankAccountType.Standard && x.MainAccount == true);
         addedProducts.OfType<Card>().Should().ContainSingle(x => x.CardType == CardType.Debit && x.CreditLimit == null);
         await unitOfWork.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
     }
@@ -76,7 +76,7 @@ public sealed class RegisterCustomerCommandHandlerTests
         addedCustomer.Should().NotBeNull();
         addedCustomer!.Type.Should().Be(CustomerType.Prestige);
         addedProducts.Should().HaveCount(3);
-        addedProducts.OfType<BankAccount>().Should().ContainSingle(x => x.AccountType == BankAccountType.Prestige);
+        addedProducts.OfType<BankAccount>().Should().ContainSingle(x => x.AccountType == BankAccountType.Prestige && x.MainAccount == true);
         addedProducts.OfType<Card>().Should().ContainSingle(x => x.CardType == CardType.Debit && x.CreditLimit == null);
         addedProducts.OfType<Card>().Should().ContainSingle(x => x.CardType == CardType.Credit && x.CreditLimit == 10000m);
         await unitOfWork.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());

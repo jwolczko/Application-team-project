@@ -6,6 +6,7 @@ export type DashboardProduct = {
   productNumber: string;
   balance: number;
   currency: string;
+  mainAccount?: boolean | null;
 };
 
 export type DashboardEvent = {

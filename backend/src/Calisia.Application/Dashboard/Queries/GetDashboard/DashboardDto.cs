@@ -7,7 +7,8 @@ public sealed record ProductTileDto(
     string ProductName,
     string ProductNumber,
     decimal Balance,
-    string Currency);
+    string Currency,
+    bool? MainAccount);
 
 public sealed record TimelineEventDto(
     Guid Id,
