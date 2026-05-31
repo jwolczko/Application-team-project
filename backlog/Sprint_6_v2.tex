@@ -1,0 +1,185 @@
+% !TEX program = lualatex
+%!TEX TS-program = lualatex
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\usepackage{geometry}
+\geometry{margin=2.1cm}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{float}
+\definecolor{tableHeader}{HTML}{E8EEF7}
+\definecolor{tableStripe}{HTML}{F7F9FC}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\emergencystretch=3em
+\sloppy
+\begin{document}
+
+\section*{Raport ze sprintu nr 6 - Calisia Banking App}
+Data raportu: 31.05.2026
+
+Okres sprintu: 26.05 - 31.05.2026
+
+Product Owner / Scrum Master: Dawid Olszewski
+
+\subsection*{Lista osób}
+\begin{itemize}
+\item Kubryn Jeremiasz
+\item Łaszuk Jakub
+\item Makarevich Ksenia
+\item Nuckowski Michał
+\item Ruczyńska Nikola
+\item Wołczko Jakub
+\item Olszewski Dawid
+\end{itemize}
+
+\subsection*{Product Owner i Scrum Master sprintu}
+Dawid Olszewski
+
+\subsection*{Lista historyjek na sprint}
+\begingroup
+\footnotesize
+\rowcolors{2}{tableStripe}{white}
+\begin{longtable}{@{}C{0.08\textwidth}L{0.62\textwidth}C{0.10\textwidth}L{0.12\textwidth}@{}}
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{tableHeader}
+\textbf{Kod} & \textbf{Historyjka} & \textbf{SP} & \textbf{Status} \\
+\midrule
+\endhead
+S6-01 & Przelew własny między rachunkami klienta & 13 & Done \\
+S6-02 & Przelew zewnętrzny & 13 & Done \\
+S6-03 & Panel przelewów i szybka aktualizacja dashboardu & 8 & Done \\
+S6-04 & Walidacje i scenariusze negatywne przelewów & 8 & Done \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection*{Podsumowanie sprintu}
+Cel sprintu: Przelewy własne i zewnętrzne. Pozwolenie klientowi na wykonywanie przelewów oraz odzwierciedlanie ich w saldach i historii.
+
+Zakres sprintu obejmował 4 historyjek o łącznej estymacji 42 SP. Wszystkie historyjki zostały dowiezione ze statusem Done, dlatego osiągnięta prędkość sprintu wyniosła 42 SP.
+
+Dostarczono obsługę przelewów własnych i zewnętrznych, w tym walidacje danych, obciążenie rachunku źródłowego, zapis transferu oraz aktualizację dashboardu po operacji.
+
+Sprint domknął najważniejszą funkcjonalność operacyjną bankowości. Klient może wykonać przelew, a system utrzymuje spójność sald, historii i widoku dashboardu.
+
+\subsubsection*{Najważniejsze rezultaty}
+\begin{itemize}
+\item Dodano przelew własny między rachunkami klienta.
+\item Dodano przelew zewnętrzny na rachunek odbiorcy.
+\item Połączono panel przelewów z aktualizacją dashboardu.
+\item Przetestowano scenariusze negatywne i walidacje przelewów.
+\end{itemize}
+
+\subsection*{Retrospekcja sprintu}
+Retrospekcja potwierdziła, że funkcje finansowe wymagają szczególnie precyzyjnych reguł domenowych i dobrze opisanych scenariuszy testowych.
+
+\subsubsection*{Co się udało}
+\begin{itemize}
+\item Udało się zamodelować przelewy własne i zewnętrzne.
+\item Frontend zapewnił panel przelewów z szybkim odświeżeniem dashboardu.
+\item Testy pokryły brak środków, błędne dane i nieautoryzowany dostęp.
+\item Kolekcja Bruno umożliwiła szybkie sprawdzanie przepływu API.
+\end{itemize}
+\subsubsection*{Poziom energii zespołu}
+Średni poziom energii zespołu: 4,0/5.
+
+Energia była dobra, choć sprint wymagał skupienia ze względu na złożone reguły finansowe i wiele scenariuszy negatywnych.
+
+\subsubsection*{Czego udało się nauczyć}
+\begin{itemize}
+\item Zespół nauczył się dokładniej rozdzielać przelewy własne i zewnętrzne.
+\item Scenariusze negatywne są kluczowe przy funkcjach finansowych.
+\item Aktualizacja dashboardu po akcji użytkownika powinna być projektowana razem z API.
+\end{itemize}
+\subsubsection*{Wnioski i działania na kolejny sprint}
+\begin{itemize}
+\item Przygotować listę testów sprawdzających czy wszystkie funkcje związane z przelewami działają poprawnie.
+\item W stabilizacji położyć nacisk na spójność komunikatów błędów.
+\end{itemize}
+
+\subsection*{Następny sprint}
+Product Owner / Scrum Master w następnym sprincie: Nikola Ruczyńska
+
+Główny cel następnego sprintu: Stabilizacja, testy i oddanie produktu. Dopracowanie całego przepływu klienta, usunięcie niespójności i przygotowanie produktu do prezentacji.
+
+\subsection*{Zrzuty ekranu}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/01_rejestracja.png}
+    \caption{Rejestracja użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/02_logowanie.png}
+    \caption{Logowanie użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/03_dash.png}
+    \caption{Dashboard użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/04_konta.png}
+    \caption{Konta użytkownika.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/05_historia.png}
+    \caption{Historia przelewów.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/06_walidacja_numer_konta.png}
+    \caption{Walidacja numeru konta.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/07_walidacja_wpisz_tytul_przelewu.png}
+    \caption{Walidacja tytułu przelewu.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/08_walidacja_wpisz_kwote_przelewu.png}
+    \caption{Walidacja kwoty przelewu.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/09_walidacja_wartosc_wiekszanizzero.png}
+    \caption{Sprawdzenie, czy wartość jest większa niż zero.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/10_walidacja_brak_srodkow.png}
+    \caption{Walidacja, czy użytkownik ma wystarczające środki.}
+\end{figure}
+
+\end{document}
