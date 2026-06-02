@@ -2,6 +2,7 @@ using Fortuna.Application.Abstractions.Messaging;
 using Fortuna.Application.Abstractions.Persistence;
 using Fortuna.Application.Common.Exceptions;
 using Fortuna.Domain.Accounts;
+using Fortuna.Domain.Accounts.Repositories;
 using Fortuna.Domain.Cards;
 using Fortuna.Domain.Customers;
 using Fortuna.Domain.Customers.Repositories;
@@ -15,15 +16,18 @@ public sealed class AddProductCommandHandler : ICommandHandler<AddProductCommand
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly IProductRepository _productRepository;
+    private readonly IBankAccountRepository _bankAccountRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public AddProductCommandHandler(
         ICustomerRepository customerRepository,
         IProductRepository productRepository,
+        IBankAccountRepository bankAccountRepository,
         IUnitOfWork unitOfWork)
     {
         _customerRepository = customerRepository;
         _productRepository = productRepository;
+        _bankAccountRepository = bankAccountRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -44,6 +48,16 @@ public sealed class AddProductCommandHandler : ICommandHandler<AddProductCommand
         var product = CreateProduct(command, customerId, nextNumberSequence);
 
         await _productRepository.AddAsync(product, cancellationToken);
+
+        if (product is Loan loan)
+        {
+            var mainAccount = await _bankAccountRepository.GetMainByCustomerIdAsync(customerId, cancellationToken);
+            if (mainAccount is null)
+                throw new ValidationException("Main account is required to take a loan.");
+
+            mainAccount.Deposit(loan.Balance, "Uruchomienie kredytu gotówkowego");
+        }
+
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return product.Id;

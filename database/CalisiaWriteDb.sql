@@ -75,6 +75,26 @@ BEGIN
 END
 GO
 
+IF COL_LENGTH(N'[dbo].[Products]', N'AccountNumber') IS NULL
+BEGIN
+    ALTER TABLE [dbo].[Products]
+    ADD [AccountNumber] NVARCHAR(34) NULL;
+END
+GO
+
+UPDATE [dbo].[Products]
+SET [AccountNumber] = [ProductNumber]
+WHERE [Discriminator] = N'BankAccount'
+  AND ([AccountNumber] IS NULL OR LTRIM(RTRIM([AccountNumber])) = N'');
+GO
+
+IF COL_LENGTH(N'[dbo].[Products]', N'LoanType') IS NULL
+BEGIN
+    ALTER TABLE [dbo].[Products]
+    ADD [LoanType] INT NULL;
+END
+GO
+
 IF COL_LENGTH(N'[dbo].[Products]', N'NumberSequence') IS NULL
 BEGIN
     ALTER TABLE [dbo].[Products]

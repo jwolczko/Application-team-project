@@ -10,10 +10,11 @@ public sealed class BankAccountConfiguration : IEntityTypeConfiguration<BankAcco
     {
         builder.Property(x => x.AccountType).HasColumnName("BankAccountType").IsRequired();
 
-        builder.OwnsOne(x => x.AccountNumber, owned =>
-        {
-            owned.Property(p => p.Value).HasColumnName("AccountNumber").HasMaxLength(34).IsRequired();
-        });
+        builder.Property(x => x.AccountNumber)
+            .HasConversion(x => x.Value, value => new AccountNumber(value))
+            .HasColumnName("AccountNumber")
+            .HasMaxLength(34)
+            .IsRequired();
 
         builder.HasMany(x => x.Transactions)
             .WithOne()

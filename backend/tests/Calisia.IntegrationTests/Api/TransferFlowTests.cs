@@ -117,6 +117,9 @@ public sealed class TransferFlowTests : IClassFixture<WebApplicationFactory<Prog
 
         public Task<long> GetNextNumberSequenceAsync(CancellationToken cancellationToken)
             => Task.FromResult(1L);
+
+        public void Remove(Product product)
+            => _products.Remove(product);
     }
 
     private sealed class FakeTransferRepository : ITransferRepository

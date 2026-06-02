@@ -146,6 +146,9 @@ public sealed class CustomerRegistrationFlowTests : IClassFixture<WebApplication
 
         public Task<long> GetNextNumberSequenceAsync(CancellationToken cancellationToken)
             => Task.FromResult(++_sequence);
+
+        public void Remove(Product product)
+            => AddedProducts.Remove(product);
     }
 
     private sealed class FakeUnitOfWork : IUnitOfWork

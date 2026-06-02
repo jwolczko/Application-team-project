@@ -12,9 +12,10 @@ import './TransferPanel.css';
 type TransferPanelProps = {
   dashboard: DashboardData;
   onClose: () => void;
+  initialSourceAccountId?: string;
 };
 
-export function TransferPanel({ dashboard, onClose }: TransferPanelProps) {
+export function TransferPanel({ dashboard, onClose, initialSourceAccountId }: TransferPanelProps) {
   const queryClient = useQueryClient();
   const token = useAppSelector((state) => state.auth.token);
   const customerId = useAppSelector((state) => state.auth.customerId);
@@ -24,7 +25,7 @@ export function TransferPanel({ dashboard, onClose }: TransferPanelProps) {
   );
 
   const [transferType, setTransferType] = useState<TransferMode>(bankAccounts.length > 1 ? 'Own' : 'External');
-  const [sourceAccountId, setSourceAccountId] = useState(bankAccounts[0]?.productId ?? '');
+  const [sourceAccountId, setSourceAccountId] = useState(initialSourceAccountId ?? bankAccounts[0]?.productId ?? '');
   const [targetAccountId, setTargetAccountId] = useState(bankAccounts[1]?.productId ?? bankAccounts[0]?.productId ?? '');
   const [targetAccountNumber, setTargetAccountNumber] = useState('');
   const [recipientName, setRecipientName] = useState('');
@@ -40,10 +41,15 @@ export function TransferPanel({ dashboard, onClose }: TransferPanelProps) {
   }, [bankAccounts.length]);
 
   useEffect(() => {
+    if (initialSourceAccountId && bankAccounts.some((account) => account.productId === initialSourceAccountId)) {
+      setSourceAccountId(initialSourceAccountId);
+      return;
+    }
+
     if (!bankAccounts.some((account) => account.productId === sourceAccountId)) {
       setSourceAccountId(bankAccounts[0]?.productId ?? '');
     }
-  }, [bankAccounts, sourceAccountId]);
+  }, [bankAccounts, initialSourceAccountId, sourceAccountId]);
 
   useEffect(() => {
     if (transferType !== 'Own') {

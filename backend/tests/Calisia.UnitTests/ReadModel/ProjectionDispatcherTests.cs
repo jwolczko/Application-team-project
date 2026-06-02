@@ -83,6 +83,30 @@ public sealed class ProjectionDispatcherTests
         timelineEvents[1].IsPositive.Should().BeFalse();
     }
 
+    [Fact]
+    public async Task ProjectAsyncShouldRemoveProductTileForDeletedProduct()
+    {
+        await using var dbContext = CreateDbContext();
+        var sut = new ProjectionDispatcher(dbContext);
+        var productId = Guid.NewGuid();
+        var customerId = Guid.NewGuid();
+
+        await sut.ProjectAsync(
+            CreateOutboxMessage(
+                Guid.NewGuid(),
+                new ProductCreatedDomainEvent(productId, customerId, "Loan", "Cash", "Kredyt gotowkowy", "LN0001", 10000m, "PLN", null)),
+            CancellationToken.None);
+
+        await sut.ProjectAsync(
+            CreateOutboxMessage(
+                Guid.NewGuid(),
+                new ProductDeletedDomainEvent(productId, customerId)),
+            CancellationToken.None);
+
+        dbContext.ProductTiles.Should().BeEmpty();
+        dbContext.ProcessedOutboxMessages.Should().HaveCount(2);
+    }
+
     private static ReadDbContext CreateDbContext()
     {
         var options = new DbContextOptionsBuilder<ReadDbContext>()

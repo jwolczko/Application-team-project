@@ -82,4 +82,11 @@ public abstract class Product : Entity<Guid>
             Currency,
             MainAccount));
     }
+
+    public void MarkDeleted()
+    {
+        AddDomainEvent(new ProductDeletedDomainEvent(
+            Id,
+            CustomerId.Value));
+    }
 }

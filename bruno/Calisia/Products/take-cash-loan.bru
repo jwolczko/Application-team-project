@@ -1,0 +1,36 @@
+meta {
+  name: Take Cash Loan
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/products
+  body: json
+}
+
+body:json {
+  {
+    "productCategory": 3,
+    "productName": "Kredyt Gotówkowy",
+    "currency": "PLN",
+    "productType": 1,
+    "creditLimit": null,
+    "initialBalance": 15000
+  }
+}
+
+script:post-response {
+  const data = res.getBody();
+
+  if (res.getStatus() === 200 && data) {
+    bru.setVar("cashLoanProductId", data);
+    bru.setVar("productId", data);
+  }
+}
+
+tests {
+  test("take cash loan returns 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

@@ -34,6 +34,10 @@ public sealed class ProjectionDispatcher : IReadModelProjector
         {
             await ProjectProductCreatedAsync(message, cancellationToken);
         }
+        else if (IsEventType<ProductDeletedDomainEvent>(message.Type))
+        {
+            await ProjectProductDeletedAsync(message, cancellationToken);
+        }
         else if (IsEventType<MoneyDepositedDomainEvent>(message.Type))
         {
             await ProjectMoneyDepositedAsync(message, cancellationToken);
@@ -75,6 +79,17 @@ public sealed class ProjectionDispatcher : IReadModelProjector
         productTile.Balance = domainEvent.Balance;
         productTile.Currency = domainEvent.Currency;
         productTile.MainAccount = domainEvent.MainAccount;
+    }
+
+    private async Task ProjectProductDeletedAsync(OutboxMessage message, CancellationToken cancellationToken)
+    {
+        var domainEvent = Deserialize<ProductDeletedDomainEvent>(message.Payload);
+        var productTile = await _dbContext.ProductTiles.FindAsync([domainEvent.ProductId], cancellationToken);
+
+        if (productTile is not null)
+        {
+            _dbContext.ProductTiles.Remove(productTile);
+        }
     }
 
     private async Task ProjectMoneyDepositedAsync(OutboxMessage message, CancellationToken cancellationToken)

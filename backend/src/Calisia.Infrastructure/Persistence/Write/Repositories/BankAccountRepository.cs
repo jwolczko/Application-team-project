@@ -1,5 +1,6 @@
 using Fortuna.Domain.Accounts;
 using Fortuna.Domain.Accounts.Repositories;
+using Fortuna.Domain.Customers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fortuna.Infrastructure.Persistence.Write.Repositories;
@@ -20,4 +21,11 @@ public sealed class BankAccountRepository : IBankAccountRepository
         => _dbContext.BankAccounts
             .Include(x => x.Transactions)
             .FirstOrDefaultAsync(x => x.Id == bankAccountId, cancellationToken);
+
+    public Task<BankAccount?> GetMainByCustomerIdAsync(CustomerId customerId, CancellationToken cancellationToken)
+        => _dbContext.BankAccounts
+            .Include(x => x.Transactions)
+            .FirstOrDefaultAsync(
+                x => x.CustomerId == customerId && x.MainAccount == true,
+                cancellationToken);
 }

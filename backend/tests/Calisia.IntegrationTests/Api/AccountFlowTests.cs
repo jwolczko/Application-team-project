@@ -142,6 +142,11 @@ public sealed class AccountFlowTests : IClassFixture<WebApplicationFactory<Progr
 
         public Task<BankAccount?> GetByIdAsync(Guid bankAccountId, CancellationToken cancellationToken)
             => Task.FromResult<BankAccount?>(AddedAccounts.FirstOrDefault(x => x.Id == bankAccountId));
+
+        public Task<BankAccount?> GetMainByCustomerIdAsync(CustomerId customerId, CancellationToken cancellationToken)
+            => Task.FromResult<BankAccount?>(
+                AddedAccounts.FirstOrDefault(x => x.CustomerId == customerId && x.MainAccount == true)
+                ?? AddedAccounts.FirstOrDefault(x => x.CustomerId == customerId));
     }
 
     private sealed class FakeProductRepository : IProductRepository
@@ -156,6 +161,10 @@ public sealed class AccountFlowTests : IClassFixture<WebApplicationFactory<Progr
 
         public Task<long> GetNextNumberSequenceAsync(CancellationToken cancellationToken)
             => Task.FromResult(++_sequence);
+
+        public void Remove(Product product)
+        {
+        }
     }
 
     private sealed class FakeUnitOfWork : IUnitOfWork

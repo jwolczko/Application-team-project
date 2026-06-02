@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { DashboardData } from '../../../features/dashboard/types/dashboard.types';
+import type { DashboardData, DashboardProduct } from '../../../features/dashboard/types/dashboard.types';
 import {
   getProductAmountLabel,
   getProductCategoryLabel,
@@ -14,6 +14,8 @@ import './ProductsSection.css';
 type ProductsSectionProps = {
   dashboard: DashboardData;
   onAddProduct: () => void;
+  onOpenTransfer: (sourceAccountId: string) => void;
+  onRepayLoanEarly: (product: DashboardProduct) => void;
 };
 
 type TabType = 'all' | 'accounts' | 'cards' | 'credits';
@@ -28,9 +30,10 @@ function formatMoney(amount: number, currency: string) {
   }).format(amount) + ` ${currency}`;
 }
 
-export function ProductsSection({ dashboard, onAddProduct }: ProductsSectionProps) {
+export function ProductsSection({ dashboard, onAddProduct, onOpenTransfer, onRepayLoanEarly }: ProductsSectionProps) {
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('all');
+  const [openMenuProductId, setOpenMenuProductId] = useState<string | null>(null);
 
   // filtr produktów
   const filteredProducts = useMemo(() => {
@@ -99,12 +102,72 @@ export function ProductsSection({ dashboard, onAddProduct }: ProductsSectionProp
           {/* produkty */}
           {filteredProducts.map((product) => {
             const displayBalance = getProductDisplayBalance(product, dashboard.products);
+            const isMenuOpen = openMenuProductId === product.productId;
+            const isBankAccount = accountCategories.includes(product.productCategory);
+            const isCreditCard = product.productCategory === 'Card' && product.productType === 'Credit';
+            const isCashLoan = product.productCategory === 'Loan' && product.productType === 'Cash';
+            const hasActions = isBankAccount || isCreditCard || isCashLoan;
 
             return (
               <article className="products-section__card" key={product.productId}>
                 <div className="products-section__card-header">
                   <h3>{getProductDisplayName(product.productName)}</h3>
-                  <button type="button">⋮</button>
+                  {hasActions && (
+                    <div className="products-section__menu-wrap">
+                      <button
+                        type="button"
+                        className="products-section__menu-button"
+                        aria-label={`Akcje produktu ${getProductDisplayName(product.productName)}`}
+                        aria-expanded={isMenuOpen}
+                        onClick={() => setOpenMenuProductId(isMenuOpen ? null : product.productId)}
+                      >
+                        ⋮
+                      </button>
+
+                      {isMenuOpen && (
+                        <div className="products-section__menu" role="menu">
+                          {isBankAccount && (
+                            <button
+                              type="button"
+                              role="menuitem"
+                              onClick={() => {
+                                setOpenMenuProductId(null);
+                                onOpenTransfer(product.productId);
+                              }}
+                            >
+                              Wykonaj przelew
+                            </button>
+                          )}
+
+                          {isCreditCard && (
+                            <button
+                              type="button"
+                              role="menuitem"
+                              onClick={() => {
+                                setOpenMenuProductId(null);
+                                setIsInfoPopupOpen(true);
+                              }}
+                            >
+                              Spłać kartę
+                            </button>
+                          )}
+
+                          {isCashLoan && (
+                            <button
+                              type="button"
+                              role="menuitem"
+                              onClick={() => {
+                                setOpenMenuProductId(null);
+                                onRepayLoanEarly(product);
+                              }}
+                            >
+                              Wcześniejsza spłata kredytu
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div className="products-section__subtitle">

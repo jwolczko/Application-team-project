@@ -1,5 +1,6 @@
 using Fortuna.Api.Security;
 using Fortuna.Application.Products.Commands.AddProduct;
+using Fortuna.Application.Products.Commands.RepayCashLoan;
 using Fortuna.Contracts.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,5 +32,21 @@ public sealed class ProductsController : ControllerBase
             cancellationToken);
 
         return Ok(productId);
+    }
+
+    [HttpPost("{productId:guid}/early-repayment")]
+    public async Task<ActionResult<Guid>> RepayCashLoanEarly(
+        Guid productId,
+        [FromBody] RepayCashLoanRequest request,
+        [FromServices] RepayCashLoanCommandHandler handler,
+        CancellationToken cancellationToken)
+    {
+        var customerId = User.GetRequiredCustomerId();
+
+        var repaidProductId = await handler.Handle(
+            new RepayCashLoanCommand(customerId, productId, request.MainAccountId),
+            cancellationToken);
+
+        return Ok(repaidProductId);
     }
 }

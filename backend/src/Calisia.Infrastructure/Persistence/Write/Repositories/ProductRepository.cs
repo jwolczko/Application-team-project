@@ -19,6 +19,9 @@ public sealed class ProductRepository : IProductRepository
     public Task<Product?> GetByIdAsync(Guid productId, CancellationToken cancellationToken)
         => _dbContext.Products.FirstOrDefaultAsync(x => x.Id == productId, cancellationToken);
 
+    public void Remove(Product product)
+        => _dbContext.Products.Remove(product);
+
     public async Task<long> GetNextNumberSequenceAsync(CancellationToken cancellationToken)
     {
         var currentMaxSequence = await _dbContext.Products

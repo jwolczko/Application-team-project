@@ -135,6 +135,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 12px;
 }
 
 .products-section__card-header h3 {
@@ -143,12 +144,20 @@
   font-weight: 600;
   line-height: 1.25;
   color: var(--text-main);
+  min-width: 0;
 }
 
 /* menu */
-.products-section__card-header button {
+.products-section__menu-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.products-section__menu-button {
   border: none;
   background: transparent;
+  width: 28px;
+  height: 28px;
   font-size: 18px;
   line-height: 1;
   color: var(--text-muted);
@@ -157,8 +166,42 @@
   transition: background var(--transition, 0.25s ease), color var(--transition, 0.25s ease);
 }
 
-.products-section__card-header button:hover {
+.products-section__menu-button:hover {
   background: rgba(196, 138, 44, 0.08);
+  color: var(--accent-deep);
+}
+
+.products-section__menu {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  z-index: 5;
+  width: 188px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
+}
+
+.products-section__menu button {
+  width: 100%;
+  min-height: 34px;
+  border: none;
+  border-radius: 6px;
+  padding: 0 10px;
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--dashboard-text-sm, 13px);
+  line-height: 1.2;
+  text-align: left;
+  transition: background var(--transition, 0.25s ease), color var(--transition, 0.25s ease);
+}
+
+.products-section__menu button:hover {
+  background: rgba(196, 138, 44, 0.1);
   color: var(--accent-deep);
 }
 

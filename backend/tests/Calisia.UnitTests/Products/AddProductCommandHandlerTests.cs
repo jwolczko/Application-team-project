@@ -2,6 +2,8 @@ using FluentAssertions;
 using Fortuna.Application.Abstractions.Persistence;
 using Fortuna.Application.Common.Exceptions;
 using Fortuna.Application.Products.Commands.AddProduct;
+using Fortuna.Domain.Accounts;
+using Fortuna.Domain.Accounts.Repositories;
 using Fortuna.Domain.Cards;
 using Fortuna.Domain.Customers;
 using Fortuna.Domain.Customers.Repositories;
@@ -20,6 +22,7 @@ public sealed class AddProductCommandHandlerTests
     {
         var customerRepository = Substitute.For<ICustomerRepository>();
         var productRepository = Substitute.For<IProductRepository>();
+        var bankAccountRepository = Substitute.For<IBankAccountRepository>();
         var unitOfWork = Substitute.For<IUnitOfWork>();
         Product? addedProduct = null;
         var customerId = CustomerId.New();
@@ -32,7 +35,7 @@ public sealed class AddProductCommandHandlerTests
         productRepository.AddAsync(Arg.Do<Product>(product => addedProduct = product), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
 
-        var sut = new AddProductCommandHandler(customerRepository, productRepository, unitOfWork);
+        var sut = new AddProductCommandHandler(customerRepository, productRepository, bankAccountRepository, unitOfWork);
 
         var result = await sut.Handle(
             new AddProductCommand(
@@ -61,12 +64,13 @@ public sealed class AddProductCommandHandlerTests
     {
         var customerRepository = Substitute.For<ICustomerRepository>();
         var productRepository = Substitute.For<IProductRepository>();
+        var bankAccountRepository = Substitute.For<IBankAccountRepository>();
         var unitOfWork = Substitute.For<IUnitOfWork>();
 
         customerRepository.GetByIdAsync(Arg.Any<CustomerId>(), Arg.Any<CancellationToken>())
             .Returns((Customer?)null);
 
-        var sut = new AddProductCommandHandler(customerRepository, productRepository, unitOfWork);
+        var sut = new AddProductCommandHandler(customerRepository, productRepository, bankAccountRepository, unitOfWork);
 
         var act = () => sut.Handle(
             new AddProductCommand(
@@ -84,10 +88,66 @@ public sealed class AddProductCommandHandlerTests
     }
 
     [Fact]
+    public async Task HandleShouldCreateCashLoanForExistingCustomer()
+    {
+        var customerRepository = Substitute.For<ICustomerRepository>();
+        var productRepository = Substitute.For<IProductRepository>();
+        var bankAccountRepository = Substitute.For<IBankAccountRepository>();
+        var unitOfWork = Substitute.For<IUnitOfWork>();
+        Product? addedProduct = null;
+        var customerId = CustomerId.New();
+        var customer = new Customer(customerId, new FullName("Jan", "Kowalski"), new Email("jan@example.com"), "hashed");
+        var mainAccount = BankAccount.Open(
+            customerId,
+            new AccountNumber("13696969690000000000000001"),
+            "Konto glowne",
+            1,
+            "PLN",
+            BankAccountType.Standard,
+            true);
+
+        customerRepository.GetByIdAsync(customerId, Arg.Any<CancellationToken>())
+            .Returns(customer);
+        productRepository.GetNextNumberSequenceAsync(Arg.Any<CancellationToken>())
+            .Returns(12L);
+        productRepository.AddAsync(Arg.Do<Product>(product => addedProduct = product), Arg.Any<CancellationToken>())
+            .Returns(Task.CompletedTask);
+        bankAccountRepository.GetMainByCustomerIdAsync(customerId, Arg.Any<CancellationToken>())
+            .Returns(mainAccount);
+
+        var sut = new AddProductCommandHandler(customerRepository, productRepository, bankAccountRepository, unitOfWork);
+
+        var result = await sut.Handle(
+            new AddProductCommand(
+                customerId.Value,
+                (int)ProductCategory.Loan,
+                "Kredyt gotowkowy",
+                "PLN",
+                (int)LoanType.Cash,
+                null,
+                15000m),
+            CancellationToken.None);
+
+        result.Should().NotBeEmpty();
+        addedProduct.Should().BeOfType<Loan>();
+        var loan = addedProduct.As<Loan>();
+        loan.CustomerId.Should().Be(customerId);
+        loan.ProductName.Should().Be("Kredyt gotowkowy");
+        loan.ProductNumber.Should().Be("LN00000000000012");
+        loan.LoanType.Should().Be(LoanType.Cash);
+        loan.Balance.Amount.Should().Be(15000m);
+        loan.Balance.Currency.Should().Be("PLN");
+        mainAccount.Balance.Amount.Should().Be(15000m);
+        mainAccount.Balance.Currency.Should().Be("PLN");
+        await unitOfWork.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
     public async Task HandleShouldRequireInitialBalanceForLoan()
     {
         var customerRepository = Substitute.For<ICustomerRepository>();
         var productRepository = Substitute.For<IProductRepository>();
+        var bankAccountRepository = Substitute.For<IBankAccountRepository>();
         var unitOfWork = Substitute.For<IUnitOfWork>();
         var customerId = CustomerId.New();
         var customer = new Customer(customerId, new FullName("Jan", "Kowalski"), new Email("jan@example.com"), "hashed");
@@ -97,7 +157,7 @@ public sealed class AddProductCommandHandlerTests
         productRepository.GetNextNumberSequenceAsync(Arg.Any<CancellationToken>())
             .Returns(9L);
 
-        var sut = new AddProductCommandHandler(customerRepository, productRepository, unitOfWork);
+        var sut = new AddProductCommandHandler(customerRepository, productRepository, bankAccountRepository, unitOfWork);
 
         var act = () => sut.Handle(
             new AddProductCommand(

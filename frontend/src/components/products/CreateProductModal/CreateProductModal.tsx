@@ -11,6 +11,14 @@ type CreateProductModalProps = {
 type ProductCategory = 'account' | 'card' | 'credit';
 type AccountTier = 'Standard' | 'Prestige';
 
+const PRODUCT_CATEGORY = {
+  loan: 3,
+} as const;
+
+const LOAN_TYPE = {
+  cash: 1,
+} as const;
+
 export function CreateProductModal({ onClose }: CreateProductModalProps) {
   const queryClient = useQueryClient();
   const token = useAppSelector((state) => state.auth.token);
@@ -79,6 +87,12 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
 
     const amount = parseFloat(initialAmount) || 0;
 
+    if (category === 'credit' && amount <= 0) {
+      setErrorMessage('Wnioskowana kwota kredytu musi być większa od zera.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       if (category === 'account') {
         
@@ -102,8 +116,25 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
           await executeInitialDeposit(accountId, amount);
         }
 
+      } else if (category === 'credit') {
+        const loanPayload = {
+          productCategory: PRODUCT_CATEGORY.loan,
+          productName: productName.trim() || getDefaultName(),
+          currency: 'PLN',
+          productType: LOAN_TYPE.cash,
+          creditLimit: null,
+          initialBalance: amount
+        };
+
+        await apiRequest<string>('/api/products', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(loanPayload)
+        });
       } else {
-        console.warn("API dla kart i kredytów nie jest jeszcze gotowe.");
+        console.warn("API dla kart nie jest jeszcze gotowe.");
         await new Promise(resolve => setTimeout(resolve, 600));
       }
 
