@@ -86,6 +86,7 @@ public sealed class AccountFlowTests : IClassFixture<WebApplicationFactory<Progr
             {
                 builder.ConfigureTestServices(services =>
                 {
+                    TestAuthentication.Configure(services);
                     services.RemoveAll<ICustomerRepository>();
                     services.RemoveAll<IBankAccountRepository>();
                     services.RemoveAll<IProductRepository>();

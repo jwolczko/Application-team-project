@@ -68,6 +68,7 @@ public sealed class DashboardFlowTests : IClassFixture<WebApplicationFactory<Pro
             {
                 builder.ConfigureTestServices(services =>
                 {
+                    TestAuthentication.Configure(services);
                     services.RemoveAll<IDashboardReadRepository>();
                     services.AddSingleton<IDashboardReadRepository>(repository);
                 });

@@ -82,6 +82,7 @@ public sealed class TransferFlowTests : IClassFixture<WebApplicationFactory<Prog
             {
                 builder.ConfigureTestServices(services =>
                 {
+                    TestAuthentication.Configure(services);
                     services.RemoveAll<IProductRepository>();
                     services.RemoveAll<ITransferRepository>();
                     services.RemoveAll<IUnitOfWork>();
