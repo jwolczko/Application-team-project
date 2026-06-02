@@ -9,6 +9,7 @@ import { ProductsSection } from '../../components/dashboard/ProductsSection/Prod
 import { EventsSidebar } from '../../components/dashboard/EventsSidebar/EventsSidebar';
 import { TransferPanel } from '../../components/transfers/TransferPanel/TransferPanel';
 import { CreateProductModal } from '../../components/products/CreateProductModal/CreateProductModal';
+import { repayCreditCard } from '../../features/dashboard/api/cardApi';
 import { repayCashLoanEarly } from '../../features/dashboard/api/productApi';
 import type { DashboardData, DashboardProduct } from '../../features/dashboard/types/dashboard.types';
 import './DashboardPage.css';
@@ -40,6 +41,24 @@ export function DashboardPage() {
   const openTransferForAccount = (sourceAccountId: string) => {
     setTransferSourceAccountId(sourceAccountId);
     setIsTransferPanelOpen(true);
+  };
+
+  const handleCreditCardRepayment = async (product: DashboardProduct) => {
+    if (!token) {
+      return;
+    }
+
+    const confirmed = window.confirm(`Spłacić kartę ${product.productName}?`);
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await repayCreditCard(token, product.productId);
+      await refreshDashboard();
+    } catch (error) {
+      window.alert(error instanceof Error ? error.message : 'Nie udało się spłacić karty.');
+    }
   };
 
   const handleEarlyLoanRepayment = async (product: DashboardProduct) => {
@@ -129,6 +148,7 @@ export function DashboardPage() {
           <ProductsSection dashboard={data} 
           onAddProduct={() => setIsCreateProductModalOpen(true)}
           onOpenTransfer={openTransferForAccount}
+          onRepayCreditCard={handleCreditCardRepayment}
           onRepayLoanEarly={handleEarlyLoanRepayment}
           />
         </div>

@@ -8,13 +8,13 @@ import {
   getProductSubtitle,
   getProductTypeLabel,
 } from '../../../features/dashboard/productPresentation';
-import { InfoPopup } from '../../../shared/ui/InfoPopup/InfoPopup';
 import './ProductsSection.css';
 
 type ProductsSectionProps = {
   dashboard: DashboardData;
   onAddProduct: () => void;
   onOpenTransfer: (sourceAccountId: string) => void;
+  onRepayCreditCard: (product: DashboardProduct) => void;
   onRepayLoanEarly: (product: DashboardProduct) => void;
 };
 
@@ -30,8 +30,7 @@ function formatMoney(amount: number, currency: string) {
   }).format(amount) + ` ${currency}`;
 }
 
-export function ProductsSection({ dashboard, onAddProduct, onOpenTransfer, onRepayLoanEarly }: ProductsSectionProps) {
-  const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
+export function ProductsSection({ dashboard, onAddProduct, onOpenTransfer, onRepayCreditCard, onRepayLoanEarly }: ProductsSectionProps) {
   const [activeTab, setActiveTab] = useState<TabType>('all');
   const [openMenuProductId, setOpenMenuProductId] = useState<string | null>(null);
 
@@ -145,7 +144,7 @@ export function ProductsSection({ dashboard, onAddProduct, onOpenTransfer, onRep
                               role="menuitem"
                               onClick={() => {
                                 setOpenMenuProductId(null);
-                                setIsInfoPopupOpen(true);
+                                onRepayCreditCard(product);
                               }}
                             >
                               Spłać kartę
@@ -211,12 +210,6 @@ export function ProductsSection({ dashboard, onAddProduct, onOpenTransfer, onRep
         </div>
       </section>
 
-      {isInfoPopupOpen && (
-        <InfoPopup
-          message="Funkcjonalność nie jest jeszcze zaimplementowana"
-          onClose={() => setIsInfoPopupOpen(false)}
-        />
-      )}
     </>
   );
 }

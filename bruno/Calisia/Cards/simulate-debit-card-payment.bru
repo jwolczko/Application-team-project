@@ -1,0 +1,37 @@
+meta {
+  name: Simulate Debit Card Payment
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/cards/{{debitCardId}}/payments/simulate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "amount": 75.50,
+    "currency": "PLN",
+    "title": "Płatność kartą debetową"
+  }
+}
+
+vars:pre-request {
+  debitCardId: F73B9CF2-82AC-4D7F-9C0B-5A1FAE1AD409
+}
+
+script:post-response {
+  const data = res.getBody();
+  
+  if (res.getStatus() === 200 && data) {
+    bru.setVar("lastPaidCardId", data);
+  }
+}
+
+tests {
+  test("simulate debit card payment returns 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

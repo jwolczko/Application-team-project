@@ -1,0 +1,37 @@
+meta {
+  name: Simulate Credit Card Payment
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/cards/{{creditCardId}}/payments/simulate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "amount": 125.99,
+    "currency": "PLN",
+    "title": "Płatność kartą kredytową"
+  }
+}
+
+vars:pre-request {
+  creditCardId: 39A14E59-4E99-4FA6-8EB5-05126B707F0D
+}
+
+script:post-response {
+  const data = res.getBody();
+  
+  if (res.getStatus() === 200 && data) {
+    bru.setVar("lastPaidCardId", data);
+  }
+}
+
+tests {
+  test("simulate credit card payment returns 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

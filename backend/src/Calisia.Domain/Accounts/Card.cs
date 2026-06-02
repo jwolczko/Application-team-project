@@ -50,6 +50,14 @@ public sealed class Card : Product, IAggregateRoot
     public CardType CardType { get; private set; }
     public decimal? CreditLimit { get; private set; }
 
+    public decimal GetUsedCreditLimit()
+    {
+        if (CardType != CardType.Credit || !CreditLimit.HasValue)
+            throw new DomainException("Credit limit is available only for credit cards.");
+
+        return CreditLimit.Value - Balance.Amount;
+    }
+
     public void Deposit(Money amount, string title, Guid? transferId = null)
     {
         EnsureActive("Card is not active.");

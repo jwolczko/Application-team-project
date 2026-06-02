@@ -1,6 +1,8 @@
 using Fortuna.Application.Accounts.Commands.DepositMoney;
 using Fortuna.Application.Accounts.Commands.OpenBankAccount;
 using Fortuna.Application.Accounts.Commands.WithdrawMoney;
+using Fortuna.Application.Cards.Commands.RepayCreditCard;
+using Fortuna.Application.Cards.Commands.SimulateCardPayment;
 using Fortuna.Application.Customers.Commands.LoginCustomer;
 using Fortuna.Application.Customers.Commands.RegisterCustomer;
 using Fortuna.Application.Dashboard.Queries.GetDashboard;
@@ -20,6 +22,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<OpenBankAccountCommandHandler>();
         services.AddScoped<DepositMoneyCommandHandler>();
         services.AddScoped<WithdrawMoneyCommandHandler>();
+        services.AddScoped<SimulateCardPaymentCommandHandler>();
+        services.AddScoped<RepayCreditCardCommandHandler>();
         services.AddScoped<AddProductCommandHandler>();
         services.AddScoped<RepayCashLoanCommandHandler>();
         services.AddScoped<CreateTransferCommandHandler>();
