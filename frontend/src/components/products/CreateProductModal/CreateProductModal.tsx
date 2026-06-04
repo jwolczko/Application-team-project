@@ -141,7 +141,7 @@ export function CreateProductModal({ onClose }: CreateProductModalProps) {
       await refreshDashboard();
       onClose();
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Wystąpił błąd podczas dodawania produktu:', error);
       setErrorMessage(error instanceof Error ? error.message : 'Nie udało się utworzyć konta.');
     } finally {

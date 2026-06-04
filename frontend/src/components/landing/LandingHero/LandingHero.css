@@ -151,3 +151,226 @@
   color: var(--text);
   opacity: 0.75;
 }
+
+.offer-modal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(43, 43, 43, 0.48);
+}
+
+.offer-modal {
+  position: relative;
+  width: min(100%, 940px);
+  max-height: min(860px, calc(100dvh - 40px));
+  overflow-y: auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(43, 43, 43, 0.2);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+}
+
+.offer-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.offer-modal::-webkit-scrollbar-thumb {
+  background: rgba(196, 138, 44, 0.32);
+  border-radius: 999px;
+}
+
+.offer-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.offer-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(247, 243, 237, 0.88);
+  color: var(--text-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.offer-modal__close:hover {
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  transform: translateY(-1px);
+}
+
+.offer-modal__hero {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+.offer-modal__hero img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  display: block;
+  object-fit: cover;
+}
+
+.offer-modal__hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(31, 28, 24, 0.7), rgba(31, 28, 24, 0.2));
+}
+
+.offer-modal__hero-copy {
+  position: absolute;
+  inset: auto 48px 42px 48px;
+  z-index: 2;
+  max-width: 560px;
+  color: ivory;
+}
+
+.offer-modal__hero-copy span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.offer-modal__hero-copy h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: ivory;
+}
+
+.offer-modal__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 32px;
+  padding: 34px;
+}
+
+.offer-modal__article {
+  min-width: 0;
+}
+
+.offer-modal__article p {
+  margin: 0 0 18px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.offer-modal__article .offer-modal__lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text-main);
+}
+
+.offer-modal__article h3 {
+  margin: 26px 0 8px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.offer-modal__aside {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.offer-modal__logo-tile,
+.offer-modal__feature {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+}
+
+.offer-modal__logo-tile {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+}
+
+.offer-modal__logo-tile img {
+  width: 54px;
+  height: 46px;
+  object-fit: contain;
+}
+
+.offer-modal__logo-tile strong,
+.offer-modal__feature strong {
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.offer-modal__logo-tile span,
+.offer-modal__feature span {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.offer-modal__feature {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+}
+
+.offer-modal__feature span {
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .offer-modal {
+    max-height: calc(100dvh - 28px);
+  }
+
+  .offer-modal__hero {
+    min-height: 220px;
+  }
+
+  .offer-modal__hero img {
+    min-height: 220px;
+  }
+
+  .offer-modal__hero-copy {
+    inset: auto 22px 26px 22px;
+  }
+
+  .offer-modal__hero-copy h2 {
+    font-size: 28px;
+  }
+
+  .offer-modal__body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 20px;
+  }
+
+  .offer-modal__article .offer-modal__lead {
+    font-size: 16px;
+  }
+}

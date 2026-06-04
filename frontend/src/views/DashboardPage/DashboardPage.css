@@ -9,6 +9,7 @@
   --dashboard-text-2xl: 36px;
   --dashboard-leading-tight: 1.15;
   --dashboard-leading-normal: 1.45;
+  --dashboard-side-card-height: clamp(320px, calc(100dvh - 160px), 520px);
 
   min-height: 100vh;
   background: var(--bg);
@@ -29,7 +30,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 32px 24px 48px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .dashboard-page__content > * {

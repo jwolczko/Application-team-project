@@ -28,7 +28,7 @@ export function DashboardHeader() {
   const queryClient = useQueryClient();
   const userName = useAppSelector((state) => state.auth.userName);
   const [remainingSeconds, setRemainingSeconds] = useState(IDLE_TIMEOUT_SECONDS);
-  const lastActivityAtRef = useRef(Date.now());
+  const lastActivityAtRef = useRef<number | null>(null);
   const hasLoggedOutRef = useRef(false);
 
   const handleLogout = useCallback(async () => {
@@ -50,12 +50,15 @@ export function DashboardHeader() {
       setRemainingSeconds(IDLE_TIMEOUT_SECONDS);
     };
 
+    resetIdleTimer();
+
     ACTIVITY_EVENTS.forEach((eventName) => {
       window.addEventListener(eventName, resetIdleTimer, { passive: true });
     });
 
     const intervalId = window.setInterval(() => {
-      const elapsedSeconds = Math.floor((Date.now() - lastActivityAtRef.current) / 1000);
+      const lastActivityAt = lastActivityAtRef.current ?? Date.now();
+      const elapsedSeconds = Math.floor((Date.now() - lastActivityAt) / 1000);
       const nextRemainingSeconds = Math.max(IDLE_TIMEOUT_SECONDS - elapsedSeconds, 0);
 
       setRemainingSeconds(nextRemainingSeconds);
