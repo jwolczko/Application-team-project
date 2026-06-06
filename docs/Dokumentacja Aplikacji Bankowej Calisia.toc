@@ -5,18 +5,18 @@
 \contentsline {subsection}{\numberline {3.1}Warstwy backendu}{3}{subsection.3.1}%
 \contentsline {section}{\numberline {4}Przypadki użycia}{4}{section.4}%
 \contentsline {section}{\numberline {5}Model domenowy}{5}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Wybrane reguły domenowe}{7}{subsection.5.1}%
-\contentsline {section}{\numberline {6}Schemat bazy danych}{7}{section.6}%
-\contentsline {subsection}{\numberline {6.1}CalisiaWriteDb}{9}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}CalisiaReadDb}{9}{subsection.6.2}%
-\contentsline {section}{\numberline {7}API REST}{9}{section.7}%
-\contentsline {section}{\numberline {8}Frontend}{10}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Ekrany aplikacji}{10}{subsection.8.1}%
-\contentsline {section}{\numberline {9}Przepływy procesów}{16}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Rejestracja i logowanie}{16}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Przelew i dashboard}{16}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Kredyt i operacje kartowe}{17}{subsection.9.3}%
-\contentsline {section}{\numberline {10}Mechanizm CQRS i Outbox}{17}{section.10}%
-\contentsline {section}{\numberline {11}Bezpieczeństwo}{18}{section.11}%
-\contentsline {section}{\numberline {12}Testy i narzędzia}{18}{section.12}%
-\contentsline {section}{\numberline {13}Wnioski}{18}{section.13}%
+\contentsline {subsection}{\numberline {5.1}Wybrane reguły domenowe}{6}{subsection.5.1}%
+\contentsline {section}{\numberline {6}Schemat bazy danych}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}CalisiaWriteDb}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}CalisiaReadDb}{8}{subsection.6.2}%
+\contentsline {section}{\numberline {7}API REST}{8}{section.7}%
+\contentsline {section}{\numberline {8}Frontend}{9}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Ekrany aplikacji}{9}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Przepływy procesów}{15}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Rejestracja i logowanie}{15}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Przelew i dashboard}{15}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Kredyt i operacje kartowe}{16}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Mechanizm CQRS i Outbox}{16}{section.10}%
+\contentsline {section}{\numberline {11}Bezpieczeństwo}{16}{section.11}%
+\contentsline {section}{\numberline {12}Testy i narzędzia}{17}{section.12}%
+\contentsline {section}{\numberline {13}Wnioski}{17}{section.13}%

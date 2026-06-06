@@ -2,6 +2,24 @@
 title Calisia - model domenowy
 skinparam shadowing false
 skinparam classAttributeIconSize 0
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontColor #1F2937
+skinparam ArrowColor #457B9D
+skinparam ArrowThickness 1.2
+skinparam RoundCorner 10
+skinparam titleFontColor #1D3557
+skinparam titleFontSize 22
+skinparam class {
+  BackgroundColor #F7F9FC
+  BorderColor #457B9D
+  HeaderBackgroundColor #EAF3FB
+  FontColor #1F2937
+}
+skinparam enum {
+  BackgroundColor #FFF4D6
+  BorderColor #C48A2C
+}
 
 class Customer {
   +CustomerId Id

@@ -16,11 +16,12 @@
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
 \usepackage{caption}
-\usepackage{pdflscape}
 \definecolor{tableHeader}{HTML}{E8EEF7}
 \definecolor{tableStripe}{HTML}{F7F9FC}
+\definecolor{captionNote}{HTML}{4B5563}
 \newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\newcommand{\opis}[1]{\par\smallskip{\small\color{captionNote}\itshape #1}\par}
 \renewcommand{\arraystretch}{1.22}
 \setlength{\tabcolsep}{4pt}
 \setlist[itemize]{leftmargin=*, itemsep=2pt, topsep=2pt}
@@ -95,6 +96,7 @@ Backend stosuje podział zbliżony do Clean Architecture. Warstwa API odpowiada 
 \centering
 \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{uml/01_architektura_systemu.pdf}
 \caption{Architektura systemu Calisia}
+\opis{Diagram przedstawia główne moduły systemu, przepływ żądań z aplikacji React do API oraz rozdzielenie bazy zapisu i bazy odczytu.}
 \end{figure}
 
 \subsection{Warstwy backendu}
@@ -120,19 +122,19 @@ Diagram przypadków użycia pokazuje czynności dostępne dla gościa oraz zalog
 \centering
 \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{uml/02_przypadki_uzycia.pdf}
 \caption{Przypadki użycia aplikacji}
+\opis{Diagram pokazuje funkcje dostępne dla gościa oraz operacje wykonywane po zalogowaniu klienta banku.}
 \end{figure}
 
 \section{Model domenowy}
 
 Centralnym elementem domeny jest abstrakcyjny produkt bankowy \texttt{Product}. Dziedziczą po nim: \texttt{BankAccount}, \texttt{Card} i \texttt{Loan}. Takie podejście pozwala przechowywać różne produkty finansowe w jednej tabeli, przy zachowaniu osobnych reguł biznesowych dla kont, kart i kredytów.
 
-\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{uml/03_model_domenowy.pdf}
+\includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{uml/03_model_domenowy.pdf}
 \caption{Model domenowy}
+\opis{Diagram prezentuje najważniejsze agregaty domenowe: klienta, produkty bankowe, przelewy, transakcje oraz obiekt wartości pieniędzy.}
 \end{figure}
-\end{landscape}
 
 \subsection{Wybrane reguły domenowe}
 
@@ -148,13 +150,12 @@ Centralnym elementem domeny jest abstrakcyjny produkt bankowy \texttt{Product}. 
 
 System korzysta z dwóch baz: zapisu i odczytu. Baza zapisu przechowuje pełny stan domenowy, a baza odczytu przechowuje uproszczony widok potrzebny dashboardowi.
 
-\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{uml/04_erd_baza_danych.pdf}
+\includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{uml/04_erd_baza_danych.pdf}
 \caption{Schemat baz danych write/read}
+\opis{Diagram opisuje relacje między tabelami modelu zapisu oraz tabelami projekcji dashboardu w modelu odczytu.}
 \end{figure}
-\end{landscape}
 
 \subsection{CalisiaWriteDb}
 
@@ -188,6 +189,7 @@ System korzysta z dwóch baz: zapisu i odczytu. Baza zapisu przechowuje pełny s
 \centering
 \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{uml/06_endpointy_api.pdf}
 \caption{Mapa endpointów API}
+\opis{Diagram porządkuje endpointy REST według obszarów funkcjonalnych i wskazuje, które bazy danych są przez nie wykorzystywane.}
 \end{figure}
 
 \rowcolors{2}{tableStripe}{white}
@@ -216,6 +218,7 @@ Frontend jest aplikacją React SPA. Routing realizuje \texttt{AppRouter}, stan s
 \centering
 \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{uml/05_frontend_komponenty.pdf}
 \caption{Komponenty frontendu}
+\opis{Diagram pokazuje zależności między routingiem, widokami, komponentami dashboardu oraz warstwą komunikacji z API.}
 \end{figure}
 
 \subsection{Ekrany aplikacji}
@@ -224,36 +227,42 @@ Frontend jest aplikacją React SPA. Routing realizuje \texttt{AppRouter}, stan s
 \centering
 \includegraphics[width=\textwidth]{\detokenize{img/Landing Page.png}}
 \caption{Strona startowa aplikacji}
+\opis{Ekran wejściowy prezentuje markę Calisia i prowadzi użytkownika do logowania albo rejestracji nowego klienta.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.86\textwidth]{\detokenize{img/Rejestracja klienta.png}}
 \caption{Formularz rejestracji klienta}
+\opis{Formularz zbiera podstawowe dane klienta oraz typ klienta, na podstawie którego backend tworzy produkty startowe.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{img/Dashboard.png}
 \caption{Dashboard klienta}
+\opis{Dashboard jest głównym widokiem roboczym klienta: prezentuje saldo, produkty, szybkie akcje i historię zdarzeń.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.86\textwidth]{\detokenize{img/Nowy przelew.png}}
 \caption{Panel tworzenia przelewu}
+\opis{Panel umożliwia wykonanie przelewu własnego lub zewnętrznego z walidacją konta źródłowego, odbiorcy, tytułu i kwoty.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.86\textwidth]{\detokenize{img/Nowy Produkt - Kredyt.png}}
 \caption{Dodanie produktu typu kredyt gotówkowy}
+\opis{Modal produktu pozwala wybrać kredyt gotówkowy i podać wnioskowaną kwotę, która po zatwierdzeniu zasila konto główne.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{\detokenize{img/Historia transakcji.png}}
 \caption{Historia transakcji i zdarzeń}
+\opis{Widok historii pokazuje zdarzenia finansowe generowane przez przelewy, wpłaty, wypłaty, płatności kartą i spłaty.}
 \end{figure}
 
 \section{Przepływy procesów}
@@ -264,9 +273,8 @@ Frontend jest aplikacją React SPA. Routing realizuje \texttt{AppRouter}, stan s
 \centering
 \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{uml/07_sekwencja_rejestracja_logowanie.pdf}
 \caption{Sekwencja rejestracji i logowania}
+\opis{Diagram opisuje przejście od formularza rejestracji przez utworzenie klienta i produktów startowych do logowania JWT.}
 \end{figure}
-
-Podczas rejestracji aplikacja tworzy klienta i produkty startowe. Podczas logowania backend weryfikuje hash hasła i zwraca token JWT. Token jest następnie dołączany przez frontend do żądań autoryzowanych.
 
 \subsection{Przelew i dashboard}
 
@@ -274,9 +282,8 @@ Podczas rejestracji aplikacja tworzy klienta i produkty startowe. Podczas logowa
 \centering
 \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{uml/08_sekwencja_przelew_i_dashboard.pdf}
 \caption{Sekwencja przelewu i odświeżenia dashboardu}
+\opis{Diagram pokazuje zapis przelewu w modelu write, publikację zdarzeń outbox i odświeżenie modelu read używanego przez dashboard.}
 \end{figure}
-
-Po wykonaniu przelewu backend zapisuje zmiany w bazie zapisu i emituje zdarzenia domenowe. Procesor outbox przetwarza je do bazy odczytu, dzięki czemu dashboard może korzystać z uproszczonych tabel \texttt{ProductTile} i \texttt{TimelineEvent}.
 
 \subsection{Kredyt i operacje kartowe}
 
@@ -284,9 +291,8 @@ Po wykonaniu przelewu backend zapisuje zmiany w bazie zapisu i emituje zdarzenia
 \centering
 \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{uml/09_sekwencja_kredyt_i_karty.pdf}
 \caption{Sekwencja kredytu gotówkowego i operacji kartowych}
+\opis{Diagram zestawia najważniejsze procesy finansowe: uruchomienie i spłatę kredytu, płatności kartą oraz spłatę karty kredytowej.}
 \end{figure}
-
-Kredyt gotówkowy jest traktowany jako produkt finansowy. Jego utworzenie zwiększa saldo konta głównego. Wcześniejsza spłata kredytu pobiera środki z konta głównego i usuwa produkt kredytu. Operacje kartowe są rozdzielone według typu karty: debetowa obciąża konto główne, kredytowa obciąża dostępny limit.
 
 \section{Mechanizm CQRS i Outbox}
 

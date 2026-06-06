@@ -3,6 +3,19 @@ title Calisia - schemat baz danych
 hide circle
 skinparam linetype ortho
 skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontColor #1F2937
+skinparam ArrowColor #457B9D
+skinparam ArrowThickness 1.2
+skinparam RoundCorner 10
+skinparam titleFontColor #1D3557
+skinparam titleFontSize 22
+skinparam entity {
+  BackgroundColor #F7F9FC
+  BorderColor #457B9D
+  HeaderBackgroundColor #EAF3FB
+}
 
 entity "CalisiaWriteDb.Customers" as Customers {
   * Id : uniqueidentifier <<PK>>

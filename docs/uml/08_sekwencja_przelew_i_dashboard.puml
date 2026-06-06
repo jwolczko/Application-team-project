@@ -1,6 +1,21 @@
 @startuml
 title Calisia - przelew i odswiezenie dashboardu
 skinparam shadowing false
+hide footbox
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontColor #1F2937
+skinparam ArrowColor #457B9D
+skinparam ArrowThickness 1.2
+skinparam ParticipantBorderColor #457B9D
+skinparam ParticipantBackgroundColor #EAF3FB
+skinparam ActorBackgroundColor #FDECC8
+skinparam ActorBorderColor #C48A2C
+skinparam DatabaseBackgroundColor #EEF7ED
+skinparam DatabaseBorderColor #588157
+skinparam LifeLineBorderColor #9CA3AF
+skinparam titleFontColor #1D3557
+skinparam titleFontSize 22
 
 actor "Klient" as User
 participant "React Dashboard" as UI

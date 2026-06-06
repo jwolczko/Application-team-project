@@ -3,6 +3,30 @@ title Calisia - architektura systemu
 skinparam componentStyle rectangle
 skinparam shadowing false
 skinparam packageStyle rectangle
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontColor #1F2937
+skinparam ArrowColor #457B9D
+skinparam ArrowThickness 1.2
+skinparam RoundCorner 12
+skinparam titleFontColor #1D3557
+skinparam titleFontSize 22
+skinparam actor {
+  BackgroundColor #FDECC8
+  BorderColor #C48A2C
+}
+skinparam node {
+  BackgroundColor #F7F9FC
+  BorderColor #457B9D
+}
+skinparam component {
+  BackgroundColor #EAF3FB
+  BorderColor #457B9D
+}
+skinparam database {
+  BackgroundColor #EEF7ED
+  BorderColor #588157
+}
 
 actor "Klient banku" as Client
 

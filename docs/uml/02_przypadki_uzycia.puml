@@ -2,6 +2,27 @@
 title Calisia - przypadki uzycia
 left to right direction
 skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontColor #1F2937
+skinparam ArrowColor #457B9D
+skinparam ArrowThickness 1.2
+skinparam RoundCorner 14
+skinparam titleFontColor #1D3557
+skinparam titleFontSize 22
+skinparam actor {
+  BackgroundColor #FDECC8
+  BorderColor #C48A2C
+}
+skinparam rectangle {
+  BackgroundColor #F7F9FC
+  BorderColor #457B9D
+}
+skinparam usecase {
+  BackgroundColor #EAF3FB
+  BorderColor #457B9D
+  FontColor #1F2937
+}
 
 actor "Gosc" as Guest
 actor "Klient" as Customer
