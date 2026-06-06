@@ -1,0 +1,37 @@
+@startuml
+title Calisia - mapa endpointow REST
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+package "Publiczne" {
+  component "POST /api/customers\nRejestracja" as Register
+  component "POST /api/customers/login\nLogowanie JWT" as Login
+}
+
+package "Autoryzowane JWT" {
+  component "GET /api/dashboard/{customerId}" as Dashboard
+  component "POST /api/accounts" as Accounts
+  component "POST /api/accounts/{id}/withdraw" as Withdraw
+  component "POST /api/products" as Products
+  component "POST /api/products/{id}/early-repayment" as LoanRepay
+  component "POST /api/transfers" as Transfers
+  component "POST /api/transfers/incoming" as Incoming
+  component "POST /api/cards/{id}/payments/simulate" as CardPayment
+  component "POST /api/cards/{id}/repayment" as CardRepay
+}
+
+database "CalisiaWriteDb" as WriteDb
+database "CalisiaReadDb" as ReadDb
+
+Register --> WriteDb : Customer + produkty domyslne
+Login --> WriteDb : weryfikacja hasla
+Dashboard --> ReadDb : ProductTile, TimelineEvent
+Accounts --> WriteDb : BankAccount
+Withdraw --> WriteDb : transakcja wyplaty
+Products --> WriteDb : Account/Card/Loan
+LoanRepay --> WriteDb : splata i usuniecie Loan
+Transfers --> WriteDb : Transfer + salda
+Incoming --> WriteDb : wplyw srodkow
+CardPayment --> WriteDb : obciazenie konta/karty
+CardRepay --> WriteDb : konto glowne -> karta
+@enduml

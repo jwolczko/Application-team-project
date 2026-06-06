@@ -1,0 +1,43 @@
+@startuml
+title Calisia - architektura systemu
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+actor "Klient banku" as Client
+
+node "Przegladarka" {
+  component "React SPA" as SPA
+  component "Redux Toolkit\nsesja JWT" as Redux
+  component "TanStack Query\ncache dashboardu" as Query
+}
+
+node "Backend .NET" {
+  component "Calisia.Api\nKontrolery REST" as Api
+  component "Calisia.Application\nKomendy i zapytania" as App
+  component "Calisia.Domain\nAgregaty i reguly" as Domain
+  component "Calisia.Infrastructure\nEF Core, JWT, Outbox" as Infra
+  component "Calisia.ReadModel\nDashboard CQRS" as ReadModel
+}
+
+database "CalisiaWriteDb" as WriteDb {
+  component "Customers\nProducts\nTransfers\nTransactions\nOutboxMessages" as WriteTables
+}
+
+database "CalisiaReadDb" as ReadDb {
+  component "ProductTile\nTimelineEvent\nProcessedOutboxMessage" as ReadTables
+}
+
+Client --> SPA : korzysta z aplikacji
+SPA --> Redux : zapis tokenu i customerId
+SPA --> Query : pobiera/odswieza dane
+SPA --> Api : HTTPS/JSON + Bearer JWT
+Api --> App : wywolanie handlerow
+App --> Domain : reguly domenowe
+App --> Infra : repozytoria i UnitOfWork
+Infra --> WriteDb : zapis modelu write
+Infra --> ReadModel : przetwarzanie outbox
+ReadModel --> ReadDb : projekcje dashboardu
+Api --> ReadModel : zapytanie dashboardu
+ReadModel --> ReadDb : odczyt kafelkow i historii
+@enduml

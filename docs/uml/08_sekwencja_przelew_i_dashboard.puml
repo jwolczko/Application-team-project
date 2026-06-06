@@ -1,0 +1,35 @@
+@startuml
+title Calisia - przelew i odswiezenie dashboardu
+skinparam shadowing false
+
+actor "Klient" as User
+participant "React Dashboard" as UI
+participant "TransfersController" as Controller
+participant "CreateTransferCommandHandler" as Handler
+participant "ProductRepository" as ProductRepo
+participant "TransferRepository" as TransferRepo
+database "CalisiaWriteDb" as WriteDb
+participant "OutboxMessageProcessor" as Outbox
+participant "ProjectionDispatcher" as Projection
+database "CalisiaReadDb" as ReadDb
+participant "DashboardController" as Dashboard
+
+User -> UI : wypelnia panel przelewu
+UI -> Controller : POST /api/transfers
+Controller -> Handler : CreateTransferCommand
+Handler -> ProductRepo : pobierz konto zrodlowe i cel
+ProductRepo -> WriteDb : SELECT Products
+Handler -> Handler : Withdraw/Deposit na produktach
+Handler -> TransferRepo : AddAsync(Transfer)
+TransferRepo -> WriteDb : INSERT Transfers
+Handler -> WriteDb : SaveChanges + OutboxMessages
+Controller --> UI : transferId
+
+Outbox -> WriteDb : pobierz nieprzetworzone eventy
+Outbox -> Projection : ProjectAsync
+Projection -> ReadDb : aktualizuj ProductTile i TimelineEvent
+
+UI -> Dashboard : GET /api/dashboard/{customerId}
+Dashboard -> ReadDb : odczyt ProductTile i TimelineEvent
+Dashboard --> UI : dashboard response
+@enduml

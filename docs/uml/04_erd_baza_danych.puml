@@ -1,0 +1,117 @@
+@startuml
+title Calisia - schemat baz danych
+hide circle
+skinparam linetype ortho
+skinparam shadowing false
+
+entity "CalisiaWriteDb.Customers" as Customers {
+  * Id : uniqueidentifier <<PK>>
+  --
+  FirstName : nvarchar(100)
+  LastName : nvarchar(100)
+  Email : nvarchar(200) <<UQ>>
+  PasswordHash : nvarchar(512)
+  CustomerType : int
+  CreatedAtUtc : datetime2
+}
+
+entity "CalisiaWriteDb.Products" as Products {
+  * Id : uniqueidentifier <<PK>>
+  --
+  CustomerId : uniqueidentifier <<FK>>
+  Discriminator : nvarchar(50)
+  ProductCategory : int
+  ProductName : nvarchar(200)
+  ProductNumber : nvarchar(64) <<UQ>>
+  NumberSequence : bigint <<UQ>>
+  AccountNumber : nvarchar(34)
+  BankAccountType : int
+  CardType : int
+  CreditLimit : decimal(18,2)
+  LoanType : int
+  Balance : decimal(18,2)
+  BalanceCurrency : nvarchar(3)
+  Currency : nvarchar(3)
+  Status : int
+  MainAccount : bit
+  CreatedAtUtc : datetime2
+}
+
+entity "CalisiaWriteDb.Transactions" as Transactions {
+  * Id : uniqueidentifier <<PK>>
+  --
+  BankAccountId : uniqueidentifier <<FK>>
+  TransferId : uniqueidentifier
+  Type : int
+  Amount : decimal(18,2)
+  Currency : nvarchar(3)
+  Title : nvarchar(300)
+  BookedAtUtc : datetime2
+}
+
+entity "CalisiaWriteDb.Transfers" as Transfers {
+  * Id : uniqueidentifier <<PK>>
+  --
+  TransferType : int
+  SourceAccountId : uniqueidentifier <<FK>>
+  TargetAccountId : uniqueidentifier <<FK?>>
+  ExternalTargetAccountNumber : nvarchar(34)
+  ExternalRecipientName : nvarchar(200)
+  Amount : decimal(18,2)
+  Currency : nvarchar(3)
+  Title : nvarchar(300)
+  Status : int
+  CreatedAtUtc : datetime2
+  CompletedAtUtc : datetime2
+}
+
+entity "CalisiaWriteDb.OutboxMessages" as Outbox {
+  * Id : uniqueidentifier <<PK>>
+  --
+  Type : nvarchar(500)
+  Payload : nvarchar(max)
+  OccurredOnUtc : datetime2
+  ProcessedOnUtc : datetime2
+  Error : nvarchar(max)
+}
+
+entity "CalisiaReadDb.ProductTile" as ProductTile {
+  * ProductId : uniqueidentifier <<PK>>
+  --
+  CustomerId : uniqueidentifier
+  ProductCategory : nvarchar(50)
+  ProductType : nvarchar(50)
+  ProductName : nvarchar(200)
+  ProductNumber : nvarchar(64)
+  Balance : decimal(18,2)
+  Currency : nvarchar(3)
+  MainAccount : bit
+}
+
+entity "CalisiaReadDb.TimelineEvent" as TimelineEvent {
+  * Id : uniqueidentifier <<PK>>
+  --
+  CustomerId : uniqueidentifier
+  ProductId : uniqueidentifier
+  EventDateUtc : datetime2
+  EventType : nvarchar(100)
+  Title : nvarchar(300)
+  Amount : decimal(18,2)
+  Currency : nvarchar(3)
+  IsPositive : bit
+}
+
+entity "CalisiaReadDb.ProcessedOutboxMessage" as Processed {
+  * OutboxMessageId : uniqueidentifier <<PK>>
+  --
+  ProcessedAtUtc : datetime2
+}
+
+Customers ||--o{ Products
+Products ||--o{ Transactions
+Products ||--o{ Transfers : SourceAccountId
+Products |o--o{ Transfers : TargetAccountId
+Outbox ||..o{ Processed : projekcja
+Products ||..|| ProductTile : ProductCreated/ProductDeleted
+Transactions ||..o{ TimelineEvent : MoneyDeposited/MoneyWithdrawn
+@enduml

@@ -1,0 +1,52 @@
+@startuml
+title Calisia - kredyt gotowkowy i operacje kartowe
+skinparam shadowing false
+
+actor "Klient" as User
+participant "React Dashboard" as UI
+participant "ProductsController" as ProductsApi
+participant "CardsController" as CardsApi
+participant "AddProductCommandHandler" as AddProduct
+participant "RepayCashLoanCommandHandler" as RepayLoan
+participant "SimulateCardPaymentCommandHandler" as CardPayment
+participant "RepayCreditCardCommandHandler" as CardRepay
+participant "ProductRepository" as ProductRepo
+participant "BankAccountRepository" as AccountRepo
+database "CalisiaWriteDb" as WriteDb
+
+User -> UI : wniosek o kredyt gotowkowy
+UI -> ProductsApi : POST /api/products (Loan Cash)
+ProductsApi -> AddProduct : AddProductCommand
+AddProduct -> ProductRepo : AddAsync(Loan)
+AddProduct -> AccountRepo : GetMainByCustomerIdAsync
+AddProduct -> WriteDb : saldo konta glownego + kwota kredytu
+ProductsApi --> UI : loanId
+
+User -> UI : wczesniejsza splata kredytu
+UI -> ProductsApi : POST /api/products/{loanId}/early-repayment
+ProductsApi -> RepayLoan : RepayCashLoanCommand
+RepayLoan -> ProductRepo : GetByIdAsync(Loan)
+RepayLoan -> AccountRepo : GetByIdAsync(mainAccountId)
+RepayLoan -> WriteDb : wyplata z konta + usuniecie Loan
+ProductsApi --> UI : loanId
+
+User -> UI : platnosc karta
+UI -> CardsApi : POST /api/cards/{cardId}/payments/simulate
+CardsApi -> CardPayment : SimulateCardPaymentCommand
+CardPayment -> ProductRepo : GetByIdAsync(Card)
+alt karta debetowa
+  CardPayment -> AccountRepo : GetMainByCustomerIdAsync
+  CardPayment -> WriteDb : obciazenie konta glownego
+else karta kredytowa
+  CardPayment -> WriteDb : obciazenie salda karty
+end
+CardsApi --> UI : cardId
+
+User -> UI : splata karty kredytowej
+UI -> CardsApi : POST /api/cards/{cardId}/repayment
+CardsApi -> CardRepay : RepayCreditCardCommand
+CardRepay -> ProductRepo : GetByIdAsync(Card)
+CardRepay -> AccountRepo : GetMainByCustomerIdAsync
+CardRepay -> WriteDb : konto glowne -> saldo karty
+CardsApi --> UI : cardId
+@enduml

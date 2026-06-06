@@ -1,0 +1,98 @@
+@startuml
+title Calisia - model domenowy
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+
+class Customer {
+  +CustomerId Id
+  +FullName Name
+  +Email Email
+  +CustomerType Type
+  +CreatedAtUtc
+}
+
+abstract class Product {
+  +Guid Id
+  +CustomerId CustomerId
+  +string ProductName
+  +string ProductNumber
+  +long NumberSequence
+  +Money Balance
+  +string Currency
+  +ProductCategory Category
+  +ProductStatus Status
+  +bool? MainAccount
+  +MarkDeleted()
+}
+
+class BankAccount {
+  +AccountNumber AccountNumber
+  +BankAccountType AccountType
+  +Deposit(amount,title)
+  +Withdraw(amount,title)
+}
+
+class Card {
+  +CardType CardType
+  +decimal? CreditLimit
+  +GetUsedCreditLimit()
+  +Deposit(amount,title)
+  +Withdraw(amount,title)
+}
+
+class Loan {
+  +LoanType LoanType
+}
+
+class Transfer {
+  +TransferId Id
+  +TransferType TransferType
+  +Guid SourceAccountId
+  +Guid? TargetAccountId
+  +decimal Amount
+  +TransferStatus Status
+}
+
+class TransactionEntry {
+  +TransactionId Id
+  +Guid BankAccountId
+  +TransactionType Type
+  +Money Amount
+  +string Title
+}
+
+class Money {
+  +decimal Amount
+  +string Currency
+  +Add()
+  +Subtract()
+}
+
+Customer "1" o-- "*" Product
+Product <|-- BankAccount
+Product <|-- Card
+Product <|-- Loan
+BankAccount "1" o-- "*" TransactionEntry
+Transfer --> BankAccount : zrodlo
+Transfer --> Product : cel opcjonalny
+Product --> Money
+TransactionEntry --> Money
+
+enum ProductCategory {
+  BankAccount
+  Card
+  Loan
+}
+enum CardType {
+  Debit
+  Credit
+}
+enum LoanType {
+  Cash
+  Consumer
+}
+enum TransferType {
+  Own
+  External
+}
+@enduml

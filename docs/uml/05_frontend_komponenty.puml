@@ -1,0 +1,61 @@
+@startuml
+title Calisia - komponenty frontendu React
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+package "src/app" {
+  component "AppRouter" as Router
+  component "ReduxProvider" as ReduxProvider
+  component "QueryProvider" as QueryProvider
+  component "apiClient" as ApiClient
+}
+
+package "views" {
+  component "LandingPage" as Landing
+  component "LoginPage" as Login
+  component "CreateAccountPage" as Register
+  component "DashboardPage" as Dashboard
+}
+
+package "dashboard components" {
+  component "DashboardHeader" as Header
+  component "SummarySection" as Summary
+  component "ProductsSection" as Products
+  component "EventsSidebar" as Events
+  component "TransferPanel" as TransferPanel
+  component "CreateProductModal" as ProductModal
+}
+
+package "features" {
+  component "authApi/authSlice" as Auth
+  component "useDashboard/dashboardApi" as DashboardApi
+  component "transferApi" as TransferApi
+  component "productApi" as ProductApi
+  component "cardApi" as CardApi
+}
+
+Router --> Landing
+Router --> Login
+Router --> Register
+Router --> Dashboard
+Dashboard --> Header
+Dashboard --> Summary
+Dashboard --> Products
+Dashboard --> Events
+Dashboard --> TransferPanel
+Dashboard --> ProductModal
+Login --> Auth
+Register --> Auth
+Dashboard --> DashboardApi
+TransferPanel --> TransferApi
+ProductModal --> ProductApi
+Dashboard --> ProductApi
+Dashboard --> CardApi
+Auth --> ApiClient
+DashboardApi --> ApiClient
+TransferApi --> ApiClient
+ProductApi --> ApiClient
+CardApi --> ApiClient
+ReduxProvider --> Auth
+QueryProvider --> DashboardApi
+@enduml

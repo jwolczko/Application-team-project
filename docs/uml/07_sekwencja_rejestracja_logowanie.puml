@@ -1,0 +1,32 @@
+@startuml
+title Calisia - rejestracja i logowanie
+skinparam shadowing false
+
+actor "Uzytkownik" as User
+participant "React UI" as UI
+participant "CustomersController" as Controller
+participant "Register/Login Handler" as Handler
+participant "CustomerRepository" as CustomerRepo
+participant "ProductRepository" as ProductRepo
+participant "PasswordHasher/JwtTokenProvider" as Security
+database "CalisiaWriteDb" as Db
+
+User -> UI : wypelnia formularz rejestracji
+UI -> Controller : POST /api/customers
+Controller -> Handler : RegisterCustomerCommand
+Handler -> Security : hash hasla
+Handler -> CustomerRepo : AddAsync(Customer)
+CustomerRepo -> Db : INSERT Customers
+Handler -> ProductRepo : AddAsync(konto + karta)
+ProductRepo -> Db : INSERT Products
+Controller --> UI : 201 + customerId
+
+User -> UI : loguje sie
+UI -> Controller : POST /api/customers/login
+Controller -> Handler : LoginCustomerCommand
+Handler -> CustomerRepo : GetByEmailAsync
+CustomerRepo -> Db : SELECT Customer
+Handler -> Security : Verify + GenerateToken
+Controller --> UI : token JWT + expiresAtUtc
+UI -> UI : zapis sesji w Redux
+@enduml

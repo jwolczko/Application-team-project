@@ -1,0 +1,43 @@
+@startuml
+title Calisia - przypadki uzycia
+left to right direction
+skinparam shadowing false
+
+actor "Gosc" as Guest
+actor "Klient" as Customer
+
+rectangle "Aplikacja bankowa Calisia" {
+  usecase "Przegladanie strony\nstartowej" as UC_Landing
+  usecase "Rejestracja klienta" as UC_Register
+  usecase "Logowanie" as UC_Login
+  usecase "Podglad dashboardu" as UC_Dashboard
+  usecase "Dodanie produktu\nbankowego" as UC_AddProduct
+  usecase "Wykonanie przelewu" as UC_Transfer
+  usecase "Symulacja wplywu\nprzychodzacego" as UC_Incoming
+  usecase "Wziecie kredytu\ngotowkowego" as UC_Loan
+  usecase "Wczesniejsza splata\nkredytu" as UC_LoanRepay
+  usecase "Platnosc karta" as UC_CardPay
+  usecase "Splata karty\nkredytowej" as UC_CardRepay
+  usecase "Przeglad historii\nzdarzen" as UC_History
+}
+
+Guest --> UC_Landing
+Guest --> UC_Register
+Guest --> UC_Login
+
+Customer --> UC_Dashboard
+Customer --> UC_AddProduct
+Customer --> UC_Transfer
+Customer --> UC_Incoming
+Customer --> UC_Loan
+Customer --> UC_LoanRepay
+Customer --> UC_CardPay
+Customer --> UC_CardRepay
+Customer --> UC_History
+
+UC_Login ..> UC_Dashboard : po autoryzacji
+UC_Dashboard ..> UC_History : zawiera
+UC_AddProduct <.. UC_Loan : wariant
+UC_CardPay ..> UC_Dashboard : aktualizuje saldo
+UC_LoanRepay ..> UC_Dashboard : usuwa produkt kredytu
+@enduml
